@@ -1,0 +1,116 @@
+//
+//  HaierSweepRobotApp.pch
+//  HaierSweepRobotApp
+//
+//  Created by Ljp on 16/7/5.
+//  Copyright © 2016年 LC-World. All rights reserved.
+//
+
+#ifndef HaierSweepRobotApp_pch
+#define HaierSweepRobotApp_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#ifdef __OBJC__
+
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+
+//第三方头文件
+#import <AFNetworking/AFNetworking.h>
+#import <JSONKit/JSONKit.h>
+#import <MBProgressHUD/MBProgressHUD.h>
+#import <MJRefresh/MJRefresh.h>
+#import <SDWebImage/UIImageView+WebCache.h>
+#import <SDWebImage/UIButton+WebCache.h>
+#import <IQKeyboardManager/IQKeyboardManager.h>
+#import <MJExtension/MJExtension.h>
+#import <Masonry/Masonry.h>
+#import <ReactiveCocoa/ReactiveCocoa.h>
+#import <BlocksKit/BlocksKit.h>
+#import <JKCategories/JKCategories.h>
+#import "Reachability.h"
+
+//接口头文件
+#import "AppInterface.h"
+
+//存储头文件
+#import "StorageManager.h"
+
+//请求头文件
+#import "RequestManager.h"
+
+//工具头文件
+#import "ToolsHeader.h"
+#import "JPInheritHeader.h"
+
+//基类头文件
+#import "BaseViewController.h"
+#import "BaseNaviViewController.h"
+#import "BaseTableView.h"
+#import "BaseTextView.h"
+
+#import "LC_AddContactNextViewController.h"
+
+//服务器地址
+//测试
+//@"http://101.200.214.66:8058/robot-app/"
+//正式
+//@"http://139.196.19.104:8058"
+                  
+#define OFFICALIP @"http://101.200.214.66:8058/robot-app/"//测试
+//#define OFFICALIP @"http://139.196.19.104:8080/robot-app/"//正式
+//#define OFFICALIP @"http://app.haierwireless.net:8080/robot-app/"//正式
+#define PicAllUrl(picUrl) [NSString stringWithFormat:@"%@%@",OFFICALIP,picUrl]
+
+//屏幕宽度
+#define ScreenWidth [UIScreen mainScreen].bounds.size.width
+//屏幕高度
+#define ScreenHeight [UIScreen mainScreen].bounds.size.height
+
+//设置图片
+#define LCImage(imageName) [UIImage imageNamed:(imageName)]
+//设置字体
+#define LCFont(size) [UIFont systemFontOfSize:(size)]
+//int转字符串
+#define LCStrValue(value) [NSString stringWithFormat:@"%d",(value)]
+//字符串拼接
+#define LCStrJoin(strArray) [strArray componentsJoinedByString:@""]
+//判断字符串是否为空
+#define LCStrIsEmpty(str) ([str isKindOfClass:[NSNull class]] || str == nil || [str length]<1 ? YES : NO)
+//判断字符串是否相等
+#define LCStrEqual(x,y) [x isEqualToString:y]
+
+//国际化
+#define AppLanguage @"appLanguage"
+#define CustomLocalizedString(key, comment) \
+[[NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"appLanguage"]] ofType:@"lproj"]] localizedStringForKey:(key) value:comment table:@"Language"]
+
+/** 判断本地语言是否为英文 */
+#define UD [NSUserDefaults standardUserDefaults]
+#define UDLanguage [UD objectForKey:AppLanguage]
+#define HLLanguageIsEN ([UDLanguage isEqualToString:@"en"] ? YES : NO)
+
+/**< 弹出框 */
+#define HL_ALERT(title,msg)\
+{\
+UIAlertView *HomeAlert=[[UIAlertView alloc] initWithTitle:title message:msg delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil]; \
+[HomeAlert show]; \
+}
+
+//MARK: ------//HL ------ /** 打印 */ ------*/
+#ifdef DEBUG
+#define NSLog(FORMAT, ...) fprintf(stdout,"[😁类名：%s : 第%d行NSLog😁] %s\n",[[[NSString stringWithUTF8String:__FILE__] lastPathComponent] UTF8String], __LINE__, [[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String])
+
+#define debugMethod() NSLog(@"%s", __func__)
+
+#else
+
+#define NSLog(...)
+#define debugMethod()
+#endif
+
+#endif
+
+#endif /* HaierSweepRobotApp_pch */

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="SetupCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" tag="10" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="意见反馈" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZEW-cB-qrc">
+                        <rect key="frame" x="16" y="13" width="163" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="箭头" translatesAutoresizingMaskIntoConstraints="NO" id="mED-xH-wZP">
+                        <rect key="frame" x="297" y="14" width="8" height="15"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="15" id="QRG-XG-Dla"/>
+                            <constraint firstAttribute="width" constant="8" id="aaK-Rk-yMn"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" tag="20" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2PO-Wj-Jed">
+                        <rect key="frame" x="187" y="7" width="100" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="9dp-CD-gcw"/>
+                            <constraint firstAttribute="width" constant="100" id="OzK-jT-k51"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="npD-P4-1vh">
+                        <rect key="frame" x="8" y="42" width="304" height="1"/>
+                        <color key="backgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="vga-sc-NR8"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="ZEW-cB-qrc" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="GzI-r7-rfo"/>
+                    <constraint firstAttribute="trailing" secondItem="mED-xH-wZP" secondAttribute="trailing" constant="15" id="ITV-bM-mf7"/>
+                    <constraint firstItem="2PO-Wj-Jed" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="7" id="KQx-1F-z2w"/>
+                    <constraint firstItem="mED-xH-wZP" firstAttribute="leading" secondItem="2PO-Wj-Jed" secondAttribute="trailing" constant="10" id="MwT-tK-CZG"/>
+                    <constraint firstAttribute="bottom" secondItem="npD-P4-1vh" secondAttribute="bottom" id="Ox8-qe-f6o"/>
+                    <constraint firstAttribute="trailing" secondItem="npD-P4-1vh" secondAttribute="trailing" constant="8" id="UIX-I1-F13"/>
+                    <constraint firstItem="2PO-Wj-Jed" firstAttribute="leading" secondItem="ZEW-cB-qrc" secondAttribute="trailing" constant="8" id="m68-Uz-eB9"/>
+                    <constraint firstItem="mED-xH-wZP" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="sYw-0B-4mN"/>
+                    <constraint firstItem="ZEW-cB-qrc" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="xFv-en-WO9"/>
+                    <constraint firstItem="npD-P4-1vh" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="zV0-x5-AYY"/>
+                </constraints>
+            </tableViewCellContentView>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="箭头" width="8" height="15"/>
+    </resources>
+</document>

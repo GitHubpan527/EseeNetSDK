@@ -1,0 +1,14 @@
+use_frameworks!
+target 'HaierSweepRobotApp' do 
+pod 'AFNetworking'
+pod 'MJRefresh'
+pod 'SDWebImage'
+pod 'JSONKit'
+pod 'MBProgressHUD'
+pod 'IQKeyboardManager', '~> 4.0.4'
+pod 'MJExtension'
+pod 'Masonry'
+pod 'ReactiveCocoa', '~> 2.5'
+pod 'BlocksKit'
+pod 'JKCategories'
+end

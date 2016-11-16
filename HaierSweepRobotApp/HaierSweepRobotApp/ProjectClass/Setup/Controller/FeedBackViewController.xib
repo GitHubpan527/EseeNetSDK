@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FeedBackViewController">
+            <connections>
+                <outlet property="feedBackTV" destination="wCd-i3-I3Z" id="pZx-Rl-51X"/>
+                <outlet property="mobileTF" destination="4ig-VS-nbD" id="R5K-dx-WEd"/>
+                <outlet property="nextBtn" destination="3Rv-06-c8X" id="xkP-4F-ONY"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n7x-ff-3rO">
+                    <rect key="frame" x="15" y="10" width="290" height="40"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="用户" translatesAutoresizingMaskIntoConstraints="NO" id="3gt-fC-TXo">
+                            <rect key="frame" x="15" y="10" width="20" height="20"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="20" id="kbu-bH-nDI"/>
+                                <constraint firstAttribute="width" constant="20" id="zPZ-ZF-pFf"/>
+                            </constraints>
+                        </imageView>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入您的手机号" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4ig-VS-nbD">
+                            <rect key="frame" x="45" y="0.0" width="245" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="40" id="mDu-1Y-mw9"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="BMF-N7-QOE"/>
+                        <constraint firstItem="3gt-fC-TXo" firstAttribute="top" secondItem="n7x-ff-3rO" secondAttribute="top" constant="10" id="FiK-gR-B9N"/>
+                        <constraint firstItem="4ig-VS-nbD" firstAttribute="leading" secondItem="3gt-fC-TXo" secondAttribute="trailing" constant="10" id="GU9-Hk-Wc1"/>
+                        <constraint firstItem="4ig-VS-nbD" firstAttribute="top" secondItem="n7x-ff-3rO" secondAttribute="top" id="NNv-tM-QVx"/>
+                        <constraint firstItem="3gt-fC-TXo" firstAttribute="leading" secondItem="n7x-ff-3rO" secondAttribute="leading" constant="15" id="hs3-1b-MJz"/>
+                        <constraint firstAttribute="trailing" secondItem="4ig-VS-nbD" secondAttribute="trailing" id="y5k-pu-PkX"/>
+                    </constraints>
+                </view>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="wCd-i3-I3Z" customClass="BaseTextView">
+                    <rect key="frame" x="15" y="60" width="290" height="150"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="150" id="Gdp-FN-iLY"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                </textView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Rv-06-c8X">
+                    <rect key="frame" x="30" y="270" width="260" height="40"/>
+                    <color key="backgroundColor" red="0.18823529410000001" green="0.60784313729999995" blue="0.89411764709999997" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="h47-PB-Q33"/>
+                    </constraints>
+                    <state key="normal" title="下一步">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="3"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="nextHandle:" destination="-1" eventType="touchUpInside" id="ZNd-dV-pMN"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstItem="wCd-i3-I3Z" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="10P-ku-8z7"/>
+                <constraint firstAttribute="trailing" secondItem="3Rv-06-c8X" secondAttribute="trailing" constant="30" id="3gO-Ix-4bV"/>
+                <constraint firstItem="3Rv-06-c8X" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="30" id="6Gk-Vu-mAu"/>
+                <constraint firstItem="n7x-ff-3rO" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="10" id="APa-s0-xC0"/>
+                <constraint firstItem="wCd-i3-I3Z" firstAttribute="top" secondItem="n7x-ff-3rO" secondAttribute="bottom" constant="10" id="Dsm-Li-yAq"/>
+                <constraint firstItem="n7x-ff-3rO" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="Nj6-hN-Zal"/>
+                <constraint firstItem="3Rv-06-c8X" firstAttribute="top" secondItem="wCd-i3-I3Z" secondAttribute="bottom" constant="60" id="Sy1-9F-ZKt"/>
+                <constraint firstAttribute="trailing" secondItem="n7x-ff-3rO" secondAttribute="trailing" constant="15" id="XtC-e5-Eam"/>
+                <constraint firstAttribute="trailing" secondItem="wCd-i3-I3Z" secondAttribute="trailing" constant="15" id="fc2-jd-dhZ"/>
+            </constraints>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="用户" width="14" height="15"/>
+    </resources>
+</document>
