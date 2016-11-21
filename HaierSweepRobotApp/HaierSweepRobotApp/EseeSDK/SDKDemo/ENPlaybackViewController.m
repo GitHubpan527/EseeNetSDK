@@ -18,9 +18,11 @@
     NSString *_userName;
     NSString *_password;
     int _channel;
+    
     int _fromTime;
     int _toTime;
     NSInteger _curTime;
+    
     EseeNetRecord *_recordVideo;
     
     BOOL _didConnected;
@@ -106,15 +108,11 @@
     _userName = userName;
     _password = passwords;
     _channel = port;
+    _playDay = playTime;
+    
     _fromTime = [self toGMT:[NSString stringWithFormat:@"%@ 00:00:00",playTime]];
     _toTime = _fromTime + 86400;
     searchTime = _fromTime;
-    _playDay = playTime;
-}
-
-
-- (void)initSearchViewWithSearchString:(NSString *)searchString SearchType:(int)type
-{
     
 }
 
@@ -251,6 +249,8 @@
     int GMT             = [mydate timeIntervalSince1970];
     return GMT;
 }
+
+
 
 - (void)playRecordWithIndex:(int)index
 {

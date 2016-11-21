@@ -11,9 +11,6 @@
 
 //久安SDKSample
 #import "ENLiveViewController.h"
-#import "ENViewController.h"
-#import "JATestViewController.h"
-
 
 #import "LingYunManager.h"
 
@@ -1837,13 +1834,12 @@
             NSLog(@"%@,%@,%@,%@,%@,%@,%@,%@",model.id,model.deviceId,model.type,model.typeId,model.name,model.modelId,model.res1,model.res2);
             if ([model.modelId isEqualToString:@"358113623439362"]) {
                 //NVR
+                NSLog(@"久安NVR");
                 ENLiveViewController *ENLive = [[ENLiveViewController alloc] init];
                 if (model.res1 == nil) {
                     model.res1 = @"";
                 }
-                [ENLive setDeviceInfoWithDeviceIDOrIP:@"762214618" UserName:@"admin" Passwords:@"" Port:0];
-                
-//                JATestViewController *JAT = [[JATestViewController alloc] init];
+                [ENLive setDeviceInfoWithDeviceIDOrIP:model.res2 UserName:@"admin" Passwords:model.res1 Port:0];
                 
                 [self.navigationController pushViewController:ENLive animated:YES];
             }else{

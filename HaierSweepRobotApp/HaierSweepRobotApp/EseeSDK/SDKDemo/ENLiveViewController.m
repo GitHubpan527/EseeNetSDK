@@ -9,10 +9,17 @@
 #import "ENLiveViewController.h"
 #import "EseeNetLive.h"
 #import "UIColor+LC.h"
-#import "ENPlaybackViewController.h"
+#import "ENPlaybackkViewController.h"
 #include <ifaddrs.h>
 #include <arpa/inet.h>
 #include <net/if.h>
+#import "PhotoViewController.h"
+#import "VedioViewController.h"
+
+//截图保存在沙盒路径Library下的Caches文件下NVRPhoto中
+#define LibCachesNVRPhotoPath [NSString stringWithFormat:@"%@%@",[NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) lastObject],@"/Caches/NVRPhoto"]
+//录像保存在沙盒路径Library下的Caches文件下NVRVideo中
+#define LibCachesNVRVideoPath [NSString stringWithFormat:@"%@%@",[NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) lastObject],@"/Caches/NVRVideo"]
 
 
 #define WIDTH              self.view.bounds.size.width
@@ -46,7 +53,7 @@
     UIView *videoNumHub;/**< 数字按钮BaseView*/
     UIView *ctrlHub;/**< 视频控制按钮BaseView*/
     UIView *bottomBaseView;/**< 云台控制底部view*/
-
+    
     NSDictionary *deviceInfo;/**< 设备信息*/
     NSArray *videoFrameArr;/**< 存放视频的frame数组*/
     
@@ -55,6 +62,12 @@
     int indexALL;//定义选中的哪个
     
     EseeNetLive *liveVideo[LiveCount];/**< 直播视频窗口*/
+    
+    NSFileManager *_fileManager;//文件管理类
+    
+    UIDatePicker *datePicker;
+    
+    UIView *contentView;
 }
 
 
@@ -66,23 +79,33 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     // Do any additional setup after loading the view.
+    _fileManager = [NSFileManager defaultManager];
     self.view.backgroundColor = [UIColor grayColor];
+    self.view.userInteractionEnabled = YES;
     self.automaticallyAdjustsScrollViewInsets = NO;
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(taped:)];
+    [self.view addGestureRecognizer:tap];
+    
     //初始化UI
     [self _initViewStyle];
     
-    //初始化视频窗口,并开始播放
-    [self _initVideo];
     
     NSLog(@"===================%d=====================",indexALL);
-
+    
 }
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
     //[self _initViewStyle];
     //[self _initVideo];
+    
+    //初始化视频窗口,并开始播放
+    [self _initVideo];
+    
 }
 
 - (void)setDeviceInfoWithDeviceIDOrIP:(NSString *)IDOrIP
@@ -207,21 +230,21 @@
         [liveVideo[[index intValue]] stop];
     }
     
-//    static BOOL isBegin;
+    //    static BOOL isBegin;
     
-//    [liveVideo[0] saveCurrentImageToAlbumWithAlbumName:@"kakaka" Completion:^(BOOL success) {
-//       NSLog(@"----%@",success?@"截图成功":@"截图失败");
-//    }];
+    //    [liveVideo[0] saveCurrentImageToAlbumWithAlbumName:@"kakaka" Completion:^(BOOL success) {
+    //       NSLog(@"----%@",success?@"截图成功":@"截图失败");
+    //    }];
     
-//    if (isBegin == YES) {
-//        isBegin = NO;
-//        [liveVideo[0] endRecordAndSaveToAlbum:@"hehehe" Completion:^(BOOL success) {
-//            NSLog(@"----%@",success?@"录像成功":@"录像失败");
-//        }];
-//    }else{
-//        [liveVideo[0] beginRecord];
-//        isBegin = YES;
-//    }
+    //    if (isBegin == YES) {
+    //        isBegin = NO;
+    //        [liveVideo[0] endRecordAndSaveToAlbum:@"hehehe" Completion:^(BOOL success) {
+    //            NSLog(@"----%@",success?@"录像成功":@"录像失败");
+    //        }];
+    //    }else{
+    //        [liveVideo[0] beginRecord];
+    //        isBegin = YES;
+    //    }
     
 }
 
@@ -293,6 +316,12 @@
     
 }
 #pragma mark - 单击手势的点击事件
+//UIView上的
+- (void)taped:(UITapGestureRecognizer *)sender
+{
+    [contentView removeFromSuperview];
+}
+//liveVideo[]上的
 - (void)liveTapActionOne:(UITapGestureRecognizer *)sender
 {
     int index = (int)sender.view.tag-LiveTag;
@@ -341,7 +370,7 @@
         if (self.view.frame.size.height < 504) {//4寸以下
             margin_top = 8;
             margin_btm = 8;
-        
+            
         }
         
         liveVideo[indexALL].frame = CGRectMake(0, 0, videoBaseView.bounds.size.width - margin_left - margin_right, videoBaseView.bounds.size.height - margin_top - margin_btm);
@@ -498,18 +527,18 @@
     //返回按钮
     UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     backButton.frame = CGRectMake(0, 27, 30, 30);
-//    backButton.imageEdgeInsets = UIEdgeInsetsMake(0, -20, 0, 0);
+    //    backButton.imageEdgeInsets = UIEdgeInsetsMake(0, -20, 0, 0);
     [backButton setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
     [backButton addTarget:self action:@selector(backClick:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
     //音频按钮
     UIButton *vedioButton = [UIButton buttonWithType:UIButtonTypeCustom];
     vedioButton.frame = CGRectMake(WIDTH - 30, 27, 30, 30);
-//    vedioButton.imageEdgeInsets = UIEdgeInsetsMake(0, -20, 0, 0);
+    //    vedioButton.imageEdgeInsets = UIEdgeInsetsMake(0, -20, 0, 0);
     [vedioButton setImage:[UIImage imageNamed:@"vedio"] forState:UIControlStateNormal];
     [vedioButton addTarget:self action:@selector(vedioBtn:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:vedioButton];
-
+    
 }
 - (void)_net
 {
@@ -579,6 +608,7 @@
     
     netState.text = [NSString stringWithFormat:@"%@:%@",stateString,netSpeed];
     
+    //    NSLog(@"%f",speed);
     [self.view addSubview:netState];
     
 }
@@ -600,8 +630,8 @@
     float margin_right = 8;
     
     if (self.view.bounds.size.height < 568) {//4寸以下
-         margin_top = 8;
-         margin_btm = 8;
+        margin_top = 8;
+        margin_btm = 8;
     }
     
     videoSubBaseView = [[UIView alloc]initWithFrame:CGRectMake(margin_left, margin_top, videoBaseView.bounds.size.width-margin_left-margin_right, videoBaseView.bounds.size.height-margin_top-margin_btm)];
@@ -666,7 +696,7 @@
     ctrlHub = [[UIView alloc]initWithFrame:CGRectMake(0, ViewBtmY(videoNumHub), WIDTH, 44)];
     ctrlHub.backgroundColor = [UIColor colorWithRed:249/255.0 green:249/255.0 blue:249/255.0 alpha:1];
     [self.view addSubview:ctrlHub];
-//    NSArray *btnTitleArr = @[@"添加",@"移除",@"暂停",@"继续",@"停止",@"码流"];
+    //    NSArray *btnTitleArr = @[@"添加",@"移除",@"暂停",@"继续",@"停止",@"码流"];
     NSArray *btnTitleArr = @[@"截图",@"录像",@"分辨率",@"全屏"];
     float btnWith          = 50;
     float btnHeight        = 30;
@@ -710,22 +740,62 @@
             }else
             {
                 NSLog(@"截图代码");
-                for (NSNumber *index in [self getExistenceLiveAndSelectNumBtnContain:YES]) {
-#warning 相册的名字让用户去起
-                    [liveVideo[[index intValue]] captureImage:@"海尔无线" Completion:^(int result) {
-                        NSLog(@"==============================%d===============================",result);
-                        if (result == 0) {
-#warning 这个地方只提示一次
-                            [self showAlertWithAlertString:@"截图成功"];
+                //保存到相册中
+                //
+                //                for (NSNumber *index in [self getExistenceLiveAndSelectNumBtnContain:YES]) {
+                //#warning 相册的名字让用户去起
+                //                    [liveVideo[[index intValue]] captureImage:@"海尔无线" Completion:^(int result) {
+                //                        /*
+                //                        if (result == 0) {
+                //#warning 这个地方只提示一次
+                //                            [self showAlertWithAlertString:@"截图成功"];
+                //
+                //                        }
+                //                        else
+                //                        {
+                //                            [self showAlertWithAlertString:@"截图失败"];
+                //                        }
+                //                         */
+                //
+                //                    }];
+                //                }
+                //
+                //保存到沙盒路径下
+                NSString *path = [LibCachesNVRPhotoPath stringByAppendingString:[NSString stringWithFormat:@"%@%@%@",@"/",[self dateAndTime],@".png"]];
+                
+                if ([_fileManager fileExistsAtPath:LibCachesNVRPhotoPath]) {
+                    NSLog(@"该路径下已存在同名文件夹，创建失败");
+                    //已经有了就写进去
+                    //创建成功，写进去
+                    BOOL result = [UIImagePNGRepresentation(liveVideo[indexALL].currentImage)writeToFile: path atomically:YES]; // 保存成功会返回YES
+                    if (result == YES) {
+                        [self showAlertWithAlertString:@"保存成功"];
+                    }else{
+                        [self showAlertWithAlertString:@"保存失败"];
+                    }
+                }else{
+                    
+                    BOOL isCreate = [_fileManager createDirectoryAtPath:LibCachesNVRPhotoPath withIntermediateDirectories:YES attributes:nil error:nil];//Direction是目录，也是文件夹的意思,intermediate中间文件夹
+                    NSLog(@"文件夹创建%@",isCreate?@"成功":@"失败");
+                    if (isCreate) {
+                        //创建Image文件
+                        BOOL isCreateFile = [_fileManager createFileAtPath:path contents:nil attributes:nil];
+                        if (isCreateFile) {
+                            //创建成功，写进去
+                            BOOL result = [UIImagePNGRepresentation(liveVideo[indexALL].currentImage)writeToFile: path atomically:YES]; // 保存成功会返回YES
+                            if (result == YES) {
+                                [self showAlertWithAlertString:@"保存成功"];
+                            }else{
+                                [self showAlertWithAlertString:@"保存失败"];
+                            }
+                        }else{
+                            NSLog(@"文件路径创建失败");
                         }
-                        else
-                        {
-                            [self showAlertWithAlertString:@"截图失败"];
-                        }
-                    }];
+                    }else{
+                        NSLog(@"创建失败");
+                    }
                 }
             }
-
         }
             break;
             
@@ -735,15 +805,39 @@
                 [self showAlertWithAlertString:@"请先选择一个通道"];
             }else
             {
+                NSString *path = [LibCachesNVRVideoPath stringByAppendingString:[NSString stringWithFormat:@"%@%@%@",@"/",[self dateAndTime],@".mp4"]];
                 static BOOL isStarting = YES;//用于区分按钮的状态
                 if (isStarting) {
                     //录像
-                    [self showAlertWithAlertString:@"正在录像"];
+//                    [self showAlertWithAlertString:@"正在录像"];
                     [sender setTitle:@"结束录像" forState:UIControlStateNormal];
                     NSLog(@"开始录像");
-                    for (NSNumber *index in [self getExistenceLiveAndSelectNumBtnContain:YES]) {
-                        //开始录像
-                        [liveVideo[[index intValue]] beginRecord];
+                    
+                    //开始录像
+                    //保存到相册中
+                    //                        [liveVideo[indexALL] beginRecord];
+                    //保存到沙盒路径下
+                    
+                    if ([_fileManager fileExistsAtPath:LibCachesNVRVideoPath]) {
+                        NSLog(@"该路径下已存在同名文件夹");
+                        
+                        [liveVideo[indexALL] beginRecordWithFilePath:path];
+                    }else{
+                        BOOL isCreate = [_fileManager createDirectoryAtPath:LibCachesNVRVideoPath withIntermediateDirectories:YES attributes:nil error:nil];//Direction是目录，也是文件夹的意思,intermediate中间文件夹
+                        if (isCreate) {
+                            //创建成功
+                            NSLog(@"文件夹创建成功");
+                            
+                            BOOL isCreateFile = [_fileManager createFileAtPath:path contents:nil attributes:nil];
+                            if (isCreateFile) {
+                                //文件创建成功
+                                [liveVideo[indexALL] beginRecordWithFilePath:path];
+                            }else{
+                                NSLog(@"文件创建失败");
+                            }
+                        }else{
+                            NSLog(@"文件夹创建失败");
+                        }
                     }
                     isStarting = NO;
                 }
@@ -751,24 +845,32 @@
                 {
                     //结束录像
                     [sender setTitle:@"录像" forState:UIControlStateNormal];
-                    for (NSNumber *index in [self getExistenceLiveAndSelectNumBtnContain:YES]) {
-                        //结束录像
-                        [liveVideo[[index intValue]] endRecordAndSave:@"海尔" Completion:^(int result) {
-                            NSLog(@"%d",result);
-                            if (result == 0) {
-                                [self showAlertWithAlertString:@"录像成功"];
-                            }
-                            else
-                            {
-                                [self showAlertWithAlertString:@"录像失败"];
-                            }
-                            
-                        }];
-                        
+                    //结束录像
+                    //保存到相册
+                    /*
+                     [liveVideo[[index intValue]] endRecordAndSave:@"海尔" Completion:^(int result) {
+                     NSLog(@"%d",result);
+                     if (result == 0) {
+                     [self showAlertWithAlertString:@"录像成功"];
+                     }
+                     else
+                     {
+                     [self showAlertWithAlertString:@"录像失败"];
+                     }
+                     
+                     }];
+                     */
+                    //保存到沙盒路径中
+                    int a = [liveVideo[indexALL] endRecord];
+                    if (a == 0) {
+                        [self showAlertWithAlertString:@"录制成功"];
+                    }else{
+                        [self showAlertWithAlertString:@"录制失败"];
                     }
                     isStarting = YES;
                 }
             }
+            
         }
             break;
             
@@ -798,7 +900,85 @@
             break;
     }
 }
-//提示框的代理方法
+#pragma mark - 显示一个DatePicker
+- (void)datePicker
+{
+    //
+    contentView = [[UIView alloc] initWithFrame:CGRectMake(0, ViewBtmY(videoBaseView), WIDTH, HEIGHT - ViewBtmY(videoBaseView))];
+    contentView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:contentView];
+    //
+    //创建工具条
+    UIToolbar *toolbar=[[UIToolbar alloc]init];
+    //设置工具条的颜色
+    toolbar.barTintColor=[UIColor grayColor];
+    
+    //设置工具条的frame
+    toolbar.frame=CGRectMake(0, 0, WIDTH, 44);
+    //给工具条添加按钮
+    UIBarButtonItem *item0=[[UIBarButtonItem alloc]initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(clickCancel:)];
+    [item0 setTintColor:[UIColor whiteColor]];
+    
+    UIBarButtonItem *item1=[[UIBarButtonItem alloc]initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(clickOK:)];
+    [item1 setTintColor:[UIColor whiteColor]];
+    
+    toolbar.items = @[item0,item1];
+    //设置文本输入框键盘的辅助视图
+//    self.textfield.inputAccessoryView=toolbar;
+    [contentView addSubview:toolbar];
+    
+    //
+    NSDate *currentTime  = [NSDate date];
+    datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, 44, WIDTH, HEIGHT - ViewBtmY(videoBaseView) - 44)];
+    // [datePicker   setTimeZone:[NSTimeZone defaultTimeZone]];
+    // [datePicker setTimeZone:[NSTimeZone timeZoneWithName:@"GMT+8"]];
+    // 设置当前显示
+    [datePicker setDate:currentTime animated:YES];
+    // 显示模式
+    [datePicker setDatePickerMode:UIDatePickerModeDate];
+    // 回调的方法由于UIDatePicker 是UIControl的子类 ,可以在UIControl类的通知结构中挂接一个委托
+//    [datePicker addTarget:self action:@selector(datePickerValueChanged:) forControlEvents:UIControlEventValueChanged];
+    [contentView addSubview:datePicker];
+
+}
+//-(void)datePickerValueChanged:(id)sender
+//{
+//    NSDate *selected = [datePicker date];
+//    NSLog(@"date: %@", selected);
+//}
+- (void)clickCancel:(UIBarButtonItem *)item
+{
+    NSLog(@"item");
+    [contentView removeFromSuperview];
+    contentView = nil;
+    
+}
+- (void)clickOK:(UIBarButtonItem *)item
+{
+    
+    NSDate *selected = [datePicker date];
+    NSLog(@"date: %@", selected);//date: 2016-11-19 16:33:17 +0000
+    NSArray *arrDate = [[NSString stringWithFormat:@"%@",selected] componentsSeparatedByString:@" "];
+    [contentView removeFromSuperview];
+    ENPlaybackkViewController *playback = [[ENPlaybackkViewController alloc] init];
+    [playback setPlayBackInfoWithDevIDOrIP:deviceInfo[@"devID"] UserName:deviceInfo[@"userName"] Passwords:deviceInfo[@"password"] Channel:1 Port:0 PlayTime:arrDate[0]];
+    
+    [self.navigationController pushViewController:playback animated:YES];
+}
+
+
+
+#pragma mark - 获取当前的日期时间
+- (NSString *)dateAndTime
+{
+    NSDate *currentDate = [NSDate date];//获取当前时间，日期
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"YYYY_MM_dd_HH_mm_ss"];
+    NSString *dateString = [dateFormatter stringFromDate:currentDate];
+    NSLog(@"dateString:%@",dateString);
+    return dateString;
+}
+#pragma mark - 提示框的代理方法
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (actionSheet.tag == BitrateActionSheetTag) {
@@ -851,21 +1031,36 @@
     switch (sender.tag - BottomBase) {
         case 0://查看
             NSLog(@"查看");
+            [self AlertCTwo:@"截图" and:@"录像"];
             break;
         case 1://回放
             NSLog(@"回放");
-            if ([self getExistenceLiveAndSelectNumBtnContain:YES].count == 0) {
-                [self showAlertWithAlertString:@"请先选择一个通道"];
-            }else{
-#warning 此处给出一个DatePicker选择时期
-                ENPlaybackViewController *VC = [[ENPlaybackViewController alloc]init];
-                [VC setPlayBackInfoWithDevIDOrIP:@"762214618" UserName:@"admin" Passwords:@"" Channel:indexALL Port:0 PlayTime:@"2016-11-02"];
-                [self.navigationController pushViewController:VC animated:YES];
-            }
+            [self datePicker];
             break;
     }
 }
-
+- (void)AlertCTwo:(NSString *)message1 and:(NSString *)message2
+{
+    //提示框
+    UIAlertController * alertCtr = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction * action1 = [UIAlertAction actionWithTitle:message1 style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        PhotoViewController *photo = [[PhotoViewController alloc] init];
+        [self.navigationController pushViewController:photo animated:YES];
+    }];
+    UIAlertAction * action2 = [UIAlertAction actionWithTitle:message2 style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        //[self datePicker];
+        VedioViewController *vedio = [[VedioViewController alloc] init];
+        [self.navigationController pushViewController:vedio animated:YES];
+        
+    }];
+    UIAlertAction * action3 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        NSLog(@"取消");
+    }];
+    [alertCtr addAction:action1];
+    [alertCtr addAction:action2];
+    [alertCtr addAction:action3];
+    [self presentViewController:alertCtr animated:YES completion:nil];
+}
 
 
 //云台控制底部
@@ -1040,7 +1235,7 @@
 //提示框封装
 - (void)showAlertWithAlertString:(NSString *)alertString
 {
-    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:alertString delegate:nil cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:alertString delegate:nil cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
     [alert show];
 }
 
@@ -1075,6 +1270,11 @@
 {
     [self PTZControlWithType:PTZ_STOP];
 }
+#pragma mark - 竖屏幕
+
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation{
+    return UIInterfaceOrientationPortrait;
+}
 
 #pragma mark - 获取网络流量信息
 - (long long) getInterfaceBytes
@@ -1090,7 +1290,7 @@
         return 0;
         
     }
-
+    
     uint32_t iBytes = 0;
     
     uint32_t oBytes = 0;
@@ -1104,11 +1304,11 @@
         if (AF_LINK != ifa->ifa_addr->sa_family)
             
             continue;
-
+        
         if (!(ifa->ifa_flags & IFF_UP) && !(ifa->ifa_flags & IFF_RUNNING))
             
             continue;
-
+        
         if (ifa->ifa_data == 0)
             
             continue;
@@ -1154,13 +1354,13 @@
 
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

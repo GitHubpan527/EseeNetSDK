@@ -93,26 +93,9 @@
     [[NSUserDefaults standardUserDefaults] setObject:@"zh-Hans" forKey:AppLanguage];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
-#pragma mark - 是否首次启动
-    if (![[NSUserDefaults standardUserDefaults] objectForKey:@"FirstLaunch"]) {
-        //引导页
-        GuidePageViewController *vc = [[GuidePageViewController alloc] init];
-        [self.window setRootViewController:vc];
-        [[NSUserDefaults standardUserDefaults] setObject:@"1" forKey:@"FirstLaunch"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-    } else {
-        /*
-        UIStoryboard *loginSB = [UIStoryboard storyboardWithName:@"LoginAndRegister" bundle:nil];
-        BaseNaviViewController *loginNavi = [loginSB instantiateViewControllerWithIdentifier:@"LoginViewController"];
-        [self.window setRootViewController:loginNavi];
-         */
-    }
-    
-    
-    
     //ljp
     //app 启动时，检查更新
-    //[self checkAppToUpdate];
+//    [self checkAppToUpdate];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(tapReceivedNotificationHandler:)
@@ -159,42 +142,40 @@
         self.sWifi = nil;
     }
     
-    
-    if([UDManager isLogin]){
-        //ljp
-//        MainController *mainController = [[MainController alloc] init];
-//        self.mainController = mainController;
-//        self.window.rootViewController = self.mainController;
-        
-        
-        MyFacilityViewController *vc = [[MyFacilityViewController alloc] init];
-        BaseNaviViewController *navi = [[BaseNaviViewController alloc] initWithRootViewController:vc];
-        self.window.rootViewController = navi;
-        self.mainVC = vc;
-
-        LoginResult *loginResult = [UDManager getLoginInfo];
-        [[NetManager sharedManager] getAccountInfo:loginResult.contactId sessionId:loginResult.sessionId callBack:^(id JSON){
+#pragma mark - 是否首次启动
+    if (![[NSUserDefaults standardUserDefaults] objectForKey:@"FirstLaunch"]) {
+        //引导页
+        GuidePageViewController *vc = [[GuidePageViewController alloc] init];
+        [self.window setRootViewController:vc];
+        [[NSUserDefaults standardUserDefaults] setObject:@"1" forKey:@"FirstLaunch"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    } else {
+        if([UDManager isLogin]){
             
-            AccountResult *accountResult = (AccountResult*)JSON;
-            if(accountResult.error_code==NET_RET_GET_ACCOUNT_SUCCESS){
-                loginResult.email = accountResult.email;
-                loginResult.phone = accountResult.phone;
-                loginResult.countryCode = accountResult.countryCode;
-                [UDManager setLoginInfo:loginResult];
-            }
-        }];
-    }else{
-        //ljp
-//        LoginController *loginController = [[LoginController alloc] init];
-//        AutoNavigation *mainController = [[AutoNavigation alloc] initWithRootViewController:loginController];
-//        self.window.rootViewController = mainController;
-        
-        /*
-        UIStoryboard *loginSB = [UIStoryboard storyboardWithName:@"LoginAndRegister" bundle:nil];
-        BaseNaviViewController *loginNavi = [loginSB instantiateViewControllerWithIdentifier:@"LoginViewController"];
-        [self.window setRootViewController:loginNavi];
-         */
+            MyFacilityViewController *vc = [[MyFacilityViewController alloc] init];
+            BaseNaviViewController *navi = [[BaseNaviViewController alloc] initWithRootViewController:vc];
+            self.window.rootViewController = navi;
+            self.mainVC = vc;
+            
+            LoginResult *loginResult = [UDManager getLoginInfo];
+            [[NetManager sharedManager] getAccountInfo:loginResult.contactId sessionId:loginResult.sessionId callBack:^(id JSON){
+                
+                AccountResult *accountResult = (AccountResult*)JSON;
+                if(accountResult.error_code==NET_RET_GET_ACCOUNT_SUCCESS){
+                    loginResult.email = accountResult.email;
+                    loginResult.phone = accountResult.phone;
+                    loginResult.countryCode = accountResult.countryCode;
+                    [UDManager setLoginInfo:loginResult];
+                }
+            }];
+        }else{
+            UIStoryboard *loginSB = [UIStoryboard storyboardWithName:@"LoginAndRegister" bundle:nil];
+            BaseNaviViewController *loginNavi = [loginSB instantiateViewControllerWithIdentifier:@"LoginViewController"];
+            [self.window setRootViewController:loginNavi];
+        }
     }
+    
+    
     
     [[UDPManager sharedDefault] ScanLanDevice];
 
