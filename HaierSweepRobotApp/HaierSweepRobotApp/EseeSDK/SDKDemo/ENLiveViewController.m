@@ -997,7 +997,7 @@
     bottomBaseView = [[UIView alloc]initWithFrame:CGRectMake(0, ViewBtmY(ctrlHub), WIDTH, HEIGHT-ViewBtmY(ctrlHub)-64)];
     bottomBaseView.backgroundColor = [UIColor colorWithRed:0.9254901960784314 green:0.9411764705882353 blue:0.9450980392156862 alpha:1];
     [self.view addSubview:bottomBaseView];
-    //截图、录像、打开音频、关闭音频
+    //截图、回放
     NSArray *btnTitleArr = @[@"查看",@"回放"];
     float btnWith          = 70;
     float btnHeight        = 30;
@@ -1045,6 +1045,7 @@
     UIAlertController * alertCtr = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     UIAlertAction * action1 = [UIAlertAction actionWithTitle:message1 style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         PhotoViewController *photo = [[PhotoViewController alloc] init];
+        
         [self.navigationController pushViewController:photo animated:YES];
     }];
     UIAlertAction * action2 = [UIAlertAction actionWithTitle:message2 style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {

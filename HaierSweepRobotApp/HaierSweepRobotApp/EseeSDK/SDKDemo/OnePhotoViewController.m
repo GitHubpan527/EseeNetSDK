@@ -64,6 +64,8 @@
     //    tgrTwo.delegate = self;
     [_contentView addGestureRecognizer:tgrTwo];
     [tgr requireGestureRecognizerToFail:tgrTwo];
+    
+    //图片ImageView
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(2, 64, WIDTH - 4, HEIGHT - 64 * 2)];;
     imageView.userInteractionEnabled = YES;
     //捏合手势
@@ -71,7 +73,6 @@
     [imageView addGestureRecognizer:pgr];
     //创建长按手势
     UILongPressGestureRecognizer * lgr = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(longPressed:)];
-    
     //设置长按时间
     lgr.minimumPressDuration = 1;
     //设置多少个手指头
@@ -81,6 +82,19 @@
     [self.view addSubview:_contentView];
     imageView.image = [UIImage imageWithContentsOfFile:_photoPath];
     [_contentView addSubview:imageView];
+    
+    //时间Lable
+    UILabel *dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(WIDTH - 2 - 200, 64, 200, 30)];
+    dateLabel.textAlignment = NSTextAlignmentRight;
+    
+    NSArray *dateArray = [_dateStr componentsSeparatedByString:@"."];
+    NSArray *dateArr = [dateArray[0] componentsSeparatedByString:@"_"];
+    NSString *dateString = [NSString stringWithFormat:@"%@%@%@%@%@%@%@%@%@%@%@",dateArr[0],@"-",dateArr[1],@"-",dateArr[2],@" ",dateArr[3],@":",dateArr[4],@":",dateArr[5]];
+    dateLabel.text = dateString;//2016_11_19_12_23_34.png
+    dateLabel.textColor = [UIColor whiteColor];
+    [_contentView addSubview:dateLabel];
+    
+    
 }
 //提示框封装
 - (void)showAlertWithAlertString:(NSString *)alertString
@@ -96,6 +110,7 @@
     static BOOL isClick = YES;
     if (tgr.numberOfTapsRequired == 1) {
         //单击
+        _contentView = nil;
         [self.navigationController popViewControllerAnimated:NO];
     }else{
         //双击

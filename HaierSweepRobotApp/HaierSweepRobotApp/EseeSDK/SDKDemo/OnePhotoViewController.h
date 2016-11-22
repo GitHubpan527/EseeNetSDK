@@ -9,5 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface OnePhotoViewController : UIViewController
+
 @property (nonatomic,copy) NSString *photoPath;
+
+@property (nonatomic,copy) NSString *dateStr;
+
 @end

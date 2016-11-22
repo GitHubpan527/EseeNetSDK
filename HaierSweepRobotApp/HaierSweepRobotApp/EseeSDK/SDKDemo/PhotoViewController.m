@@ -94,6 +94,7 @@
     _stateBool = 1;
     OnePhotoViewController *photo = [[OnePhotoViewController alloc] init];
     photo.photoPath = [NSString stringWithFormat:@"%@%@%@",LibCachesNVRPhotoPath,@"/",self.dataSource[indexPath.item]];
+    photo.dateStr = self.dataSource[indexPath.item];
     [self.navigationController pushViewController:photo animated:NO];
 }
 

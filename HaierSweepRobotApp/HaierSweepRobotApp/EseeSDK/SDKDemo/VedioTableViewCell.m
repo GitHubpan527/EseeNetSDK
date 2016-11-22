@@ -26,7 +26,10 @@
         self.myImageView.userInteractionEnabled = YES;
         [self.contentView addSubview:self.myImageView];
         
-//        self.dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.myImageView.bounds.size.width - 200, 5, 200, 30)];
+        self.dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.myImageView.bounds.size.width - 200, 0, 200, 30)];
+        self.dateLabel.textAlignment = NSTextAlignmentRight;
+        self.dateLabel.textColor = [UIColor whiteColor];
+        [self.contentView addSubview:self.dateLabel];
         
         self.pauseView = [[UIView alloc] initWithFrame:CGRectMake((self.myImageView.bounds.size.width - 64) / 2, (self.myImageView.bounds.size.height - 64) / 2, 64, 64)];
 //        self.pauseView.backgroundColor = [UIColor blackColor];

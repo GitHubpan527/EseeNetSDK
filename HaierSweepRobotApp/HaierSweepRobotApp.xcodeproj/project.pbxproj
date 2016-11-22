@@ -813,6 +813,14 @@
 		5371369D1DDD8AB30064C710 /* libavutil.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5371369C1DDD8AB30064C710 /* libavutil.a */; };
 		537136A21DDD8D9D0064C710 /* libavcodec.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 537136A01DDD8D9D0064C710 /* libavcodec.a */; };
 		537136A31DDD8D9D0064C710 /* libswresample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 537136A11DDD8D9D0064C710 /* libswresample.a */; };
+		537FFEB31DE484FB00103150 /* feiquanping.png in Resources */ = {isa = PBXBuildFile; fileRef = 537FFEAB1DE484FB00103150 /* feiquanping.png */; };
+		537FFEB41DE484FB00103150 /* jiuanpause.png in Resources */ = {isa = PBXBuildFile; fileRef = 537FFEAC1DE484FB00103150 /* jiuanpause.png */; };
+		537FFEB51DE484FB00103150 /* jiuanplay.png in Resources */ = {isa = PBXBuildFile; fileRef = 537FFEAD1DE484FB00103150 /* jiuanplay.png */; };
+		537FFEB61DE484FB00103150 /* NVRnoquanping.png in Resources */ = {isa = PBXBuildFile; fileRef = 537FFEAE1DE484FB00103150 /* NVRnoquanping.png */; };
+		537FFEB71DE484FB00103150 /* NVRpause.png in Resources */ = {isa = PBXBuildFile; fileRef = 537FFEAF1DE484FB00103150 /* NVRpause.png */; };
+		537FFEB81DE484FB00103150 /* NVRplay.png in Resources */ = {isa = PBXBuildFile; fileRef = 537FFEB01DE484FB00103150 /* NVRplay.png */; };
+		537FFEB91DE484FB00103150 /* NVRquanping.png in Resources */ = {isa = PBXBuildFile; fileRef = 537FFEB11DE484FB00103150 /* NVRquanping.png */; };
+		537FFEBA1DE484FB00103150 /* quanping.png in Resources */ = {isa = PBXBuildFile; fileRef = 537FFEB21DE484FB00103150 /* quanping.png */; };
 		53A121001DD99CE900F22BFE /* back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 53A120F61DD99CE900F22BFE /* back@2x.png */; };
 		53A121011DD99CE900F22BFE /* back@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 53A120F71DD99CE900F22BFE /* back@3x.png */; };
 		53A121021DD99CE900F22BFE /* novedio.png in Resources */ = {isa = PBXBuildFile; fileRef = 53A120F81DD99CE900F22BFE /* novedio.png */; };
@@ -1987,6 +1995,14 @@
 		5371369C1DDD8AB30064C710 /* libavutil.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libavutil.a; sourceTree = "<group>"; };
 		537136A01DDD8D9D0064C710 /* libavcodec.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libavcodec.a; sourceTree = "<group>"; };
 		537136A11DDD8D9D0064C710 /* libswresample.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libswresample.a; sourceTree = "<group>"; };
+		537FFEAB1DE484FB00103150 /* feiquanping.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = feiquanping.png; sourceTree = "<group>"; };
+		537FFEAC1DE484FB00103150 /* jiuanpause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = jiuanpause.png; sourceTree = "<group>"; };
+		537FFEAD1DE484FB00103150 /* jiuanplay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = jiuanplay.png; sourceTree = "<group>"; };
+		537FFEAE1DE484FB00103150 /* NVRnoquanping.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NVRnoquanping.png; sourceTree = "<group>"; };
+		537FFEAF1DE484FB00103150 /* NVRpause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NVRpause.png; sourceTree = "<group>"; };
+		537FFEB01DE484FB00103150 /* NVRplay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NVRplay.png; sourceTree = "<group>"; };
+		537FFEB11DE484FB00103150 /* NVRquanping.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NVRquanping.png; sourceTree = "<group>"; };
+		537FFEB21DE484FB00103150 /* quanping.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = quanping.png; sourceTree = "<group>"; };
 		53A120F61DD99CE900F22BFE /* back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back@2x.png"; sourceTree = "<group>"; };
 		53A120F71DD99CE900F22BFE /* back@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back@3x.png"; sourceTree = "<group>"; };
 		53A120F81DD99CE900F22BFE /* novedio.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = novedio.png; sourceTree = "<group>"; };
@@ -4075,6 +4091,14 @@
 			isa = PBXGroup;
 			children = (
 				53A120F61DD99CE900F22BFE /* back@2x.png */,
+				537FFEAB1DE484FB00103150 /* feiquanping.png */,
+				537FFEAC1DE484FB00103150 /* jiuanpause.png */,
+				537FFEAD1DE484FB00103150 /* jiuanplay.png */,
+				537FFEAE1DE484FB00103150 /* NVRnoquanping.png */,
+				537FFEAF1DE484FB00103150 /* NVRpause.png */,
+				537FFEB01DE484FB00103150 /* NVRplay.png */,
+				537FFEB11DE484FB00103150 /* NVRquanping.png */,
+				537FFEB21DE484FB00103150 /* quanping.png */,
 				53CC9AE61DDAF273008EADB9 /* nvr.jpg */,
 				53A120F71DD99CE900F22BFE /* back@3x.png */,
 				53A120F81DD99CE900F22BFE /* novedio.png */,
@@ -4261,6 +4285,7 @@
 				16518C411D92355200DA62C9 /* ic_ctl_hungup修改.png in Resources */,
 				1661C6D61D7537B3007875B4 /* shake2.png in Resources */,
 				1683A4741D757C8200342181 /* date_wheel_center.png in Resources */,
+				537FFEB91DE484FB00103150 /* NVRquanping.png in Resources */,
 				537136911DDD7F830064C710 /* ENPlaybackViewController.xib in Resources */,
 				1661C6101D7537B3007875B4 /* ic_bar_left_infrared_control.png in Resources */,
 				16538B331D75A69500F4AD2C /* QRQuardIcon00.png in Resources */,
@@ -4327,6 +4352,7 @@
 				165392C21D88E95900A6B1D1 /* 网络-@3x.png in Resources */,
 				1683A4731D757C8200342181 /* date_selection_right.png in Resources */,
 				1673B8421D76CD4E006ED284 /* LICENCE.txt in Resources */,
+				537FFEB61DE484FB00103150 /* NVRnoquanping.png in Resources */,
 				1661C5DD1D7537B3007875B4 /* bg_chat_left.png in Resources */,
 				169C253A1D4AF8A700846F20 /* Language.strings in Resources */,
 				165392BF1D88E95900A6B1D1 /* 编辑-@2x.png in Resources */,
@@ -4428,6 +4454,7 @@
 				1661C60E1D7537B3007875B4 /* ic_bar_btn_back.png in Resources */,
 				166386BF1D2B808C002FAE3F /* Assets.xcassets in Resources */,
 				1661C6A71D7537B3007875B4 /* ic_wifi_lock.png in Resources */,
+				537FFEB31DE484FB00103150 /* feiquanping.png in Resources */,
 				1661C6251D7537B3007875B4 /* ic_ctl_media.png in Resources */,
 				168E91F71D34EDF300FDEC78 /* ModifyPwViewController.xib in Resources */,
 				166386BD1D2B808C002FAE3F /* Main.storyboard in Resources */,
@@ -4468,6 +4495,7 @@
 				1661C68B1D7537B3007875B4 /* ic_strength2.png in Resources */,
 				53A121081DD99CE900F22BFE /* ptz_up.png in Resources */,
 				167CD8B61D93B0F500E94BE1 /* UseAgreementViewController.xib in Resources */,
+				537FFEB41DE484FB00103150 /* jiuanpause.png in Resources */,
 				1661C5AB1D7537B3007875B4 /* alarmpush_bg.png in Resources */,
 				1661C5BC1D7537B3007875B4 /* ap_back.png in Resources */,
 				1661C5FE1D7537B3007875B4 /* doorbell_r.png in Resources */,
@@ -4487,9 +4515,11 @@
 				1661C61D1D7537B3007875B4 /* ic_contact_update_device.png in Resources */,
 				1661C6231D7537B3007875B4 /* ic_ctl_lock_off.png in Resources */,
 				1661C6CC1D7537B3007875B4 /* point_left5.png in Resources */,
+				537FFEBA1DE484FB00103150 /* quanping.png in Resources */,
 				1661C6081D7537B3007875B4 /* ic_add_alarm_id.png in Resources */,
 				1661C6091D7537B3007875B4 /* ic_add_contact_local_area.png in Resources */,
 				1661C5BD1D7537B3007875B4 /* ap_back_p.png in Resources */,
+				537FFEB81DE484FB00103150 /* NVRplay.png in Resources */,
 				1661C67A1D7537B3007875B4 /* ic_radio_button.png in Resources */,
 				16BF3BE51D8E63E6009B7946 /* 摄像头设置-@3x.png in Resources */,
 				1661C5D41D7537B3007875B4 /* bg_bar_btn_top_p.png in Resources */,
@@ -4575,6 +4605,7 @@
 				16538B2A1D75A69500F4AD2C /* bg_blue_button_p.png in Resources */,
 				1661C65C1D7537B3007875B4 /* ic_keyboard_six.png in Resources */,
 				165392B91D88E95900A6B1D1 /* 时间-@2x.png in Resources */,
+				537FFEB51DE484FB00103150 /* jiuanplay.png in Resources */,
 				1661C6A41D7537B3007875B4 /* ic_tab_toolbox_p.png in Resources */,
 				16EFCC7E1D924E0800C818D8 /* 喇叭关闭-@3x.png in Resources */,
 				1661C5D91D7537B3007875B4 /* bg_btn_reject.png in Resources */,
@@ -4639,6 +4670,7 @@
 				1661C5B61D7537B3007875B4 /* anim_call_out1.png in Resources */,
 				1661C6A21D7537B3007875B4 /* ic_tab_setting_p.png in Resources */,
 				1661C5EC1D7537B3007875B4 /* bg_normal_cell_p.png in Resources */,
+				537FFEB71DE484FB00103150 /* NVRpause.png in Resources */,
 				1661C5B51D7537B3007875B4 /* anim_call_in3.png in Resources */,
 				165A494E1D5B357C00252D1A /* AboutUsViewController.xib in Resources */,
 				1661C5FF1D7537B3007875B4 /* down_accept.png in Resources */,

@@ -75,6 +75,7 @@
     _tableView.dataSource = self;
     _tableView.showsVerticalScrollIndicator = NO;
     _tableView.showsHorizontalScrollIndicator = NO;
+    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:_tableView];
 }
 - (void)showAlertWithAlertString:(NSString *)alertString
@@ -96,6 +97,12 @@
     NSString *path = [LibCachesNVRVideoPath stringByAppendingString:[NSString stringWithFormat:@"%@%@",@"/",_dataSource[indexPath.row]]];
     NSLog(@"%@",_dataSource);
     cell.myImageView.image = [self getImage:path];
+    
+    NSArray *dateArray = [_dataSource[indexPath.row] componentsSeparatedByString:@"."];
+    NSArray *dateArr = [dateArray[0] componentsSeparatedByString:@"_"];
+    NSString *dateString = [NSString stringWithFormat:@"%@%@%@%@%@%@%@%@%@%@%@",dateArr[0],@"-",dateArr[1],@"-",dateArr[2],@" ",dateArr[3],@":",dateArr[4],@":",dateArr[5]];
+    cell.dateLabel.text = dateString;//2016_11_19_12_23_34.mp4
+    
     cell.pauseBtn.tag = indexPath.row;
     [cell.pauseBtn addTarget:self action:@selector(clicked:) forControlEvents:UIControlEventTouchUpInside];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
