@@ -40,6 +40,7 @@
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
     // Do any additional setup after loading the view.
+    [self naV];
     self.view.backgroundColor = [UIColor whiteColor];
     _fileManager = [NSFileManager defaultManager];
     [self layoutTableView];
@@ -52,6 +53,21 @@
     if (_dataSource.count == 0) {
         [self showAlertWithAlertString:@"暂无数据"];
     }
+}
+- (void)naV
+{
+    //返回按钮
+    UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    backButton.frame = CGRectMake(0, 27, 30, 30);
+    //    backButton.imageEdgeInsets = UIEdgeInsetsMake(0, -20, 0, 0);
+    [backButton setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+    [backButton addTarget:self action:@selector(backBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
+    self.navigationItem.title = @"录像";
+}
+- (void)backBtnAction:(UIButton *)sender
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 #pragma mark - 获取本地视频的缩略图
 - (UIImage *)getImage:(NSString *)videoURL

@@ -15,6 +15,7 @@
 #include <net/if.h>
 #import "PhotoViewController.h"
 #import "VedioViewController.h"
+#import "AFNetworking.h"
 
 //截图保存在沙盒路径Library下的Caches文件下NVRPhoto中
 #define LibCachesNVRPhotoPath [NSString stringWithFormat:@"%@%@",[NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) lastObject],@"/Caches/NVRPhoto"]
@@ -36,18 +37,20 @@
 #define NumBtnSelectColor [UIColor redColor]
 
 #define LiveCount 4 //视频最大数量
+#define DefaultLiveCount 4 // 初次进入视频个数
 
+#define GlodScale 0.618
 #define LiveTag    100
 #define NumBtnTag  200
 #define CtrlBtnTag 300
 #define PTZBtnTag  400
 #define BitrateActionSheetTag 500
 #define BottomBase 600
-#define DefaultLiveCount 4 // 初次进入视频个数
 
 @interface ENLiveViewController () <UIActionSheetDelegate,EseeNetLiveDelegate>
 {
     UIView *navBaseView;/**< 导航栏BaseView*/
+    UILabel *netState;//网速标签
     UIView *videoSubBaseView;/**< 视频窗口2级BaseView*/
     UIView *videoBaseView;/**< 视频窗口部分的BaseView*/
     UIView *videoNumHub;/**< 数字按钮BaseView*/
@@ -68,6 +71,10 @@
     UIDatePicker *datePicker;
     
     UIView *contentView;
+    
+//    NSInteger LiveCount;
+    NSDictionary *deviceChanelDic;
+    EseeNetLive *liveVideo1;/**< 直播视频窗口*/
 }
 
 
@@ -89,9 +96,11 @@
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(taped:)];
     [self.view addGestureRecognizer:tap];
     
+    
     //初始化UI
     [self _initViewStyle];
-    
+    //初始化视频窗口,并开始播放
+    [self _initVideo];
     
     NSLog(@"===================%d=====================",indexALL);
     
@@ -100,11 +109,12 @@
 {
     [super viewWillAppear:animated];
     
-    //[self _initViewStyle];
-    //[self _initVideo];
-    
-    //初始化视频窗口,并开始播放
-    [self _initVideo];
+    for (int i = 0; i <videoFrameArr.count; i++)
+    {
+        if (i  < DefaultLiveCount) {
+            [liveVideo[i] connectAndPlay];
+        }
+    }
     
 }
 
@@ -119,6 +129,16 @@
                    @"userName":userName,
                    @"port":[NSNumber numberWithInt:port]
                    };
+    
+    /*
+    liveVideo1 = [[EseeNetLive alloc]initEseeNetLiveVideoWithFrame:self.view.frame];
+    [liveVideo1 setDeviceInfoWithDeviceID:deviceInfo[@"devID"]
+                                      Passwords:deviceInfo[@"password"]
+                                       UserName:deviceInfo[@"userName"]
+                                        Channel:0
+                                           Port:[deviceInfo[@"port"] intValue]];
+    deviceChanel = liveVideo1.deviceInfo;
+    */
 }
 
 //初始化视频窗口
@@ -136,13 +156,40 @@
 - (void)createVideoAndPlayWithIndex:(int)index Select:(BOOL)select
 {
     //直播视频窗口初始化
+    /*
+    UIView *view[LiveCount];
+    view[index]= [[UIView alloc] initWithFrame:[videoFrameArr[index] CGRectValue]];
+//    view[index].backgroundColor = [UIColor whiteColor];
+    view[index].layer.cornerRadius = 30;
+    view[index].layer.masksToBounds = YES;
+    [videoSubBaseView addSubview:view[index]];
+
+    liveVideo[index] = [[EseeNetLive alloc] initEseeNetLiveVideoWithFrame:view[index].frame];
+    [view[index] addSubview:liveVideo[index]];
+    */
     liveVideo[index] = [[EseeNetLive alloc]initEseeNetLiveVideoWithFrame:[videoFrameArr[index] CGRectValue]];
+    //圆角效果
+    /*
+    liveVideo[index].layer.cornerRadius = 10;
+    liveVideo[index].layer.masksToBounds = YES;
+    liveVideo[index].subviews[0].layer.cornerRadius = 10;
+    liveVideo[index].subviews[0].layer.masksToBounds = YES;
+    */
     //添加设备信息
     [liveVideo[index] setDeviceInfoWithDeviceID:deviceInfo[@"devID"]
                                       Passwords:deviceInfo[@"password"]
                                        UserName:deviceInfo[@"userName"]
                                         Channel:index
                                            Port:[deviceInfo[@"port"] intValue]];
+    
+    deviceChanelDic = liveVideo[index].deviceInfo;
+    
+    if (DefaultLiveCount == 8) {
+        if (index != 3 && index != 4) {
+            liveVideo[index].layer.cornerRadius = 10;
+            liveVideo[index].layer.masksToBounds = YES;
+        }
+    }
     //设置代理
     liveVideo[index].delegate = self;
     //添加到视频BaseView窗口上
@@ -352,7 +399,7 @@
     int index = (int)sender.view.tag-LiveTag;
     [self oneAndFourView:nil];
 }
-#pragma mark - 全屏和四屏
+#pragma mark - 全屏和小屏
 - (void)oneAndFourView:(UIButton *)sender
 {
     static BOOL isOne = YES;
@@ -403,9 +450,19 @@
 {
     int index = (int)swipe.view.tag-LiveTag;
     //NSLog(@"%d",index);
+    
     if (swipe.direction == UISwipeGestureRecognizerDirectionLeft) {
         //NSLog(@"左滑");
         if (index < 3) {
+            //视频播放窗口的状态
+            liveVideo[index].videoSelect = NO;
+            //对应的数字的状态
+            numbtnSelect[index] = NO;
+            //UI上对选中的数字按钮的处理
+            UIButton *numBtn1 = (UIButton *)[self.view viewWithTag:NumBtnTag+index];
+            numBtn1.tintColor = NumBtnNormalColor;
+            numBtn1.layer.borderColor = NumBtnNormalColor.CGColor;
+            
             [liveVideo[index] removeFromSuperview];
             float margin_top   = 0;
             float margin_btm   = 15;
@@ -419,10 +476,29 @@
             
             liveVideo[index + 1].frame = CGRectMake(0, 0, videoBaseView.bounds.size.width - margin_left - margin_right, videoBaseView.bounds.size.height - margin_top - margin_btm);
             [videoSubBaseView addSubview:liveVideo[index + 1]];
+            
+            //视频播放窗口的状态
+            liveVideo[index + 1].videoSelect = YES;
+            //对应的数字的状态
+            numbtnSelect[index + 1] = YES;
+            //UI上对选中的数字按钮的处理
+            UIButton *numBtn2 = (UIButton *)[self.view viewWithTag:NumBtnTag+index+1];
+            numBtn2.tintColor = NumBtnSelectColor;
+            numBtn2.layer.borderColor = NumBtnSelectColor.CGColor;
+            
         }
     }else{
         //NSLog(@"右滑");
         if (index > 0) {
+            //视频播放窗口的状态
+            liveVideo[index].videoSelect = NO;
+            //对应的数字的状态
+            numbtnSelect[index] = NO;
+            //UI上对选中的数字按钮的处理
+            UIButton *numBtn1 = (UIButton *)[self.view viewWithTag:NumBtnTag+index];
+            numBtn1.tintColor = NumBtnNormalColor;
+            numBtn1.layer.borderColor = NumBtnNormalColor.CGColor;
+            
             [liveVideo[index] removeFromSuperview];
             float margin_top   = 0;
             float margin_btm   = 15;
@@ -436,6 +512,17 @@
             
             liveVideo[index - 1].frame = CGRectMake(0, 0, videoBaseView.bounds.size.width - margin_left - margin_right, videoBaseView.bounds.size.height - margin_top - margin_btm);
             [videoSubBaseView addSubview:liveVideo[index - 1]];
+            
+            //视频播放窗口的状态
+            liveVideo[index - 1].videoSelect = YES;
+            //对应的数字的状态
+            numbtnSelect[index - 1] = YES;
+            //UI上对选中的数字按钮的处理
+            UIButton *numBtn2 = (UIButton *)[self.view viewWithTag:NumBtnTag+index-1];
+            numBtn2.tintColor = NumBtnSelectColor;
+            numBtn2.layer.borderColor = NumBtnSelectColor.CGColor;
+            
+            
         }
     }
 }
@@ -463,8 +550,16 @@
     
 }
 #pragma mark - 音频按钮
-- (void)vedioBtn:(UIButton *)sender
+- (void)refreshBtn:(UIButton *)sender
 {
+    
+    for (int i = 0; i <videoFrameArr.count; i++)
+    {
+        if (i  < LiveCount) {
+            [liveVideo[i] connectAndPlay];
+        }
+    }
+    /*
     static BOOL isOn = YES;
     if ([self getExistenceLiveAndSelectNumBtnContain:YES].count == 0) {
         [self showAlertWithAlertString:@"请先选择一个通道"];
@@ -473,7 +568,6 @@
         [self showAlertWithAlertString:@"只能选择一个通道"];
     }else
     {
-#warning 这里的逻辑重新斟酌下
         if (isOn) {
             //开启音频
             for (NSNumber *index in [self getExistenceLiveAndSelectNumBtnContain:YES]) {
@@ -494,6 +588,7 @@
             isOn = YES;
         }
     }
+     */
 }
 
 - (void)dealloc
@@ -531,71 +626,78 @@
     [backButton setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
     [backButton addTarget:self action:@selector(backClick:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
-    //音频按钮
-    UIButton *vedioButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    vedioButton.frame = CGRectMake(WIDTH - 30, 27, 30, 30);
+    //刷新按钮
+    UIButton *refreshButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    refreshButton.frame = CGRectMake(WIDTH - 30, 27, 30, 30);
     //    vedioButton.imageEdgeInsets = UIEdgeInsetsMake(0, -20, 0, 0);
-    [vedioButton setImage:[UIImage imageNamed:@"vedio"] forState:UIControlStateNormal];
-    [vedioButton addTarget:self action:@selector(vedioBtn:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:vedioButton];
+    [refreshButton setImage:[UIImage imageNamed:@"shuaxin.png"] forState:UIControlStateNormal];
+    [refreshButton addTarget:self action:@selector(refreshBtn:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:refreshButton];
     
 }
+//网络状态栏
 - (void)_net
 {
     
-    // 状态栏是由当前控制器控制的，首先获取当前app。
-    UIApplication *app = [UIApplication sharedApplication];
-    
-    // 遍历状态栏上的前景视图
-    NSArray *children = [[[app valueForKeyPath:@"statusBar"] valueForKeyPath:@"foregroundView"] subviews];
-    
-    int type = 0;
-    
-    for (id child in children) {
-        if ([child isKindOfClass:NSClassFromString(@"UIStatusBarDataNetworkItemView")]) {
-            type = [[child valueForKeyPath:@"dataNetworkType"] intValue];
-        }
-    }
-    // type数字对应的网络状态依次是：0：无网络；1：2G网络；2：3G网络；3：4G网络；5：WIFI信号
-    NSString *stateString = @"wifi";
-    switch (type) {
-        case 0:
-            stateString = @"notReachable";
-            break;
-            
-        case 1:
-            stateString = @"2G";
-            break;
-            
-        case 2:
-            stateString = @"3G";
-            break;
-            
-        case 3:
-            stateString = @"4G";
-            break;
-            
-        case 4:
-            stateString = @"LTE";
-            break;
-            
-        case 5:
-            stateString = @"WiFi";
-            break;
-            
-        default:
-            break;
-    }
-    UILabel *netState = [[UILabel alloc] initWithFrame:CGRectMake(WIDTH - 250, 0, 250 - 8, 32)];
+    netState = [[UILabel alloc] initWithFrame:CGRectMake(WIDTH - 250, 0, 250 - 8, 26)];
     netState.textColor = [UIColor whiteColor];
     netState.textAlignment = NSTextAlignmentRight;
     
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(getInternetface) userInfo:nil repeats:YES];
+    [timer fireDate];
+    
+    [self.view addSubview:netState];
+    
+}
+//使用AFN框架来检测网络状态的改变
+-(NSString *)AFNReachability
+{
+    //1.创建网络监听管理者
+    AFNetworkReachabilityManager *manager = [AFNetworkReachabilityManager sharedManager];
+    
+    //2.监听网络状态的改变
+    /*
+     AFNetworkReachabilityStatusUnknown     = 未知
+     AFNetworkReachabilityStatusNotReachable   = 没有网络
+     AFNetworkReachabilityStatusReachableViaWWAN = 3G
+     AFNetworkReachabilityStatusReachableViaWiFi = WIFI
+     */
+    static NSString *netStr = @"WIFI";
+    [manager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        switch (status) {
+            case AFNetworkReachabilityStatusUnknown:
+                netStr = @"未知";
+                break;
+            case AFNetworkReachabilityStatusNotReachable:
+                NSLog(@"没有网络");
+                netStr = @"没有网络";
+                break;
+            case AFNetworkReachabilityStatusReachableViaWWAN:
+                NSLog(@"3G");
+                netStr = @"3G";
+                break;
+            case AFNetworkReachabilityStatusReachableViaWiFi:
+                NSLog(@"WIFI");
+                netStr = @"WIFI";
+                break;
+            default:
+                break;
+        }
+    }];
+    //3.开始监听
+    [manager startMonitoring];
+    
+    return netStr;
+}
+- (void)getInternetface {
+    long long hehe = [self getInterfaceBytes];
+    NSLog(@"hehe:%lld",hehe);
+    
     NSString *netSpeed = nil;
     float speed = [self getInterfaceBytes] / (1024);
-    
     //B
     netSpeed = [NSString stringWithFormat:@"%.2f%@",speed,@"B/s"];
-    NSLog(@"%f",speed);
+    NSLog(@"speed:%f",speed);
     if (speed / (1000 * 1000) > 1) {
         //M
         speed = speed / (1024 * 1024);
@@ -605,26 +707,20 @@
         speed = speed / 1024;
         netSpeed = [NSString stringWithFormat:@"%.2f%@",speed,@"KB/s"];
     }
-    
-    netState.text = [NSString stringWithFormat:@"%@:%@",stateString,netSpeed];
-    
-    //    NSLog(@"%f",speed);
-    [self.view addSubview:netState];
-    
+    netState.text = [NSString stringWithFormat:@"%@:%@",[self AFNReachability],netSpeed];
 }
-
 //初始化视频小窗口
 - (void)_initVideoView
 {
-    float videoBaseViewHeight = WIDTH*.9;
+    float videoBaseViewHeight = WIDTH;//*.9
     if (self.view.bounds.size.height < 568) {
         videoBaseViewHeight = WIDTH*.64;
     }
-    videoBaseView = [[UIView alloc]initWithFrame:CGRectMake(0, 32, WIDTH, videoBaseViewHeight)];
+    videoBaseView = [[UIView alloc]initWithFrame:CGRectMake(0, ViewH(netState), WIDTH, videoBaseViewHeight)];
     videoBaseView.backgroundColor = [UIColor grayColor];
     [self.view addSubview:videoBaseView];
     
-    float margin_top   = 0;
+    float margin_top   = 3;
     float margin_btm   = 15;
     float margin_left  = 8;
     float margin_right = 8;
@@ -635,19 +731,34 @@
     }
     
     videoSubBaseView = [[UIView alloc]initWithFrame:CGRectMake(margin_left, margin_top, videoBaseView.bounds.size.width-margin_left-margin_right, videoBaseView.bounds.size.height-margin_top-margin_btm)];
-    videoBaseView.backgroundColor = [UIColor grayColor];
     [videoBaseView addSubview:videoSubBaseView];
     
     float videoMargin = 5;
-    float videoWidth  = videoSubBaseView.frame.size.width/2-videoMargin/2;
-    float videoHeight = videoSubBaseView.frame.size.height/2-videoMargin/2;
     
-    CGRect r1 = (CGRect){0,0,videoWidth,videoHeight};
-    CGRect r2 = (CGRect){videoWidth+videoMargin,0,videoWidth,videoHeight};
-    CGRect r3 = (CGRect){0,videoHeight+videoMargin,videoWidth,videoHeight};
-    CGRect r4 = (CGRect){videoWidth+videoMargin,videoHeight+videoMargin,videoWidth,videoHeight};
-    
-    videoFrameArr = @[[NSValue valueWithCGRect:r1],[NSValue valueWithCGRect:r2],[NSValue valueWithCGRect:r3],[NSValue valueWithCGRect:r4]];
+//    if ([deviceChanel[@"channel"] integerValue] == 4) {
+        float videoWidth  = videoSubBaseView.frame.size.width/2-videoMargin/2;
+        float videoHeight = videoSubBaseView.frame.size.height/2-videoMargin/2;
+        
+        CGRect r1 = (CGRect){0,0,videoWidth,videoHeight};
+        CGRect r2 = (CGRect){videoWidth+videoMargin,0,videoWidth,videoHeight};
+        CGRect r3 = (CGRect){0,videoHeight+videoMargin,videoWidth,videoHeight};
+        CGRect r4 = (CGRect){videoWidth+videoMargin,videoHeight+videoMargin,videoWidth,videoHeight};
+        videoFrameArr = @[[NSValue valueWithCGRect:r1],[NSValue valueWithCGRect:r2],[NSValue valueWithCGRect:r3],[NSValue valueWithCGRect:r4]];
+    /*
+    }else{
+        float videoWidth1 = (videoSubBaseView.frame.size.width - videoMargin * 2) / 3;
+        float videoHeight1 = (videoSubBaseView.frame.size.height - videoMargin * 2) / 3;
+        CGRect r11 = (CGRect){0,0,videoWidth1,videoHeight1};
+        CGRect r12 = (CGRect){videoWidth1 + videoMargin,0,videoWidth1,videoHeight1};
+        CGRect r13 = (CGRect){(videoWidth1 + videoMargin) * 2,0,videoWidth1,videoHeight1};
+        CGRect r21 = {0,videoHeight1 + videoMargin,videoSubBaseView.frame.size.width*(1-GlodScale),videoHeight1};
+        CGRect r22 = {videoSubBaseView.frame.size.width*(1-GlodScale),videoHeight1 + videoMargin,videoSubBaseView.frame.size.width*GlodScale,videoHeight1};
+        CGRect r31 = (CGRect){0,(videoHeight1 + videoMargin) * 2,videoWidth1,videoHeight1};
+        CGRect r32 = (CGRect){videoWidth1 + videoMargin,(videoHeight1 + videoMargin) * 2,videoWidth1,videoHeight1};
+        CGRect r33 = (CGRect){(videoWidth1 + videoMargin) * 2,(videoHeight1 + videoMargin) * 2,videoWidth1,videoHeight1};
+        videoFrameArr = @[[NSValue valueWithCGRect:r11],[NSValue valueWithCGRect:r12],[NSValue valueWithCGRect:r13],[NSValue valueWithCGRect:r21],[NSValue valueWithCGRect:r22],[NSValue valueWithCGRect:r31],[NSValue valueWithCGRect:r32],[NSValue valueWithCGRect:r33]];
+    }
+     */
 }
 //初始化数字按钮
 - (void)_initVideoNumHub
@@ -1279,63 +1390,33 @@
 
 #pragma mark - 获取网络流量信息
 - (long long) getInterfaceBytes
-
 {
-    
     struct ifaddrs *ifa_list = 0, *ifa;
-    
     if (getifaddrs(&ifa_list) == -1)
-        
     {
-        
         return 0;
-        
     }
-    
     uint32_t iBytes = 0;
-    
     uint32_t oBytes = 0;
-    
-    
-    
     for (ifa = ifa_list; ifa; ifa = ifa->ifa_next)
-        
     {
-        
         if (AF_LINK != ifa->ifa_addr->sa_family)
-            
             continue;
-        
         if (!(ifa->ifa_flags & IFF_UP) && !(ifa->ifa_flags & IFF_RUNNING))
-            
             continue;
-        
         if (ifa->ifa_data == 0)
-            
             continue;
         /* Not a loopback device. */
-        
         if (strncmp(ifa->ifa_name, "lo", 2))
-            
         {
-            
             struct if_data *if_data = (struct if_data *)ifa->ifa_data;
             iBytes += if_data->ifi_ibytes;
-            
             oBytes += if_data->ifi_obytes;
-            
         }
-        
     }
-    
     freeifaddrs(ifa_list);
-    
-    
-    
     NSLog(@"\n[getInterfaceBytes-Total]%d,%d",iBytes,oBytes);
-    
     return iBytes + oBytes;
-    
 }
 
 - (void)didReceiveMemoryWarning {

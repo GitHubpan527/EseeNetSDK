@@ -32,11 +32,41 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self naV];
     _fileManager = [NSFileManager defaultManager];
     self.view.backgroundColor = [UIColor whiteColor];
     self.automaticallyAdjustsScrollViewInsets = NO;
     _stateBool = 0;
     [self createCollectionView];
+}
+- (void)naV
+{
+    //返回按钮
+    UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    backButton.frame = CGRectMake(0, 27, 30, 30);
+    //    backButton.imageEdgeInsets = UIEdgeInsetsMake(0, -20, 0, 0);
+    [backButton setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+    [backButton addTarget:self action:@selector(backBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
+}
+- (void)navTitle
+{
+    NSArray *arrOne = [_dataSource[0] componentsSeparatedByString:@"_"];
+    NSArray *arrLast = [[_dataSource lastObject] componentsSeparatedByString:@"_"];
+    NSString *str = nil;
+    if ([arrOne[0] isEqualToString:arrLast[0]]) {
+        str = [NSString stringWithFormat:@"%@%@%@%@%@%@%@%@%@",arrOne[0],@".",arrOne[1],@".",arrOne[2],@"-",arrLast[1],@".",arrLast[2]];
+    }else{
+        str = [NSString stringWithFormat:@"%@%@%@%@%@%@%@%@%@%@%@",arrOne[0],@".",arrOne[1],@".",arrOne[2],@"-",arrLast[0],@".",arrLast[1],@".",arrLast[2]];
+    }
+    if ([arrOne[0] isEqualToString:arrLast[0]] && [arrOne[1] isEqualToString:arrLast[1]] && [arrOne[2] isEqualToString:arrLast[2]]) {
+        str = [NSString stringWithFormat:@"%@%@%@%@%@",arrOne[0],@".",arrOne[1],@".",arrOne[2]];
+    }
+    self.navigationItem.title = [NSString stringWithFormat:@"%@%@%@",@"截图",@":",str];
+}
+- (void)backBtnAction:(UIButton *)sender
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -47,6 +77,11 @@
         [self showAlertWithAlertString:@"暂无数据"];
     }
     [self prefersStatusBarHidden];
+    
+    NSLog(@"%@",_dataSource[0]);
+    NSLog(@"%@",[_dataSource lastObject]);
+    [self navTitle];
+    
 }
 - (void)viewWillDisappear:(BOOL)animated
 {

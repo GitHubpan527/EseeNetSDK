@@ -58,6 +58,19 @@
 
 @implementation AppDelegate
 
+- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window{
+    if (self.isForceLandscape) {
+        
+        return UIInterfaceOrientationMaskLandscape;
+        
+    }else if (self.isForcePortrait){
+        
+        return UIInterfaceOrientationMaskPortrait;
+    }
+    
+    return UIInterfaceOrientationMaskAll;
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
 
@@ -371,11 +384,11 @@
                                                         object:self
                                                       userInfo:parameter];
 }
-
+/*
 -(NSUInteger)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window{
     return UIInterfaceOrientationMaskAll;
 }
-
+*/
 - (void)tapReceivedNotificationHandler:(NSNotification *)notice
 {
     MPNotificationView *notificationView = (MPNotificationView *)notice.object;

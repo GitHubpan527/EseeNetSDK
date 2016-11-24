@@ -8,11 +8,12 @@
 
 #import "ENPlaybackkViewController.h"
 #import "EseeNetRecord.h"
+#import "AppDelegate.h"
 
 #define SecondDistance (_timeLineView.frame.size.width/86400)
 
-#define WIDTH              self.view.bounds.size.width
-#define HEIGHT             self.view.bounds.size.height
+#define WIDTH              self.view.frame.size.width
+#define HEIGHT             self.view.frame.size.height
 #define ViewX(view)        view.frame.origin.x
 #define ViewY(view)        view.frame.origin.y
 #define ViewW(view)        view.frame.size.width
@@ -30,7 +31,7 @@
     
     BOOL _didConnected;
     
-    BOOL _isPlay;
+    BOOL _isHavePlay;//当前的状态
     
     int _fromTime;
     int _toTime;
@@ -49,6 +50,7 @@
     
     float starTime;//当前秒数
     float timerAll;//总秒数
+    
 }
 @end
 
@@ -70,6 +72,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _isHavePlay = NO;
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor grayColor];
     self.automaticallyAdjustsScrollViewInsets = NO;
@@ -84,7 +87,7 @@
 {
 //    [self _shouldRotateToOrientation:(UIDeviceOrientation)[UIApplication sharedApplication].statusBarOrientation];
     
-    _recordVideo = [[EseeNetRecord alloc]initEseeNetRecordVideoWithFrame:CGRectMake(0, (self.view.frame.size.height - self.view.frame.size.width) / 2, self.view.frame.size.width, self.view.frame.size.width)];
+    _recordVideo = [[EseeNetRecord alloc]initEseeNetRecordVideoWithFrame:CGRectMake(0, (HEIGHT - WIDTH) / 2, WIDTH, WIDTH)];
     NSLog(@"wwwwwwwwwwwwww%f---%f",self.view.frame.size.height,self.view.frame.size.width);
     _recordVideo.delegate = self;
     
@@ -118,7 +121,7 @@
 }
 - (void)playAndPauseView
 {
-    bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 50, self.view.frame.size.width, 50)];
+    bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, HEIGHT - 50, WIDTH, 50)];
     bottomView.backgroundColor = [UIColor darkGrayColor];
     bottomView.alpha = 0.8;
     [self.view addSubview:bottomView];
@@ -193,7 +196,7 @@
 {
     [_recordVideo playWithStartTime:index ToTime:_toTime];
 }
-//暂停
+//播放、暂停
 - (void)played:(UIButton *)sender
 {
     static BOOL isPause = YES;
@@ -210,8 +213,63 @@
 //全屏
 - (void)fullScreen:(UIButton *)sender
 {
+    static BOOL isOrientation = YES;
     
+    if (isOrientation == YES) {
+        _recordVideo.frame = CGRectMake(0, -32, HEIGHT, WIDTH);
+        bottomView.frame = CGRectMake(0, WIDTH - 50 - 32, HEIGHT, 50);
+        [sender setImage:[UIImage imageNamed:@"NVRnoquanping.png"] forState:UIControlStateNormal];
+        AppDelegate *appdelegate=(AppDelegate *)[UIApplication sharedApplication].delegate;
+        appdelegate.isForcePortrait = NO;
+        [self forceOrientationLandscape]; //强制横屏
+        isOrientation = NO;
+    }else{
+        _recordVideo.frame = CGRectMake(0, (HEIGHT - WIDTH) / 2, WIDTH, WIDTH);
+        bottomView.frame = CGRectMake(0, HEIGHT - 50, WIDTH, 50);
+        [sender setImage:[UIImage imageNamed:@"NVRquanping.png"] forState:UIControlStateNormal];
+        AppDelegate *appdelegate=(AppDelegate *)[UIApplication sharedApplication].delegate;
+        appdelegate.isForceLandscape = NO;
+        [self forceOrientationPortrait];//强制竖屏
+        isOrientation = YES;
+    }
 }
+#pragma mark - 强制横屏&竖屏
+//强制横屏
+-(void)forceOrientationLandscape{
+    //这段代码，只能旋转屏幕不能达到强制横屏的效果
+    if ([[UIDevice currentDevice] respondsToSelector:@selector(setOrientation:)]) {
+        SEL selector = NSSelectorFromString(@"setOrientation:");
+        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[UIDevice instanceMethodSignatureForSelector:selector]];
+        [invocation setSelector:selector];
+        [invocation setTarget:[UIDevice currentDevice]];
+        int val = UIInterfaceOrientationLandscapeRight;
+        [invocation setArgument:&val atIndex:2];
+        [invocation invoke];
+    }
+    //加上代理类里的方法，旋转屏幕可以达到强制横屏的效果
+    AppDelegate *appdelegate=(AppDelegate *)[UIApplication sharedApplication].delegate;
+    appdelegate.isForceLandscape=YES;
+    [appdelegate application:[UIApplication sharedApplication] supportedInterfaceOrientationsForWindow:self.view.window];
+}
+//强制竖屏
+-(void)forceOrientationPortrait{
+    
+    //这段代码，只能旋转屏幕不能达到强制竖屏的效果
+    if ([[UIDevice currentDevice] respondsToSelector:@selector(setOrientation:)]) {
+        SEL selector = NSSelectorFromString(@"setOrientation:");
+        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[UIDevice instanceMethodSignatureForSelector:selector]];
+        [invocation setSelector:selector];
+        [invocation setTarget:[UIDevice currentDevice]];
+        int val = UIInterfaceOrientationMaskPortrait;
+        [invocation setArgument:&val atIndex:2];
+        [invocation invoke];
+    }
+    
+    AppDelegate *appdelegate=(AppDelegate *)[UIApplication sharedApplication].delegate;
+    appdelegate.isForcePortrait=YES;
+    [appdelegate application:[UIApplication sharedApplication] supportedInterfaceOrientationsForWindow:self.view.window];
+}
+//得到所有的时间
 - (NSString *)getAllTime
 {
     NSInteger hour = 0;NSInteger minute = 0;NSInteger second = 0;
@@ -290,13 +348,22 @@
 {
     [super viewWillDisappear:animated];
     self.navigationController.navigationBar.hidden = NO;
+    
+    AppDelegate *appdelegate=(AppDelegate *)[UIApplication sharedApplication].delegate;
+    appdelegate.isForcePortrait = NO;
+    appdelegate.isForceLandscape = NO;
+    
 }
 - (void)taped:(UITapGestureRecognizer *)tap
 {
     static BOOL isTap;
     if (isTap) {
-//        [self play];
         [self playAndPauseView];
+        if (_isHavePlay == NO) {
+            bottomView.userInteractionEnabled = NO;
+        }else{
+            bottomView.userInteractionEnabled = YES;
+        }
         self.navigationController.navigationBar.hidden = NO;
         isTap = NO;
     }else{
@@ -307,6 +374,7 @@
 }
 //播放
 - (void)play{
+    _isHavePlay = YES;
     [btnView removeFromSuperview];
     if (_didConnected == NO) {
         [_recordVideo connectDevice:^(RecordConnectResult result) {
@@ -409,25 +477,6 @@
     int GMT             = [mydate timeIntervalSince1970];
     return GMT;
 }
-/*
-- (void)viewWillLayoutSubviews
-{
-    [self _shouldRotateToOrientation:(UIDeviceOrientation)[UIApplication sharedApplication].statusBarOrientation];
-}
-*/
-/*
--(void)_shouldRotateToOrientation:(UIDeviceOrientation)orientation {
-    if (orientation == UIDeviceOrientationPortrait ||orientation ==
-        UIDeviceOrientationPortraitUpsideDown) { // 竖屏
-        _recordVideo = [[EseeNetRecord alloc]initEseeNetRecordVideoWithFrame:CGRectMake(0, (self.view.frame.size.height - self.view.frame.size.width) / 2, self.view.frame.size.width, self.view.frame.size.width)];
-        
-    } else { // 横屏
-        _recordVideo = [[EseeNetRecord alloc]initEseeNetRecordVideoWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
-        
-    }
-}
-*/
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
