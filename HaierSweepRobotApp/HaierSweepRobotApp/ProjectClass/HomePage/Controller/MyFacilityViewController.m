@@ -104,6 +104,11 @@
 #import "SDWebImageRootViewController.h"
 #import "MessageController.h"
 
+//PLC
+#import "DeviceTypeModel.h"
+#import "AddFacilityModel.h"
+#import "EseeNetLive.h"
+
 @interface MyFacilityViewController ()<UITableViewDelegate,UITableViewDataSource,PushRenameDelegate,ContactRenameDelegate,UIAlertViewDelegate>
 
 //阴影背景
@@ -142,6 +147,11 @@
     NSArray *leftPlArray;
     
     NSString *messageCount;
+    
+    NSString *NVRID;//NVR的ID
+    
+    
+    
 }
 
 - (NSMutableArray *)scrollArray
@@ -171,6 +181,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [self requestMessageCount];
+    
     
     NSString *headUrl = [JPUserDefaults jp_objectForKey:@"HeadUrlKey"];
     NSString *realName = [JPUserDefaults jp_objectForKey:@"RealNameKey"];
@@ -203,6 +214,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    //获取NVR ID
+    [self getID];
     
 #pragma mark - 初始化灵云语音
     [LingYunManager shareManager];
@@ -1668,8 +1681,6 @@
                     [toArr addObject:model.commonId];
                 }
                 
-                
-                
                 //如果你的这个广告视图是添加到导航控制器子控制器的View上,请添加此句,否则可忽略此句
                 self.automaticallyAdjustsScrollViewInsets = NO;
                 //加载网络图片
@@ -1815,7 +1826,24 @@
         return 60;
     }
 }
-
+- (void)getID
+{
+    [[RequestManager shareRequestManager] requestDataType:RequestTypePOST urlStr:DeviceTypeFrontFindAll parameters:nil successBlock:^(id successObject) {
+        if ([successObject[@"result"] boolValue]) {
+            
+            NSArray *array = [DeviceTypeModel mj_objectArrayWithKeyValuesArray:successObject[@"object"]];
+            DeviceTypeModel *modelID = array[0];
+            NSArray *arr = modelID.deviceModelList;
+            for (AddFacilityModel *facilityID in arr) {
+                if ([facilityID.deviceModelName isEqualToString: @"套装 NVR"]) {
+                    NVRID = facilityID.id;
+                }
+            }
+        }
+    } FailBlock:^(id failObject) {
+        
+    }];
+}
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (tableView == self.tableView) {
@@ -1832,14 +1860,18 @@
             //摄像头
             MyFacilityModel *model = self.yooSeeArray[indexPath.row];
             NSLog(@"%@,%@,%@,%@,%@,%@,%@,%@",model.id,model.deviceId,model.type,model.typeId,model.name,model.modelId,model.res1,model.res2);
-            if ([model.modelId isEqualToString:@"358113623439362"]) {
+            if ([model.modelId isEqualToString:NVRID]) {//358113623439362
                 //NVR
                 NSLog(@"久安NVR");
                 ENLiveViewController *ENLive = [[ENLiveViewController alloc] init];
                 if (model.res1 == nil) {
                     model.res1 = @"";
                 }
-                [ENLive setDeviceInfoWithDeviceIDOrIP:model.res2 UserName:@"admin" Passwords:model.res1 Port:0];
+                
+                NSString *userName = @"admin";//admin后台没有这个字段，也就是用户名称
+                int port = 0;//也没有这个端口
+                
+                [ENLive setDeviceInfoWithDeviceIDOrIP:model.res2 UserName:userName Passwords:model.res1 Port:port];
                 
                 [self.navigationController pushViewController:ENLive animated:YES];
             }else{
@@ -1856,6 +1888,7 @@
         [self.navigationController pushViewController:vc animated:YES];
     }
 }
+
 #pragma mark - NVR请求数据
 - (void)nvrNet
 {

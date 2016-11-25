@@ -12,8 +12,8 @@
 
 #define SecondDistance (_timeLineView.frame.size.width/86400)
 
-#define WIDTH              self.view.frame.size.width
-#define HEIGHT             self.view.frame.size.height
+#define WIDTH              [UIScreen mainScreen].bounds.size.width
+#define HEIGHT             [UIScreen mainScreen].bounds.size.height
 #define ViewX(view)        view.frame.origin.x
 #define ViewY(view)        view.frame.origin.y
 #define ViewW(view)        view.frame.size.width
@@ -40,17 +40,18 @@
     
     NSMutableArray *recordTimer;
     
-    UIView *bottomView;//底部View
-    UILabel *startLabel;//起始时间
-    UILabel *endLabel;//总时间
-    UISlider *slider;//滑块
-    
     NSDate *startDate;//当前起始日期
     NSDate *endDate;//结束日期
     
     float starTime;//当前秒数
     float timerAll;//总秒数
     
+    UIView *bottomView;//底部View
+    UIButton *btnA;//
+    UILabel *startLabel;//起始时间
+    UILabel *endLabel;//总时间
+    UISlider *slider;//滑块
+    UIButton *btnB;//全屏按钮
 }
 @end
 
@@ -81,6 +82,7 @@
     [self.view addGestureRecognizer:tap];
     [self layoutRecordVideo];
     [self btnView];
+    [self playAndPauseView];
 
 }
 - (void)layoutRecordVideo
@@ -102,11 +104,21 @@
     UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     backButton.frame = CGRectMake(0, 27, 30, 30);
     //    backButton.imageEdgeInsets = UIEdgeInsetsMake(0, -20, 0, 0);
-    [backButton setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+    [backButton setImage:[UIImage imageNamed:@"返回按钮"] forState:UIControlStateNormal];
     [backButton addTarget:self action:@selector(backBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
     self.navigationItem.title = [NSString stringWithFormat:@"%@:%@",@"回放",deviceInfo[@"playTime"]];
-    
+    //刷新按钮
+    UIButton *refreshButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    refreshButton.frame = CGRectMake(WIDTH - 30, 27, 30, 30);
+    //    vedioButton.imageEdgeInsets = UIEdgeInsetsMake(0, -20, 0, 0);
+    [refreshButton setImage:[UIImage imageNamed:@"更新-(1)"] forState:UIControlStateNormal];
+    [refreshButton addTarget:self action:@selector(refreshBtn:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:refreshButton];
+}
+- (void)refreshBtn:(UIButton *)sender
+{
+    [self play];
 }
 - (void)btnView
 {
@@ -123,16 +135,16 @@
 {
     bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, HEIGHT - 50, WIDTH, 50)];
     bottomView.backgroundColor = [UIColor darkGrayColor];
-    bottomView.alpha = 0.8;
+    bottomView.alpha = 0;
     [self.view addSubview:bottomView];
     //
-    UIButton *btnA = [UIButton buttonWithType:UIButtonTypeCustom];
+    btnA = [UIButton buttonWithType:UIButtonTypeCustom];
     btnA.frame = CGRectMake(Jianju, (ViewH(bottomView) - 32) / 2, 32, 32);
     [btnA setImage:[UIImage imageNamed:@"NVRpause.png"] forState:UIControlStateNormal];
     [btnA addTarget:self action:@selector(played:) forControlEvents:UIControlEventTouchUpInside];
     [bottomView addSubview:btnA];
     //
-    UIButton *btnB = [UIButton buttonWithType:UIButtonTypeCustom];
+    btnB = [UIButton buttonWithType:UIButtonTypeCustom];
     btnB.frame = CGRectMake(WIDTH - Jianju - 32, (ViewH(bottomView) - 32) / 2, 32, 32);
     [btnB setImage:[UIImage imageNamed:@"NVRquanping.png"] forState:UIControlStateNormal];
     [btnB addTarget:self action:@selector(fullScreen:) forControlEvents:UIControlEventTouchUpInside];
@@ -145,7 +157,7 @@
     [bottomView addSubview:startLabel];
     //
     endLabel = [[UILabel alloc] initWithFrame:CGRectMake(ViewX(btnB) - Jianju - 43, (ViewH(bottomView) - 30) / 2, 43, 30)];
-    endLabel.text = [self getAllTime];
+//    endLabel.text = [self getAllTime];
     endLabel.font = [UIFont systemFontOfSize:9];
     endLabel.textColor = [UIColor whiteColor];
     [bottomView addSubview:endLabel];
@@ -162,6 +174,8 @@
 #pragma mark - EseeNetRecordDelegate
 - (void)eseeNetRecordCurTime:(int)curTime
 {
+    
+    endLabel.text = [self getAllTime];
     NSLog(@"%d,%@",curTime,[self TimeStamp:[NSString stringWithFormat:@"%d",curTime]]);
     NSString *string = [self TimeStamp:[NSString stringWithFormat:@"%d",curTime]];
     startLabel.text = [string componentsSeparatedByString:@" "][1];//00:01:11
@@ -218,19 +232,45 @@
     if (isOrientation == YES) {
         _recordVideo.frame = CGRectMake(0, -32, HEIGHT, WIDTH);
         bottomView.frame = CGRectMake(0, WIDTH - 50 - 32, HEIGHT, 50);
+        btnA.frame = CGRectMake(Jianju, (ViewH(bottomView) - 32) / 2, 32, 32);
+        //change
+        btnB.frame = CGRectMake(HEIGHT - Jianju - 32, (ViewH(bottomView) - 32) / 2, 32, 32);
+        startLabel.frame = CGRectMake(ViewRightX(btnA) + Jianju, (ViewH(bottomView) - 30) / 2, 43, 30);
+        endLabel.frame = CGRectMake(ViewX(btnB) - Jianju - 43, (ViewH(bottomView) - 30) / 2, 43, 30);
+        slider.frame = CGRectMake(ViewRightX(startLabel) + Jianju, (ViewH(bottomView) - 30) / 2, ViewX(endLabel) - Jianju * 2 - ViewRightX(startLabel), 30);
+        
         [sender setImage:[UIImage imageNamed:@"NVRnoquanping.png"] forState:UIControlStateNormal];
+        
+        [[UIDevice currentDevice] setValue: [NSNumber numberWithInteger: UIInterfaceOrientationLandscapeRight] forKey:@"orientation"];
+        
+        /*
         AppDelegate *appdelegate=(AppDelegate *)[UIApplication sharedApplication].delegate;
         appdelegate.isForcePortrait = NO;
         [self forceOrientationLandscape]; //强制横屏
         isOrientation = NO;
+         */
+        
     }else{
         _recordVideo.frame = CGRectMake(0, (HEIGHT - WIDTH) / 2, WIDTH, WIDTH);
         bottomView.frame = CGRectMake(0, HEIGHT - 50, WIDTH, 50);
+        btnA.frame = CGRectMake(Jianju, (ViewH(bottomView) - 32) / 2, 32, 32);
+        //change
+        btnB.frame = CGRectMake(WIDTH - Jianju - 32, (ViewH(bottomView) - 32) / 2, 32, 32);
+        startLabel.frame = CGRectMake(ViewRightX(btnA) + Jianju, (ViewH(bottomView) - 30) / 2, 43, 30);
+        endLabel.frame = CGRectMake(ViewX(btnB) - Jianju - 43, (ViewH(bottomView) - 30) / 2, 43, 30);
+        slider.frame = CGRectMake(ViewRightX(startLabel) + Jianju, (ViewH(bottomView) - 30) / 2, ViewX(endLabel) - Jianju * 2 - ViewRightX(startLabel), 30);
+        
         [sender setImage:[UIImage imageNamed:@"NVRquanping.png"] forState:UIControlStateNormal];
+        
+        [[UIDevice currentDevice] setValue: [NSNumber numberWithInteger: UIInterfaceOrientationPortrait] forKey:@"orientation"];
+        
+//        [[UIDevice currentDevice] setValue: [NSNumber numberWithInteger: UIInterfaceOrientationPortrait] forKey:@"orientation"];
+        /*
         AppDelegate *appdelegate=(AppDelegate *)[UIApplication sharedApplication].delegate;
         appdelegate.isForceLandscape = NO;
         [self forceOrientationPortrait];//强制竖屏
         isOrientation = YES;
+         */
     }
 }
 #pragma mark - 强制横屏&竖屏
@@ -340,7 +380,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-//    [self orientationToPortrait:UIInterfaceOrientationLandscapeRight];
     self.navigationController.navigationBar.hidden = YES;
     
 }
@@ -348,6 +387,8 @@
 {
     [super viewWillDisappear:animated];
     self.navigationController.navigationBar.hidden = NO;
+    
+    [[UIDevice currentDevice] setValue: [NSNumber numberWithInteger: UIInterfaceOrientationPortrait] forKey:@"orientation"];
     
     AppDelegate *appdelegate=(AppDelegate *)[UIApplication sharedApplication].delegate;
     appdelegate.isForcePortrait = NO;
@@ -358,7 +399,7 @@
 {
     static BOOL isTap;
     if (isTap) {
-        [self playAndPauseView];
+        bottomView.alpha = 0.8;
         if (_isHavePlay == NO) {
             bottomView.userInteractionEnabled = NO;
         }else{
@@ -367,7 +408,7 @@
         self.navigationController.navigationBar.hidden = NO;
         isTap = NO;
     }else{
-        [bottomView removeFromSuperview];
+        bottomView.alpha = 0;
         self.navigationController.navigationBar.hidden = YES;
         isTap = YES;
     }

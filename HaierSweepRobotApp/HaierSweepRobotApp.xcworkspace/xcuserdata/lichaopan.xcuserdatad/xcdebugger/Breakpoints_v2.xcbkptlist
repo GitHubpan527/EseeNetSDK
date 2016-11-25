@@ -228,7 +228,7 @@
                   moduleName = "HaierSweepRobotApp"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/lichaopan/Desktop/EseeNetSDK/HaierSweepRobotApp/HaierSweepRobotApp/Yoosee/Controllers/CreateInitPasswordController.m"
-                  timestampString = "501402363.515943"
+                  timestampString = "501764516.916569"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "566"
@@ -243,7 +243,7 @@
                   moduleName = "HaierSweepRobotApp"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/lichaopan/Desktop/EseeNetSDK/HaierSweepRobotApp/HaierSweepRobotApp/Yoosee/Controllers/CreateInitPasswordController.m"
-                  timestampString = "501402363.518151"
+                  timestampString = "501764516.918126"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "566"
@@ -404,11 +404,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HaierSweepRobotApp/ProjectClass/HomePage/Controller/MyFacilityViewController.m"
-            timestampString = "501402268.177301"
+            timestampString = "501759312.082803"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "181"
-            endingLineNumber = "181"
+            startingLineNumber = "192"
+            endingLineNumber = "192"
             landmarkName = "-viewWillAppear:"
             landmarkType = "7">
          </BreakpointContent>
@@ -420,11 +420,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HaierSweepRobotApp/EseeSDK/SDKDemo/ENLiveViewController.m"
-            timestampString = "500977563.281852"
+            timestampString = "501759312.082803"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "573"
-            endingLineNumber = "573"
+            startingLineNumber = "572"
+            endingLineNumber = "572"
             landmarkName = "-refreshBtn:"
             landmarkType = "7">
          </BreakpointContent>
@@ -437,22 +437,6 @@
             continueAfterRunningActions = "No"
             scope = "0"
             stopOnStyle = "0">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "HaierSweepRobotApp/ProjectClass/HomePage/Controller/MyFacilityViewController.m"
-            timestampString = "501402268.177301"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1234"
-            endingLineNumber = "1234"
-            landmarkName = "-onClick:contact:"
-            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -525,13 +509,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "HaierSweepRobotApp/ProjectClass/HomePage/Controller/MyFacilityViewController.m"
-            timestampString = "501402375.159916"
+            filePath = "HaierSweepRobotApp/EseeSDK/SDKDemo/ENPlaybackkViewController.m"
+            timestampString = "501749405.753175"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1838"
-            endingLineNumber = "1838"
-            landmarkName = "-tableView:didSelectRowAtIndexPath:"
+            startingLineNumber = "445"
+            endingLineNumber = "445"
+            landmarkName = "-play"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

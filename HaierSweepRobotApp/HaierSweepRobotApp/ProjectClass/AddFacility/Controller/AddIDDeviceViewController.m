@@ -10,6 +10,8 @@
 #import "FListManager.h"
 #import "LoginUserDefaults.h"
 #import "MyFacilityModel.h"
+#import "DeviceTypeModel.h"
+#import "AddFacilityModel.h"
 
 @interface AddIDDeviceViewController ()
 
@@ -29,10 +31,15 @@
 
 @implementation AddIDDeviceViewController
 
+{
+    NSString *NVRID;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     _isExit = NO;
+    [self getID];
     self.navigationItem.title = CustomLocalizedString(@"addNVRDevice", nil);
     
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem lc_itemWithIcon:@"返回-（导航）" block:^{
@@ -41,6 +48,24 @@
     }];
     self.navigationItem.rightBarButtonItem = [UIBarButtonItem lc_itemWithTitle:@"保存" block:^{
         [self saveBtn];
+    }];
+}
+- (void)getID
+{
+    [[RequestManager shareRequestManager] requestDataType:RequestTypePOST urlStr:DeviceTypeFrontFindAll parameters:nil successBlock:^(id successObject) {
+        if ([successObject[@"result"] boolValue]) {
+            
+            NSArray *array = [DeviceTypeModel mj_objectArrayWithKeyValuesArray:successObject[@"object"]];
+            DeviceTypeModel *modelID = array[0];
+            NSArray *arr = modelID.deviceModelList;
+            for (AddFacilityModel *facilityID in arr) {
+                if ([facilityID.deviceModelName isEqualToString: @"套装 NVR"]) {
+                    NVRID = facilityID.id;
+                }
+            }
+        }
+    } FailBlock:^(id failObject) {
+        
     }];
 }
 - (void)saveBtn
@@ -81,7 +106,7 @@
             //HL_ALERT(@"提示", @"相关操作");
             NSDictionary *requestDic = [NSDictionary dictionary];
             requestDic = @{@"userId":_userNameTextField.text,
-                           @"modelId":@"358113623439362",//NVR:358113623439362//云台:349655620622338
+                           @"modelId":NVRID,//NVR:358113623439362//云台:349655620622338
                            @"deviceId":_yunIDTextField.text,
                            @"name":_deviceNameTextField.text,
                            @"devicepw":_passwordTextField.text};

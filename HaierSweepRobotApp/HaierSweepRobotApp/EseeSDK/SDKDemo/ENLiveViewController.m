@@ -36,8 +36,8 @@
 #define NumBtnNormalColor [UIColor grayColor]
 #define NumBtnSelectColor [UIColor redColor]
 
-#define LiveCount 4 //视频最大数量
-#define DefaultLiveCount 4 // 初次进入视频个数
+#define LiveCount 8 //视频最大数量
+#define DefaultLiveCount 8 // 初次进入视频个数
 
 #define GlodScale 0.618
 #define LiveTag    100
@@ -75,6 +75,8 @@
 //    NSInteger LiveCount;
     NSDictionary *deviceChanelDic;
     EseeNetLive *liveVideo1;/**< 直播视频窗口*/
+    
+    UIImageView *liuliangImageView;//流量
 }
 
 
@@ -115,7 +117,6 @@
             [liveVideo[i] connectAndPlay];
         }
     }
-    
 }
 
 - (void)setDeviceInfoWithDeviceIDOrIP:(NSString *)IDOrIP
@@ -623,14 +624,14 @@
     UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     backButton.frame = CGRectMake(0, 27, 30, 30);
     //    backButton.imageEdgeInsets = UIEdgeInsetsMake(0, -20, 0, 0);
-    [backButton setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+    [backButton setImage:[UIImage imageNamed:@"返回按钮"] forState:UIControlStateNormal];
     [backButton addTarget:self action:@selector(backClick:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
     //刷新按钮
     UIButton *refreshButton = [UIButton buttonWithType:UIButtonTypeCustom];
     refreshButton.frame = CGRectMake(WIDTH - 30, 27, 30, 30);
     //    vedioButton.imageEdgeInsets = UIEdgeInsetsMake(0, -20, 0, 0);
-    [refreshButton setImage:[UIImage imageNamed:@"shuaxin.png"] forState:UIControlStateNormal];
+    [refreshButton setImage:[UIImage imageNamed:@"更新-(1)"] forState:UIControlStateNormal];
     [refreshButton addTarget:self action:@selector(refreshBtn:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:refreshButton];
     
@@ -648,6 +649,12 @@
     
     [self.view addSubview:netState];
     
+    liuliangImageView = [[UIImageView alloc] init];
+    liuliangImageView.frame = CGRectMake(WIDTH - 8 - 100 - 26, 3, 20, 20);
+    liuliangImageView.alpha = 0;
+    liuliangImageView.image = [UIImage imageNamed:@"liuliang.png"];
+    [self.view addSubview:liuliangImageView];
+    
 }
 //使用AFN框架来检测网络状态的改变
 -(NSString *)AFNReachability
@@ -662,23 +669,31 @@
      AFNetworkReachabilityStatusReachableViaWWAN = 3G
      AFNetworkReachabilityStatusReachableViaWiFi = WIFI
      */
-    static NSString *netStr = @"WIFI";
+    static NSString *netStr = @"";
     [manager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
         switch (status) {
             case AFNetworkReachabilityStatusUnknown:
-                netStr = @"未知";
+                netStr = @"未知:";
+                netState.frame = CGRectMake(WIDTH - 250, 0, 250 - 8, 26);
+                liuliangImageView.alpha = 0;
                 break;
             case AFNetworkReachabilityStatusNotReachable:
                 NSLog(@"没有网络");
-                netStr = @"没有网络";
+                netStr = @"没有网络:";
+                netState.frame = CGRectMake(WIDTH - 250, 0, 250 - 8, 26);
+                liuliangImageView.alpha = 0;
                 break;
             case AFNetworkReachabilityStatusReachableViaWWAN:
                 NSLog(@"3G");
-                netStr = @"3G";
+                netStr = @"";
+                netState.frame = CGRectMake(ViewRightX(liuliangImageView), 0, 100, 26);
+                liuliangImageView.alpha = 1.0;
                 break;
             case AFNetworkReachabilityStatusReachableViaWiFi:
                 NSLog(@"WIFI");
-                netStr = @"WIFI";
+                netStr = @"WIFI:";
+                netState.frame = CGRectMake(WIDTH - 250, 0, 250 - 8, 26);
+                liuliangImageView.alpha = 0;
                 break;
             default:
                 break;
@@ -694,7 +709,7 @@
     NSLog(@"hehe:%lld",hehe);
     
     NSString *netSpeed = nil;
-    float speed = [self getInterfaceBytes] / (1024);
+    float speed = [self getInterfaceBytes] / 1024;
     //B
     netSpeed = [NSString stringWithFormat:@"%.2f%@",speed,@"B/s"];
     NSLog(@"speed:%f",speed);
@@ -707,7 +722,7 @@
         speed = speed / 1024;
         netSpeed = [NSString stringWithFormat:@"%.2f%@",speed,@"KB/s"];
     }
-    netState.text = [NSString stringWithFormat:@"%@:%@",[self AFNReachability],netSpeed];
+    netState.text = [NSString stringWithFormat:@"%@%@",[self AFNReachability],netSpeed];
 }
 //初始化视频小窗口
 - (void)_initVideoView
@@ -735,7 +750,7 @@
     
     float videoMargin = 5;
     
-//    if ([deviceChanel[@"channel"] integerValue] == 4) {
+    if (DefaultLiveCount == 4){
         float videoWidth  = videoSubBaseView.frame.size.width/2-videoMargin/2;
         float videoHeight = videoSubBaseView.frame.size.height/2-videoMargin/2;
         
@@ -744,8 +759,8 @@
         CGRect r3 = (CGRect){0,videoHeight+videoMargin,videoWidth,videoHeight};
         CGRect r4 = (CGRect){videoWidth+videoMargin,videoHeight+videoMargin,videoWidth,videoHeight};
         videoFrameArr = @[[NSValue valueWithCGRect:r1],[NSValue valueWithCGRect:r2],[NSValue valueWithCGRect:r3],[NSValue valueWithCGRect:r4]];
-    /*
-    }else{
+    
+    }else if (DefaultLiveCount == 8){
         float videoWidth1 = (videoSubBaseView.frame.size.width - videoMargin * 2) / 3;
         float videoHeight1 = (videoSubBaseView.frame.size.height - videoMargin * 2) / 3;
         CGRect r11 = (CGRect){0,0,videoWidth1,videoHeight1};
@@ -758,7 +773,7 @@
         CGRect r33 = (CGRect){(videoWidth1 + videoMargin) * 2,(videoHeight1 + videoMargin) * 2,videoWidth1,videoHeight1};
         videoFrameArr = @[[NSValue valueWithCGRect:r11],[NSValue valueWithCGRect:r12],[NSValue valueWithCGRect:r13],[NSValue valueWithCGRect:r21],[NSValue valueWithCGRect:r22],[NSValue valueWithCGRect:r31],[NSValue valueWithCGRect:r32],[NSValue valueWithCGRect:r33]];
     }
-     */
+    
 }
 //初始化数字按钮
 - (void)_initVideoNumHub
@@ -780,9 +795,9 @@
         btn.titleLabel.font    = [UIFont systemFontOfSize:24];
         [btn setTitle:[NSString stringWithFormat:@"%d",i+1] forState:UIControlStateNormal];
         btn.tintColor          = NumBtnNormalColor;
-        btn.layer.borderColor  = NumBtnNormalColor.CGColor;
-        btn.layer.borderWidth  = 2;
-        btn.layer.cornerRadius = 5;
+//        btn.layer.borderColor  = NumBtnNormalColor.CGColor;
+//        btn.layer.borderWidth  = 2;
+//        btn.layer.cornerRadius = 5;
         btn.center             = BoundsCenter(btnBaseView);
         btn.tag                = NumBtnTag+i;
         [btn addTarget:self action:@selector(numBarBtnAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -1074,6 +1089,8 @@
     ENPlaybackkViewController *playback = [[ENPlaybackkViewController alloc] init];
     [playback setPlayBackInfoWithDevIDOrIP:deviceInfo[@"devID"] UserName:deviceInfo[@"userName"] Passwords:deviceInfo[@"password"] Channel:1 Port:0 PlayTime:arrDate[0]];
     
+//    [self presentViewController:playback animated:YES completion:nil];
+    
     [self.navigationController pushViewController:playback animated:YES];
 }
 
@@ -1110,25 +1127,32 @@
     [self.view addSubview:bottomBaseView];
     //截图、回放
     NSArray *btnTitleArr = @[@"查看",@"回放"];
+    NSArray *btnImageArr = @[@"chakan",@"huifang"];
     float btnWith          = 70;
-    float btnHeight        = 30;
-    float btnBaseViewWidth = ViewW(bottomBaseView)/btnTitleArr.count;
+    float btnHeight        = 70;
+    float btnBaseViewWidth = ViewW(bottomBaseView) / btnImageArr.count;
     
-    for (int i = 0; i < btnTitleArr.count; i ++) {
-        UIView *btnBaseView = [[UIView alloc] initWithFrame:CGRectMake(btnBaseViewWidth * i, 0, btnBaseViewWidth, ViewH(bottomBaseView))];
+    for (int i = 0; i < btnImageArr.count; i ++) {
         
+        UIView *btnBaseView = [[UIView alloc] initWithFrame:CGRectMake(btnBaseViewWidth * i, 0, btnBaseViewWidth, ViewH(bottomBaseView))];
         [bottomBaseView addSubview:btnBaseView];
         
-        UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
-        btn.frame = CGRectMake(0, 0, btnWith, btnHeight);
-        btn.titleLabel.font = [UIFont systemFontOfSize:15];
-        [btn setTitle:btnTitleArr[i] forState:UIControlStateNormal];
-        btn.titleLabel.tintAdjustmentMode = NSTextAlignmentCenter;
-        btn.titleLabel.adjustsFontSizeToFitWidth = YES;
-        btn.tintColor = NumBtnNormalColor;
-        btn.layer.borderColor = NumBtnNormalColor.CGColor;
-        btn.layer.borderWidth = 1;
-        btn.layer.cornerRadius = 4;
+        float btnWithAndHeight = bottomBaseView.frame.size.height - 20 * 2;
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        
+        [btn setImage:[UIImage imageNamed:btnImageArr[i]] forState:UIControlStateNormal];
+        btn.frame = CGRectMake(0, 0, btnWithAndHeight, btnWithAndHeight);
+        btn.titleLabel.text = btnTitleArr[i];
+        
+//        btn.titleLabel.font = [UIFont systemFontOfSize:15];
+//        [btn setTitle:btnTitleArr[i] forState:UIControlStateNormal];
+//        btn.titleLabel.tintAdjustmentMode = NSTextAlignmentCenter;
+//        btn.titleLabel.adjustsFontSizeToFitWidth = YES;
+//        btn.tintColor = NumBtnNormalColor;
+//        btn.layer.borderColor = NumBtnNormalColor.CGColor;
+//        btn.layer.borderWidth = 1;
+//        btn.layer.cornerRadius = 4;
+        
         btn.center = BoundsCenter(btnBaseView);
         btn.tag = BottomBase + i;
         [btn addTarget:self action:@selector(BottomBaseAction:) forControlEvents:UIControlEventTouchUpInside];

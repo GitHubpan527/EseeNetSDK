@@ -100,6 +100,8 @@
 - (void)showAlertWithAlertString:(NSString *)alertString
 {
     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:alertString delegate:nil cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
+
+    
     [alert show];
 }
 #pragma mark - 点击手势
@@ -138,26 +140,29 @@
     //    UIImageView *imageV = (UIImageView *)lgr.view;
     //    [imageV removeFromSuperview];
     if (lgr.state == UIGestureRecognizerStateBegan) {
-        [self AlertCTwo:@"保存到相册" and:@"分享" and:@"删除"];
+        [self AlertCTwo:@"分享" and:@"保存到相册" and:@"删除图片"];
     }
 }
 - (void)AlertCTwo:(NSString *)message1 and:(NSString *)message2 and:(NSString *)message3
 {
+    
     //提示框
     UIAlertController * alertCtr = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     UIAlertAction * action1 = [UIAlertAction actionWithTitle:message1 style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        //分享
+        NSLog(@"分享");
+    }];
+    UIAlertAction * action2 = [UIAlertAction actionWithTitle:message2 style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        
         //保存到相册
         NSLog(@"保存到相册");
         //将图片保存到相册中
         UIImageWriteToSavedPhotosAlbum([UIImage imageWithContentsOfFile:_photoPath], self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
-    }];
-    UIAlertAction * action2 = [UIAlertAction actionWithTitle:message2 style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        //分享
-        NSLog(@"分享");
+        
     }];
     UIAlertAction * action3 = [UIAlertAction actionWithTitle:message3 style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         //删除图片
-        NSLog(@"删除");
+        NSLog(@"删除图片");
 //        UIImageView *imageView = _contentView.subviews[0];
 //        [imageView removeFromSuperview];
         
@@ -170,12 +175,16 @@
     UIAlertAction * action4 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
         NSLog(@"取消");
     }];
+    
+    [action3 setValue:[UIColor redColor] forKey:@"_titleTextColor"];
+    
     [alertCtr addAction:action1];
     [alertCtr addAction:action2];
     [alertCtr addAction:action3];
     [alertCtr addAction:action4];
     [self presentViewController:alertCtr animated:YES completion:nil];
 }
+
 - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo{
     
     if (error != nil) {
