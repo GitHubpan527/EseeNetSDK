@@ -798,6 +798,8 @@
 		530F16891DE813EA0080A9CC /* liuliang.png in Resources */ = {isa = PBXBuildFile; fileRef = 530F16871DE813EA0080A9CC /* liuliang.png */; };
 		530F168C1DE84CC80080A9CC /* chakan.png in Resources */ = {isa = PBXBuildFile; fileRef = 530F168A1DE84CC80080A9CC /* chakan.png */; };
 		530F168D1DE84CC80080A9CC /* huifang.png in Resources */ = {isa = PBXBuildFile; fileRef = 530F168B1DE84CC80080A9CC /* huifang.png */; };
+		530F16921DE995C00080A9CC /* huifang1.png in Resources */ = {isa = PBXBuildFile; fileRef = 530F16911DE995C00080A9CC /* huifang1.png */; };
+		530F16941DE9968E0080A9CC /* huifang2.png in Resources */ = {isa = PBXBuildFile; fileRef = 530F16931DE9968E0080A9CC /* huifang2.png */; };
 		531B6AC91DD993AE008FA16E /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 531B6AC81DD993AE008FA16E /* libc++.tbd */; };
 		531B6ACB1DD993B8008FA16E /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 531B6ACA1DD993B8008FA16E /* AssetsLibrary.framework */; };
 		531B6ACD1DD9943E008FA16E /* libbz2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 531B6ACC1DD9943E008FA16E /* libbz2.tbd */; };
@@ -1990,6 +1992,8 @@
 		530F16871DE813EA0080A9CC /* liuliang.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = liuliang.png; sourceTree = "<group>"; };
 		530F168A1DE84CC80080A9CC /* chakan.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chakan.png; sourceTree = "<group>"; };
 		530F168B1DE84CC80080A9CC /* huifang.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = huifang.png; sourceTree = "<group>"; };
+		530F16911DE995C00080A9CC /* huifang1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = huifang1.png; sourceTree = "<group>"; };
+		530F16931DE9968E0080A9CC /* huifang2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = huifang2.png; sourceTree = "<group>"; };
 		531B6AC81DD993AE008FA16E /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		531B6ACA1DD993B8008FA16E /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		531B6ACC1DD9943E008FA16E /* libbz2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libbz2.tbd; path = usr/lib/libbz2.tbd; sourceTree = SDKROOT; };
@@ -4132,21 +4136,21 @@
 			children = (
 				537136851DDD7F830064C710 /* ENLiveViewController.h */,
 				537136861DDD7F830064C710 /* ENLiveViewController.m */,
+				531E4C2F1DE2C9AC00F870E9 /* ENPlaybackkViewController.h */,
+				531E4C301DE2C9AC00F870E9 /* ENPlaybackkViewController.m */,
+				531E4C351DE2C9AC00F870E9 /* PhotoViewController.h */,
+				531E4C361DE2C9AC00F870E9 /* PhotoViewController.m */,
+				531E4C311DE2C9AC00F870E9 /* OnePhotoViewController.h */,
+				531E4C321DE2C9AC00F870E9 /* OnePhotoViewController.m */,
+				531E4C391DE2C9AC00F870E9 /* VedioViewController.h */,
+				531E4C3A1DE2C9AC00F870E9 /* VedioViewController.m */,
+				531E4C331DE2C9AC00F870E9 /* PhotoCollectionViewCell.h */,
+				531E4C341DE2C9AC00F870E9 /* PhotoCollectionViewCell.m */,
+				531E4C371DE2C9AC00F870E9 /* VedioTableViewCell.h */,
+				531E4C381DE2C9AC00F870E9 /* VedioTableViewCell.m */,
 				537136871DDD7F830064C710 /* ENPlaybackViewController.h */,
 				537136881DDD7F830064C710 /* ENPlaybackViewController.m */,
 				537136891DDD7F830064C710 /* ENPlaybackViewController.xib */,
-				531E4C2F1DE2C9AC00F870E9 /* ENPlaybackkViewController.h */,
-				531E4C301DE2C9AC00F870E9 /* ENPlaybackkViewController.m */,
-				531E4C311DE2C9AC00F870E9 /* OnePhotoViewController.h */,
-				531E4C321DE2C9AC00F870E9 /* OnePhotoViewController.m */,
-				531E4C331DE2C9AC00F870E9 /* PhotoCollectionViewCell.h */,
-				531E4C341DE2C9AC00F870E9 /* PhotoCollectionViewCell.m */,
-				531E4C351DE2C9AC00F870E9 /* PhotoViewController.h */,
-				531E4C361DE2C9AC00F870E9 /* PhotoViewController.m */,
-				531E4C371DE2C9AC00F870E9 /* VedioTableViewCell.h */,
-				531E4C381DE2C9AC00F870E9 /* VedioTableViewCell.m */,
-				531E4C391DE2C9AC00F870E9 /* VedioViewController.h */,
-				531E4C3A1DE2C9AC00F870E9 /* VedioViewController.m */,
 			);
 			path = SDKDemo;
 			sourceTree = "<group>";
@@ -4269,6 +4273,8 @@
 				530F16871DE813EA0080A9CC /* liuliang.png */,
 				537FFEDA1DE6C0CE00103150 /* shuaxin.png */,
 				537FFEAB1DE484FB00103150 /* feiquanping.png */,
+				530F16911DE995C00080A9CC /* huifang1.png */,
+				530F16931DE9968E0080A9CC /* huifang2.png */,
 				537FFEAC1DE484FB00103150 /* jiuanpause.png */,
 				537FFEAD1DE484FB00103150 /* jiuanplay.png */,
 				537FFEAE1DE484FB00103150 /* NVRnoquanping.png */,
@@ -4532,9 +4538,11 @@
 				1683A4731D757C8200342181 /* date_selection_right.png in Resources */,
 				537FFF551DE6CC6C00103150 /* UMSocialSDKResources.bundle in Resources */,
 				1673B8421D76CD4E006ED284 /* LICENCE.txt in Resources */,
+				530F16921DE995C00080A9CC /* huifang1.png in Resources */,
 				537FFEB61DE484FB00103150 /* NVRnoquanping.png in Resources */,
 				1661C5DD1D7537B3007875B4 /* bg_chat_left.png in Resources */,
 				169C253A1D4AF8A700846F20 /* Language.strings in Resources */,
+				530F16941DE9968E0080A9CC /* huifang2.png in Resources */,
 				165392BF1D88E95900A6B1D1 /* 编辑-@2x.png in Resources */,
 				1661C6201D7537B3007875B4 /* ic_ctl_ap_wifi_password.png in Resources */,
 				1661C6511D7537B3007875B4 /* ic_infrared_top.png in Resources */,

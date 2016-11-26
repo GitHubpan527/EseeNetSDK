@@ -36,8 +36,8 @@
 #define NumBtnNormalColor [UIColor grayColor]
 #define NumBtnSelectColor [UIColor redColor]
 
-#define LiveCount 8 //视频最大数量
-#define DefaultLiveCount 8 // 初次进入视频个数
+#define LiveCount 4 //视频最大数量
+#define DefaultLiveCount 4 // 初次进入视频个数
 
 #define GlodScale 0.618
 #define LiveTag    100
@@ -1137,21 +1137,26 @@
         UIView *btnBaseView = [[UIView alloc] initWithFrame:CGRectMake(btnBaseViewWidth * i, 0, btnBaseViewWidth, ViewH(bottomBaseView))];
         [bottomBaseView addSubview:btnBaseView];
         
-        float btnWithAndHeight = bottomBaseView.frame.size.height - 20 * 2;
+        float btnWith = btnBaseView.frame.size.width / 2;
+        float btnHeight = btnBaseView.frame.size.height - 15 * 2;
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        
+        btn.frame = CGRectMake(0, 0, btnWith, btnHeight);
         [btn setImage:[UIImage imageNamed:btnImageArr[i]] forState:UIControlStateNormal];
-        btn.frame = CGRectMake(0, 0, btnWithAndHeight, btnWithAndHeight);
-        btn.titleLabel.text = btnTitleArr[i];
         
-//        btn.titleLabel.font = [UIFont systemFontOfSize:15];
-//        [btn setTitle:btnTitleArr[i] forState:UIControlStateNormal];
-//        btn.titleLabel.tintAdjustmentMode = NSTextAlignmentCenter;
-//        btn.titleLabel.adjustsFontSizeToFitWidth = YES;
-//        btn.tintColor = NumBtnNormalColor;
-//        btn.layer.borderColor = NumBtnNormalColor.CGColor;
-//        btn.layer.borderWidth = 1;
-//        btn.layer.cornerRadius = 4;
+//        [btn setImageEdgeInsets:UIEdgeInsetsMake(0.0, 0.0, 0.0, 20.0)];
+        //设置button上字体的偏移量
+//        [btn setTitleEdgeInsets:UIEdgeInsetsMake(10.0,-40.0 , 0.0, -8.0)];
+        
+        [btn setTitle:btnTitleArr[i] forState:UIControlStateNormal];
+        [btn setTitleColor:NumBtnNormalColor forState:UIControlStateNormal];
+        
+        btn.titleLabel.font = [UIFont systemFontOfSize:15];
+        btn.titleLabel.tintAdjustmentMode = NSTextAlignmentRight;
+        btn.titleLabel.adjustsFontSizeToFitWidth = YES;
+        btn.tintColor = NumBtnNormalColor;
+        btn.layer.borderColor = NumBtnNormalColor.CGColor;
+        btn.layer.borderWidth = 1;
+        btn.layer.cornerRadius = 4;
         
         btn.center = BoundsCenter(btnBaseView);
         btn.tag = BottomBase + i;

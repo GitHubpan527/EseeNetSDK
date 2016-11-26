@@ -228,7 +228,7 @@
                   moduleName = "HaierSweepRobotApp"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/lichaopan/Desktop/EseeNetSDK/HaierSweepRobotApp/HaierSweepRobotApp/Yoosee/Controllers/CreateInitPasswordController.m"
-                  timestampString = "501764516.916569"
+                  timestampString = "501846449.907945"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "566"
@@ -243,7 +243,7 @@
                   moduleName = "HaierSweepRobotApp"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/lichaopan/Desktop/EseeNetSDK/HaierSweepRobotApp/HaierSweepRobotApp/Yoosee/Controllers/CreateInitPasswordController.m"
-                  timestampString = "501764516.918126"
+                  timestampString = "501846449.909624"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "566"
@@ -500,22 +500,6 @@
             startingLineNumber = "155"
             endingLineNumber = "155"
             landmarkName = "-viewWillDisappear:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "HaierSweepRobotApp/EseeSDK/SDKDemo/ENPlaybackkViewController.m"
-            timestampString = "501749405.753175"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "445"
-            endingLineNumber = "445"
-            landmarkName = "-play"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

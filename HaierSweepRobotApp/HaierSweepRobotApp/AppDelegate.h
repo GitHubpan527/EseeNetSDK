@@ -39,10 +39,10 @@
 
 - (void)againLogin;
 
-
+/*
 @property (nonatomic,assign) BOOL isForceLandscape;//横屏
 @property (nonatomic,assign) BOOL isForcePortrait;//竖屏
-
+*/
 
 @property (nonatomic,strong)QRCodeController *qrVC;
 

@@ -12,8 +12,10 @@
 
 #define SecondDistance (_timeLineView.frame.size.width/86400)
 
-#define WIDTH              [UIScreen mainScreen].bounds.size.width
-#define HEIGHT             [UIScreen mainScreen].bounds.size.height
+#define WIDTH1              [UIScreen mainScreen].bounds.size.width
+#define HEIGHT1             [UIScreen mainScreen].bounds.size.height
+#define WIDTH              self.view.frame.size.width
+#define HEIGHT             self.view.frame.size.height
 #define ViewX(view)        view.frame.origin.x
 #define ViewY(view)        view.frame.origin.y
 #define ViewW(view)        view.frame.size.width
@@ -52,6 +54,9 @@
     UILabel *endLabel;//总时间
     UISlider *slider;//滑块
     UIButton *btnB;//全屏按钮
+    
+    BOOL isFullScreen;
+    UIDeviceOrientation orientation;
 }
 @end
 
@@ -83,7 +88,11 @@
     [self layoutRecordVideo];
     [self btnView];
     [self playAndPauseView];
-
+    
+    orientation = [UIDevice currentDevice].orientation;
+    
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
+    
 }
 - (void)layoutRecordVideo
 {
@@ -133,7 +142,7 @@
 }
 - (void)playAndPauseView
 {
-    bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, HEIGHT - 50, WIDTH, 50)];
+    bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, HEIGHT1 - 50, WIDTH, 50)];
     bottomView.backgroundColor = [UIColor darkGrayColor];
     bottomView.alpha = 0;
     [self.view addSubview:bottomView];
@@ -149,6 +158,8 @@
     [btnB setImage:[UIImage imageNamed:@"NVRquanping.png"] forState:UIControlStateNormal];
     [btnB addTarget:self action:@selector(fullScreen:) forControlEvents:UIControlEventTouchUpInside];
     [bottomView addSubview:btnB];
+    isFullScreen = NO;
+    
     //
     startLabel = [[UILabel alloc] initWithFrame:CGRectMake(ViewRightX(btnA) + Jianju, (ViewH(bottomView) - 30) / 2, 43, 30)];
     startLabel.text = @"00:00:00";
@@ -228,87 +239,82 @@
 - (void)fullScreen:(UIButton *)sender
 {
     static BOOL isOrientation = YES;
-    
     if (isOrientation == YES) {
-        _recordVideo.frame = CGRectMake(0, -32, HEIGHT, WIDTH);
-        bottomView.frame = CGRectMake(0, WIDTH - 50 - 32, HEIGHT, 50);
-        btnA.frame = CGRectMake(Jianju, (ViewH(bottomView) - 32) / 2, 32, 32);
-        //change
-        btnB.frame = CGRectMake(HEIGHT - Jianju - 32, (ViewH(bottomView) - 32) / 2, 32, 32);
-        startLabel.frame = CGRectMake(ViewRightX(btnA) + Jianju, (ViewH(bottomView) - 30) / 2, 43, 30);
-        endLabel.frame = CGRectMake(ViewX(btnB) - Jianju - 43, (ViewH(bottomView) - 30) / 2, 43, 30);
-        slider.frame = CGRectMake(ViewRightX(startLabel) + Jianju, (ViewH(bottomView) - 30) / 2, ViewX(endLabel) - Jianju * 2 - ViewRightX(startLabel), 30);
+        isFullScreen = YES;
+        [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:NO];
+        if (orientation == UIDeviceOrientationPortrait) {
+            NSLog(@"当前竖屏模式");
+            [self rightHengpinAction];
+            
+        }else if(orientation == UIDeviceOrientationLandscapeLeft)
+        {
+            NSLog(@"当前左横屏模式");
+            [self shupinAction];
+            
+        }else if(orientation == UIDeviceOrientationLandscapeRight)
+        {
+            NSLog(@"当前右横屏模式");
+            [self shupinAction];
+        }
+        isOrientation = NO;
         
         [sender setImage:[UIImage imageNamed:@"NVRnoquanping.png"] forState:UIControlStateNormal];
-        
         [[UIDevice currentDevice] setValue: [NSNumber numberWithInteger: UIInterfaceOrientationLandscapeRight] forKey:@"orientation"];
-        
-        /*
-        AppDelegate *appdelegate=(AppDelegate *)[UIApplication sharedApplication].delegate;
-        appdelegate.isForcePortrait = NO;
-        [self forceOrientationLandscape]; //强制横屏
-        isOrientation = NO;
-         */
-        
+
     }else{
-        _recordVideo.frame = CGRectMake(0, (HEIGHT - WIDTH) / 2, WIDTH, WIDTH);
-        bottomView.frame = CGRectMake(0, HEIGHT - 50, WIDTH, 50);
-        btnA.frame = CGRectMake(Jianju, (ViewH(bottomView) - 32) / 2, 32, 32);
-        //change
-        btnB.frame = CGRectMake(WIDTH - Jianju - 32, (ViewH(bottomView) - 32) / 2, 32, 32);
-        startLabel.frame = CGRectMake(ViewRightX(btnA) + Jianju, (ViewH(bottomView) - 30) / 2, 43, 30);
-        endLabel.frame = CGRectMake(ViewX(btnB) - Jianju - 43, (ViewH(bottomView) - 30) / 2, 43, 30);
-        slider.frame = CGRectMake(ViewRightX(startLabel) + Jianju, (ViewH(bottomView) - 30) / 2, ViewX(endLabel) - Jianju * 2 - ViewRightX(startLabel), 30);
         
+        isFullScreen = NO;
+        [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:NO];
+        [self shupinAction];
         [sender setImage:[UIImage imageNamed:@"NVRquanping.png"] forState:UIControlStateNormal];
-        
         [[UIDevice currentDevice] setValue: [NSNumber numberWithInteger: UIInterfaceOrientationPortrait] forKey:@"orientation"];
-        
-//        [[UIDevice currentDevice] setValue: [NSNumber numberWithInteger: UIInterfaceOrientationPortrait] forKey:@"orientation"];
-        /*
-        AppDelegate *appdelegate=(AppDelegate *)[UIApplication sharedApplication].delegate;
-        appdelegate.isForceLandscape = NO;
-        [self forceOrientationPortrait];//强制竖屏
         isOrientation = YES;
-         */
+
     }
 }
-#pragma mark - 强制横屏&竖屏
-//强制横屏
--(void)forceOrientationLandscape{
-    //这段代码，只能旋转屏幕不能达到强制横屏的效果
-    if ([[UIDevice currentDevice] respondsToSelector:@selector(setOrientation:)]) {
-        SEL selector = NSSelectorFromString(@"setOrientation:");
-        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[UIDevice instanceMethodSignatureForSelector:selector]];
-        [invocation setSelector:selector];
-        [invocation setTarget:[UIDevice currentDevice]];
-        int val = UIInterfaceOrientationLandscapeRight;
-        [invocation setArgument:&val atIndex:2];
-        [invocation invoke];
-    }
-    //加上代理类里的方法，旋转屏幕可以达到强制横屏的效果
-    AppDelegate *appdelegate=(AppDelegate *)[UIApplication sharedApplication].delegate;
-    appdelegate.isForceLandscape=YES;
-    [appdelegate application:[UIApplication sharedApplication] supportedInterfaceOrientationsForWindow:self.view.window];
+//竖屏
+-(void)shupinAction
+{
+    NSLog(@"%f - %f - %f - %f",WIDTH1,HEIGHT1,WIDTH,HEIGHT);
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    _recordVideo.frame = CGRectMake(0, (WIDTH1 - HEIGHT1) / 2 - 64, HEIGHT1, HEIGHT1);
+    bottomView.frame = CGRectMake(0, WIDTH1 - 50 - 64, HEIGHT1, 50);
+    btnA.frame = CGRectMake(Jianju, (ViewH(bottomView) - 32) / 2, 32, 32);
+    //change
+    btnB.frame = CGRectMake(HEIGHT1 - Jianju - 32, (ViewH(bottomView) - 32) / 2, 32, 32);
+    startLabel.frame = CGRectMake(ViewRightX(btnA) + Jianju, (ViewH(bottomView) - 30) / 2, 43, 30);
+    endLabel.frame = CGRectMake(ViewX(btnB) - Jianju - 43, (ViewH(bottomView) - 30) / 2, 43, 30);
+    slider.frame = CGRectMake(ViewRightX(startLabel) + Jianju, (ViewH(bottomView) - 30) / 2, ViewX(endLabel) - Jianju * 2 - ViewRightX(startLabel), 30);
+//    }];
 }
-//强制竖屏
--(void)forceOrientationPortrait{
+//横屏
+-(void)rightHengpinAction
+{
+    NSLog(@"%f - %f - %f - %f",WIDTH1,HEIGHT1,WIDTH,HEIGHT);
+    _recordVideo.frame = CGRectMake(0, -32, HEIGHT1, WIDTH1);
+    bottomView.frame = CGRectMake(0, WIDTH1 - 50 - 32, HEIGHT1, 50);
+    btnA.frame = CGRectMake(Jianju, (ViewH(bottomView) - 32) / 2, 32, 32);
+    //change
+    btnB.frame = CGRectMake(HEIGHT1 - Jianju - 32, (ViewH(bottomView) - 32) / 2, 32, 32);
+    startLabel.frame = CGRectMake(ViewRightX(btnA) + Jianju, (ViewH(bottomView) - 30) / 2, 43, 30);
+    endLabel.frame = CGRectMake(ViewX(btnB) - Jianju - 43, (ViewH(bottomView) - 30) / 2, 43, 30);
+    slider.frame = CGRectMake(ViewRightX(startLabel) + Jianju, (ViewH(bottomView) - 30) / 2, ViewX(endLabel) - Jianju * 2 - ViewRightX(startLabel), 30);
+}
+//横屏
+-(void)leftHengpinAction
+{
+    _recordVideo.frame = CGRectMake(0, -32, HEIGHT1, WIDTH1);
+    bottomView.frame = CGRectMake(0, WIDTH1 - 50 - 32, HEIGHT1, 50);
+    btnA.frame = CGRectMake(Jianju, (ViewH(bottomView) - 32) / 2, 32, 32);
+    //change
+    btnB.frame = CGRectMake(HEIGHT1 - Jianju - 32, (ViewH(bottomView) - 32) / 2, 32, 32);
+    startLabel.frame = CGRectMake(ViewRightX(btnA) + Jianju, (ViewH(bottomView) - 30) / 2, 43, 30);
+    endLabel.frame = CGRectMake(ViewX(btnB) - Jianju - 43, (ViewH(bottomView) - 30) / 2, 43, 30);
+    slider.frame = CGRectMake(ViewRightX(startLabel) + Jianju, (ViewH(bottomView) - 30) / 2, ViewX(endLabel) - Jianju * 2 - ViewRightX(startLabel), 30);
     
-    //这段代码，只能旋转屏幕不能达到强制竖屏的效果
-    if ([[UIDevice currentDevice] respondsToSelector:@selector(setOrientation:)]) {
-        SEL selector = NSSelectorFromString(@"setOrientation:");
-        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[UIDevice instanceMethodSignatureForSelector:selector]];
-        [invocation setSelector:selector];
-        [invocation setTarget:[UIDevice currentDevice]];
-        int val = UIInterfaceOrientationMaskPortrait;
-        [invocation setArgument:&val atIndex:2];
-        [invocation invoke];
-    }
-    
-    AppDelegate *appdelegate=(AppDelegate *)[UIApplication sharedApplication].delegate;
-    appdelegate.isForcePortrait=YES;
-    [appdelegate application:[UIApplication sharedApplication] supportedInterfaceOrientationsForWindow:self.view.window];
+//    }];
 }
+
 //得到所有的时间
 - (NSString *)getAllTime
 {
@@ -381,7 +387,8 @@
 {
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.hidden = YES;
-    
+    AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    delegate.window.backgroundColor = [UIColor grayColor];
 }
 - (void)viewWillDisappear:(BOOL)animated
 {
@@ -390,9 +397,8 @@
     
     [[UIDevice currentDevice] setValue: [NSNumber numberWithInteger: UIInterfaceOrientationPortrait] forKey:@"orientation"];
     
-    AppDelegate *appdelegate=(AppDelegate *)[UIApplication sharedApplication].delegate;
-    appdelegate.isForcePortrait = NO;
-    appdelegate.isForceLandscape = NO;
+    AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    delegate.window.backgroundColor = [UIColor whiteColor];
     
 }
 - (void)taped:(UITapGestureRecognizer *)tap
@@ -518,6 +524,42 @@
     int GMT             = [mydate timeIntervalSince1970];
     return GMT;
 }
+
+//通知处理的监听事件
+/*
+- (void)orientChange:(NSNotification *)noti {
+    orientation = [UIDevice currentDevice].orientation;
+    NSLog(@"打印现在的设备方向：%ld",(long)orientation);//0竖屏1倒立2左屏3右屏
+    switch (orientation)
+    {
+        case UIDeviceOrientationPortrait: {
+            NSLog(@"屏幕竖直");
+            isFullScreen = NO;
+            [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:NO];
+            [self shupinAction];
+        }
+            break;
+            
+        case UIDeviceOrientationLandscapeLeft: {
+            
+            isFullScreen = YES;
+            NSLog(@"屏幕向左转");
+            [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:NO];
+            [self rightHengpinAction];
+        }
+            break;
+        case UIDeviceOrientationLandscapeRight: {
+            isFullScreen = YES;
+            NSLog(@"屏幕向右转");
+            [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:NO];
+            [self leftHengpinAction];
+        }
+            break;
+        default:
+            break;
+    }
+}
+*/
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
