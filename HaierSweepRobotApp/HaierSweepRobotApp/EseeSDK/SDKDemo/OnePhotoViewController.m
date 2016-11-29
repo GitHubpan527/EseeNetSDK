@@ -140,18 +140,21 @@
     //    UIImageView *imageV = (UIImageView *)lgr.view;
     //    [imageV removeFromSuperview];
     if (lgr.state == UIGestureRecognizerStateBegan) {
-        [self AlertCTwo:@"分享" and:@"保存到相册" and:@"删除图片"];
+//        [self AlertCTwo:@"分享" and:@"保存到相册" and:@"删除图片"];
+        [self AlertCTwo:@"保存到相册" and:@"删除图片"];
     }
 }
-- (void)AlertCTwo:(NSString *)message1 and:(NSString *)message2 and:(NSString *)message3
+- (void)AlertCTwo:(NSString *)message2 and:(NSString *)message3
 {
     
     //提示框
     UIAlertController * alertCtr = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    /*
     UIAlertAction * action1 = [UIAlertAction actionWithTitle:message1 style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         //分享
         NSLog(@"分享");
     }];
+     */
     UIAlertAction * action2 = [UIAlertAction actionWithTitle:message2 style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         
         //保存到相册
@@ -178,7 +181,7 @@
     
     [action3 setValue:[UIColor redColor] forKey:@"_titleTextColor"];
     
-    [alertCtr addAction:action1];
+//    [alertCtr addAction:action1];
     [alertCtr addAction:action2];
     [alertCtr addAction:action3];
     [alertCtr addAction:action4];

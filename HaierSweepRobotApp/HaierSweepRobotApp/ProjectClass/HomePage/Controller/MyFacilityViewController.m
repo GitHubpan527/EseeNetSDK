@@ -180,6 +180,13 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
+    
+//    [self.facilityTB.mj_header beginRefreshing];
+    
+//    [self requestDataWithRefresh:YES];
+    
+    
     [self requestMessageCount];
     
     
@@ -196,7 +203,13 @@
     [self.sideTB reloadData];
     
     [self requestScrollData];
+    
+    
     [self refreshRobotList];
+    
+    
+    
+    
 }
 
 - (void)requestMessageCount
@@ -395,6 +408,7 @@
      self.automaticallyAdjustsScrollViewInsets = NO;
      
      }
+    
      //表格下拉刷新
      [tableView addPullToRefreshWithActionHandler:^{
      
@@ -848,7 +862,7 @@
                 }
                 
                 if(result==1){
-                    self.progressLabel.text = [NSString stringWithFormat:@"%i%%",value];//device update
+                    self.progressLabel.text = [NSString stringWithFormat:@"%li%%",(long)value];//device update
                     [self.progressMaskView setHidden:NO];
                     DLog(@"%i",value);
                 }else if(result==65){
@@ -1870,8 +1884,11 @@
                 
                 NSString *userName = @"admin";//admin后台没有这个字段，也就是用户名称
                 int port = 0;//也没有这个端口
-                
-                [ENLive setDeviceInfoWithDeviceIDOrIP:model.res2 UserName:userName Passwords:model.res1 Port:port];
+                NSString *channel = [[NSUserDefaults standardUserDefaults] objectForKey:@"NVRAllChannel"];
+                if (channel == nil) {
+                    channel = @"4";
+                }
+                [ENLive setDeviceInfoWithDeviceIDOrIP:model.res2 UserName:userName Passwords:model.res1 Port:port Channel:[channel intValue]];
                 
                 [self.navigationController pushViewController:ENLive animated:YES];
             }else{
@@ -2117,7 +2134,7 @@
             
             #warning 做一些工作，比如后台数据和本地缓存匹配的问题
             [self dataMatchUpdate];
-            //[self.tableView reloadData];
+            [self.tableView reloadData];
         } else {
             //[self stopAnimating];
             [JPAlertView jp_alertViewInitWithTitle:@"提示" message:successObject[@"message"] cancelButton:nil otherButton:@"确定" actionBlock:^(NSInteger buttonIndex) {

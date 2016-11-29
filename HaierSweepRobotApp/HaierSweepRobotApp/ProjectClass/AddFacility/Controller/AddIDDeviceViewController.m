@@ -23,6 +23,10 @@
 @property (weak, nonatomic) IBOutlet UITextField *userNameTextField;
 @property (weak, nonatomic) IBOutlet UILabel *passwordLabel;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
+@property (weak, nonatomic) IBOutlet UILabel *AllChannelLabel;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *AllChannelSegment;
+/* 总的通道数 */
+@property (nonatomic,strong) NSString *AllChannelString;
 
 /* 该ID是否存在 */
 @property (nonatomic,assign) BOOL isExit;
@@ -35,9 +39,22 @@
     NSString *NVRID;
 }
 
+- (IBAction)AllChannelSegmentEvent:(id)sender {
+    UISegmentedControl * segment = (UISegmentedControl *)sender;
+    if (segment.selectedSegmentIndex == 0) {
+        _AllChannelString = @"4";
+    }else{
+        _AllChannelString = @"8";
+    }
+    
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    _AllChannelString = @"4";
+    _passwordTextField.secureTextEntry = YES;
     _isExit = NO;
     [self getID];
     self.navigationItem.title = CustomLocalizedString(@"addNVRDevice", nil);
@@ -97,7 +114,8 @@
         }else
         {
             /*
-             requestDic = @{@"userId":userModel.id,
+             requestDic = @{
+             @"userId":userModel.id,
              @"modelId":bindId,
              @"deviceId":self.contactId,
              @"name":self.nameTextfield.text,
@@ -109,15 +127,19 @@
                            @"modelId":NVRID,//NVR:358113623439362//云台:349655620622338
                            @"deviceId":_yunIDTextField.text,
                            @"name":_deviceNameTextField.text,
-                           @"devicepw":_passwordTextField.text};
+                           @"devicepw":_passwordTextField.text
+                           
+                           };
             
             [[NSUserDefaults standardUserDefaults] setObject:_yunIDTextField.text forKey:@"NVRDeviceID"];
             [[NSUserDefaults standardUserDefaults] setObject:_deviceNameTextField.text forKey:@"NVRDeviceName"];
             [[NSUserDefaults standardUserDefaults] setObject:_userNameTextField.text forKey:@"NVRUserName"];
             [[NSUserDefaults standardUserDefaults] setObject:_passwordTextField.text forKey:@"NVRDevicepw"];
+            [[NSUserDefaults standardUserDefaults] setObject:_AllChannelString forKey:@"NVRAllChannel"];
             [[NSUserDefaults standardUserDefaults] synchronize];
             [self.navigationController popToRootViewControllerAnimated:YES];
-            NSLog(@"NVRNVRNVRNVRNVRNVR%@------%@------%@------%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"NVRDeviceID"],[[NSUserDefaults standardUserDefaults] objectForKey:@"NVRDeviceName"],[[NSUserDefaults standardUserDefaults] objectForKey:@"NVRUserName"],[[NSUserDefaults standardUserDefaults] objectForKey:@"NVRDevicepw"]);
+            
+            NSLog(@"NVRNVRNVRNVRNVRNVR%@------%@------%@------%@-----%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"NVRDeviceID"],[[NSUserDefaults standardUserDefaults] objectForKey:@"NVRDeviceName"],[[NSUserDefaults standardUserDefaults] objectForKey:@"NVRUserName"],[[NSUserDefaults standardUserDefaults] objectForKey:@"NVRDevicepw"],[[NSUserDefaults standardUserDefaults] objectForKey:@"NVRAllChannel"]);
             [[RequestManager shareRequestManager] requestDataType:RequestTypePOST urlStr:DeviceAdd parameters:requestDic successBlock:^(id successObject) {
                 NSLog(@"success");
                 if ([successObject[@"result"] integerValue]) {//添加成功

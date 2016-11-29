@@ -9,6 +9,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AddIDDeviceViewController">
             <connections>
+                <outlet property="AllChannelLabel" destination="0PN-9S-IBB" id="Dcy-eM-CIV"/>
+                <outlet property="AllChannelSegment" destination="Cob-Vy-1r7" id="8j4-dw-lOS"/>
                 <outlet property="deviceNameLabel" destination="SG9-3R-95M" id="wns-ED-xwx"/>
                 <outlet property="deviceNameTextField" destination="CxY-1g-IDP" id="hvK-IG-0zh"/>
                 <outlet property="passwordLabel" destination="iX4-fX-z7d" id="cmr-aj-jrq"/>
@@ -39,7 +41,7 @@
                     </constraints>
                     <nil key="textColor"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits"/>
+                    <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                 </textField>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="设备名称：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SG9-3R-95M">
                     <constraints>
@@ -63,7 +65,7 @@
                     </constraints>
                     <nil key="textColor"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits"/>
+                    <textInputTraits key="textInputTraits" keyboardType="namePhonePad"/>
                 </textField>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="请输入摄像头密码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FfE-ql-Ulx">
                     <constraints>
@@ -71,7 +73,7 @@
                     </constraints>
                     <nil key="textColor"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits"/>
+                    <textInputTraits key="textInputTraits" keyboardType="namePhonePad"/>
                 </textField>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="密码：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iX4-fX-z7d">
                     <constraints>
@@ -87,13 +89,34 @@
                     </constraints>
                     <nil key="textColor"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits"/>
+                    <textInputTraits key="textInputTraits" keyboardType="namePhonePad"/>
                 </textField>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="总通道数：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0PN-9S-IBB">
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="g1j-9d-pDb"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Cob-Vy-1r7">
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="8w8-KM-RRe"/>
+                    </constraints>
+                    <segments>
+                        <segment title="4"/>
+                        <segment title="8"/>
+                    </segments>
+                    <connections>
+                        <action selector="AllChannelSegmentEvent:" destination="-1" eventType="valueChanged" id="iwo-30-SCr"/>
+                    </connections>
+                </segmentedControl>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="zc6-fK-9wm" firstAttribute="leading" secondItem="SG9-3R-95M" secondAttribute="leading" id="0jE-Gl-1jz"/>
                 <constraint firstAttribute="trailing" secondItem="Gdm-ab-ZcF" secondAttribute="trailing" constant="20" id="1iY-fr-9Xz"/>
+                <constraint firstItem="0PN-9S-IBB" firstAttribute="top" secondItem="iX4-fX-z7d" secondAttribute="bottom" constant="30" id="3fL-ME-NEJ"/>
                 <constraint firstItem="CxY-1g-IDP" firstAttribute="top" secondItem="Gdm-ab-ZcF" secondAttribute="bottom" constant="30" id="4dD-ld-5ym"/>
                 <constraint firstItem="zc6-fK-9wm" firstAttribute="top" secondItem="SG9-3R-95M" secondAttribute="bottom" constant="30" id="6CS-ti-Y0K"/>
                 <constraint firstItem="JQy-by-c0H" firstAttribute="top" secondItem="CxY-1g-IDP" secondAttribute="bottom" constant="30" id="6bC-di-hd8"/>
@@ -104,6 +127,7 @@
                 <constraint firstItem="Gdm-ab-ZcF" firstAttribute="width" secondItem="31x-NP-Q0t" secondAttribute="width" multiplier="2" id="LQ1-lD-jxx"/>
                 <constraint firstItem="SG9-3R-95M" firstAttribute="width" secondItem="31x-NP-Q0t" secondAttribute="width" id="NxL-4x-O0O"/>
                 <constraint firstItem="FfE-ql-Ulx" firstAttribute="top" secondItem="JQy-by-c0H" secondAttribute="bottom" constant="30" id="OMO-x6-b1h"/>
+                <constraint firstItem="Cob-Vy-1r7" firstAttribute="top" secondItem="FfE-ql-Ulx" secondAttribute="bottom" constant="30" id="POv-6I-Fs2"/>
                 <constraint firstItem="iX4-fX-z7d" firstAttribute="leading" secondItem="zc6-fK-9wm" secondAttribute="leading" id="Rjg-M8-gAH"/>
                 <constraint firstItem="JQy-by-c0H" firstAttribute="width" secondItem="CxY-1g-IDP" secondAttribute="width" id="UQQ-Qf-0L3"/>
                 <constraint firstItem="Gdm-ab-ZcF" firstAttribute="leading" secondItem="31x-NP-Q0t" secondAttribute="trailing" id="WxL-v9-989"/>
@@ -112,13 +136,17 @@
                 <constraint firstItem="CxY-1g-IDP" firstAttribute="width" secondItem="Gdm-ab-ZcF" secondAttribute="width" id="a03-OZ-c4B"/>
                 <constraint firstItem="SG9-3R-95M" firstAttribute="top" secondItem="31x-NP-Q0t" secondAttribute="bottom" constant="30" id="ckL-JO-TPI"/>
                 <constraint firstItem="Gdm-ab-ZcF" firstAttribute="leading" secondItem="31x-NP-Q0t" secondAttribute="trailing" id="cqB-Ye-Ysq"/>
+                <constraint firstItem="0PN-9S-IBB" firstAttribute="width" secondItem="iX4-fX-z7d" secondAttribute="width" id="eKI-Kb-vjN"/>
+                <constraint firstItem="Cob-Vy-1r7" firstAttribute="width" secondItem="FfE-ql-Ulx" secondAttribute="width" multiplier="0.8" id="erC-U2-a40"/>
                 <constraint firstItem="FfE-ql-Ulx" firstAttribute="trailing" secondItem="JQy-by-c0H" secondAttribute="trailing" id="gBs-0r-QdE"/>
+                <constraint firstItem="0PN-9S-IBB" firstAttribute="leading" secondItem="iX4-fX-z7d" secondAttribute="leading" id="h6B-eX-Sfc"/>
                 <constraint firstItem="iX4-fX-z7d" firstAttribute="width" secondItem="zc6-fK-9wm" secondAttribute="width" id="iOu-d6-xdz"/>
                 <constraint firstItem="31x-NP-Q0t" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="ldY-WK-yey"/>
                 <constraint firstItem="iX4-fX-z7d" firstAttribute="top" secondItem="zc6-fK-9wm" secondAttribute="bottom" constant="30" id="lww-ny-IMz"/>
                 <constraint firstItem="FfE-ql-Ulx" firstAttribute="width" secondItem="JQy-by-c0H" secondAttribute="width" id="qRT-Ox-yMR"/>
+                <constraint firstItem="Cob-Vy-1r7" firstAttribute="leading" secondItem="FfE-ql-Ulx" secondAttribute="leading" id="ysr-nq-46x"/>
             </constraints>
-            <point key="canvasLocation" x="-15" y="-4"/>
+            <point key="canvasLocation" x="-63.5" y="-52.5"/>
         </view>
     </objects>
 </document>

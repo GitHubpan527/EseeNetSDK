@@ -75,12 +75,14 @@
     [self.collectionView reloadData];
     if (_dataSource.count == 0) {
         [self showAlertWithAlertString:@"暂无数据"];
+    }else
+    {
+        [self prefersStatusBarHidden];
+        //    NSLog(@"%@",_dataSource[0]);
+        //    NSLog(@"%@",[_dataSource lastObject]);
+        [self navTitle];
     }
-    [self prefersStatusBarHidden];
     
-    NSLog(@"%@",_dataSource[0]);
-    NSLog(@"%@",[_dataSource lastObject]);
-    [self navTitle];
     
 }
 - (void)viewWillDisappear:(BOOL)animated

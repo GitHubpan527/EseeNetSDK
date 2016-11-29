@@ -23,7 +23,8 @@
 - (void)setDeviceInfoWithDeviceIDOrIP:(NSString *)IDOrIP
                              UserName:(NSString *)userName
                             Passwords:(NSString *)passwords
-                                 Port:(int)port;
+                                 Port:(int)port
+                                 Channel:(int)channel;
 
 
 @end

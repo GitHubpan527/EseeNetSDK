@@ -36,8 +36,8 @@
 #define NumBtnNormalColor [UIColor grayColor]
 #define NumBtnSelectColor [UIColor redColor]
 
-#define LiveCount 4 //视频最大数量
-#define DefaultLiveCount 4 // 初次进入视频个数
+#define LiveCount 8 //视频最大数量
+//#define DefaultLiveCount 4 // 初次进入视频个数
 
 #define GlodScale 0.618
 #define LiveTag    100
@@ -77,6 +77,12 @@
     EseeNetLive *liveVideo1;/**< 直播视频窗口*/
     
     UIImageView *liuliangImageView;//流量
+    
+    int DefaultLiveCount;
+//    int LiveCount;
+    
+    BOOL isLuXiang;
+    
 }
 
 
@@ -88,7 +94,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    isLuXiang = NO;
+    DefaultLiveCount = [deviceInfo[@"AllChannel"] intValue];
+//    LiveCount = [deviceInfo[@"AllChannel"] intValue];
     // Do any additional setup after loading the view.
     _fileManager = [NSFileManager defaultManager];
     self.view.backgroundColor = [UIColor grayColor];
@@ -106,6 +114,7 @@
     
     NSLog(@"===================%d=====================",indexALL);
     
+    
 }
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -118,17 +127,44 @@
         }
     }
 }
+/*
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    for (int i = 0; i < LiveCount; i++)
+    {
+        if (liveVideo[i])
+        {
+            //先关闭音频
+            [liveVideo[i] audioClose];
+            //代理设置为nil
+            liveVideo[i].delegate = nil;
+            //关闭视频,并断开连接
+            [liveVideo[i] stop];
+            //UI上移除该Video
+//            [liveVideo[i] removeFromSuperview];
+            //内存释放
+            liveVideo[i] = nil;
+            
+        }
+    }
+
+}
+ */
 
 - (void)setDeviceInfoWithDeviceIDOrIP:(NSString *)IDOrIP
                              UserName:(NSString *)userName
                             Passwords:(NSString *)passwords
                                  Port:(int)port
+                              Channel:(int)channel
 {
     deviceInfo = @{
                    @"devID":IDOrIP,//设备ID或IP
                    @"password":passwords,
                    @"userName":userName,
-                   @"port":[NSNumber numberWithInt:port]
+                   @"port":[NSNumber numberWithInt:port],
+                   @"AllChannel":[NSNumber numberWithInt:channel]
                    };
     
     /*
@@ -422,14 +458,15 @@
         }
         
         liveVideo[indexALL].frame = CGRectMake(0, 0, videoBaseView.bounds.size.width - margin_left - margin_right, videoBaseView.bounds.size.height - margin_top - margin_btm);
+        liveVideo[indexALL].layer.cornerRadius = 0;
         [self gestureRecognizer];
         [videoSubBaseView addSubview:liveVideo[indexALL]];
         isOne = NO;
     }else{
-        //双击变成四窗口
+        //双击变成小窗口
         [sender setTitle:@"全屏" forState:UIControlStateNormal];
         [liveVideo[indexALL] removeFromSuperview];
-        for (int i = 0; i < LiveCount; i ++) {
+        for (int i = 0; i < videoFrameArr.count; i ++) {
             liveVideo[i].frame = [videoFrameArr[i] CGRectValue];
             [videoSubBaseView addSubview:liveVideo[i]];
         }
@@ -454,7 +491,7 @@
     
     if (swipe.direction == UISwipeGestureRecognizerDirectionLeft) {
         //NSLog(@"左滑");
-        if (index < 3) {
+        if (index < DefaultLiveCount - 1) {
             //视频播放窗口的状态
             liveVideo[index].videoSelect = NO;
             //对应的数字的状态
@@ -530,6 +567,13 @@
 #pragma mark - 返回按钮的点击事件
 - (void)backClick:(UIButton *)sender
 {
+    [self exit];
+    [self.navigationController popViewControllerAnimated:YES];
+    
+}
+
+- (void)exit
+{
     for (int i = 0; i < LiveCount; i++)
     {
         if (liveVideo[i])
@@ -547,9 +591,8 @@
             
         }
     }
-    [self.navigationController popViewControllerAnimated:YES];
-    
 }
+
 #pragma mark - 音频按钮
 - (void)refreshBtn:(UIButton *)sender
 {
@@ -848,6 +891,11 @@
         [btn addTarget:self action:@selector(ctrlBtnAction:) forControlEvents:UIControlEventTouchUpInside];
         [btnBaseView addSubview:btn];
         videoIsSelect[i] = NO;
+        /*
+        if (i == 1) {
+            [btn addObserver:self forKeyPath:@"title" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+        }
+        */
     }
     
     UIView *btmLineView = [[UIView alloc]initWithFrame:CGRectMake(0, ViewH(videoNumHub)-.5,ViewW(videoNumHub), .5)];
@@ -855,6 +903,32 @@
     [ctrlHub addSubview:btmLineView];
     
 }
+/*
+//当被监听的属性发生变化时会调用这个方法
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    //keyPath   被监听的属性
+    //object    被监听的对象
+    //change    发生改变的信息
+    //context   上下文
+    if ([keyPath isEqualToString:@"title"]) {
+        NSLog(@"%@",change);
+        for (UIButton *btn in ctrlHub.subviews) {
+            if (btn.tag == CtrlBtnTag + 2) {
+                if (isLuXiang) {
+                    //正在录像
+                    btn.userInteractionEnabled = NO;
+                    btn.alpha = 0.4;
+                }else{
+                    //结束录像
+                    btn.userInteractionEnabled = YES;
+                    btn.alpha = 1.0;
+                }
+            }
+        }
+    }
+}
+ */
 //每个button的点击事件
 - (void)ctrlBtnAction:(UIButton *)sender
 {
@@ -936,6 +1010,7 @@
                 if (isStarting) {
                     //录像
 //                    [self showAlertWithAlertString:@"正在录像"];
+                    isLuXiang = YES;
                     [sender setTitle:@"结束录像" forState:UIControlStateNormal];
                     NSLog(@"开始录像");
                     
@@ -969,6 +1044,7 @@
                 }
                 else
                 {
+                    isLuXiang = NO;
                     //结束录像
                     [sender setTitle:@"录像" forState:UIControlStateNormal];
                     //结束录像
@@ -1002,13 +1078,19 @@
             
         case 2://分辨率
         {
-            if ([self getExistenceLiveAndSelectNumBtnContain:YES].count == 0) {
-                [self showAlertWithAlertString:@"请先选择一个通道"];
+            if (isLuXiang) {
+                [self showAlertWithAlertString:@"正在录像，不能切换分辨率"];
             }else{
-                UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:@"码流选择" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"高清",@"标清", nil];
-                sheet.tag = BitrateActionSheetTag;
-                [sheet showInView:self.view];
+                //                sender.enabled = NO;
+                if ([self getExistenceLiveAndSelectNumBtnContain:YES].count == 0) {
+                    [self showAlertWithAlertString:@"请先选择一个通道"];
+                }else{
+                    UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:@"码流选择" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"高清",@"标清", nil];
+                    sheet.tag = BitrateActionSheetTag;
+                    [sheet showInView:self.view];
+                }
             }
+            
         }
             break;
             
