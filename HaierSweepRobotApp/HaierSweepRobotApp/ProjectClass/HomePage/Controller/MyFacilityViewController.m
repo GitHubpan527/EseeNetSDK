@@ -182,6 +182,8 @@
 {
     [super viewWillAppear:animated];
     
+//    [self stopAnimating];
+    
 //    [self.facilityTB.mj_header beginRefreshing];
     
 //    [self requestDataWithRefresh:YES];
@@ -200,15 +202,14 @@
     } else {
         leftPlArray = @[@"商城",@"设置"];
     }
-    [self.sideTB reloadData];
     
     [self requestScrollData];
     
-    
     [self refreshRobotList];
     
+    [self.sideTB reloadData];
     
-    
+//    [self initComponent];
     
 }
 
@@ -1874,6 +1875,7 @@
             //摄像头
             MyFacilityModel *model = self.yooSeeArray[indexPath.row];
             NSLog(@"%@,%@,%@,%@,%@,%@,%@,%@",model.id,model.deviceId,model.type,model.typeId,model.name,model.modelId,model.res1,model.res2);
+            
             if ([model.modelId isEqualToString:NVRID]) {//358113623439362
                 //NVR
                 NSLog(@"久安NVR");
@@ -1889,6 +1891,8 @@
                     channel = @"4";
                 }
                 [ENLive setDeviceInfoWithDeviceIDOrIP:model.res2 UserName:userName Passwords:model.res1 Port:port Channel:[channel intValue]];
+                
+//                [self presentViewController:ENLive animated:YES completion:nil];
                 
                 [self.navigationController pushViewController:ENLive animated:YES];
             }else{

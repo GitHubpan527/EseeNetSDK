@@ -16,6 +16,7 @@
 #import "PhotoViewController.h"
 #import "VedioViewController.h"
 #import "AFNetworking.h"
+#import "Toast+UIView.h"
 
 //截图保存在沙盒路径Library下的Caches文件下NVRPhoto中
 #define LibCachesNVRPhotoPath [NSString stringWithFormat:@"%@%@",[NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) lastObject],@"/Caches/NVRPhoto"]
@@ -83,6 +84,7 @@
     
     BOOL isLuXiang;
     
+    int lvXiangIndex;//录像中的索引
 }
 
 
@@ -94,6 +96,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    //屏蔽侧边右滑返回
+    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+    }
+    
     isLuXiang = NO;
     DefaultLiveCount = [deviceInfo[@"AllChannel"] intValue];
 //    LiveCount = [deviceInfo[@"AllChannel"] intValue];
@@ -127,6 +134,8 @@
         }
     }
 }
+
+
 /*
 - (void)viewWillDisappear:(BOOL)animated
 {
@@ -373,6 +382,7 @@
     
 }
 #pragma mark - 数字按钮的点击事件
+
 - (void)numBarBtnAction:(UIButton *)sender
 {
     NSInteger index = sender.tag-NumBtnTag;
@@ -399,6 +409,7 @@
     }
     
 }
+ 
 #pragma mark - 单击手势的点击事件
 //UIView上的
 - (void)taped:(UITapGestureRecognizer *)sender
@@ -459,8 +470,9 @@
         
         liveVideo[indexALL].frame = CGRectMake(0, 0, videoBaseView.bounds.size.width - margin_left - margin_right, videoBaseView.bounds.size.height - margin_top - margin_btm);
         liveVideo[indexALL].layer.cornerRadius = 0;
-        [self gestureRecognizer];
         [videoSubBaseView addSubview:liveVideo[indexALL]];
+        videoSubBaseView.userInteractionEnabled = YES;
+        [self gestureRecognizer];
         isOne = NO;
     }else{
         //双击变成小窗口
@@ -479,16 +491,27 @@
     //添加左滑手势
     UISwipeGestureRecognizer *leftSwipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(leftAndRightSwipe:)];
     leftSwipe.direction = UISwipeGestureRecognizerDirectionLeft;
-    [liveVideo[indexALL] addGestureRecognizer:leftSwipe];
+//    [liveVideo[indexALL] addGestureRecognizer:leftSwipe];
+    [videoSubBaseView addGestureRecognizer:leftSwipe];
+//    for (int i = 0; i <videoFrameArr.count; i++)
+//    {
+//        [liveVideo[i] addGestureRecognizer:leftSwipe];
+//    }
     UISwipeGestureRecognizer *rightSwipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(leftAndRightSwipe:)];
     rightSwipe.direction = UISwipeGestureRecognizerDirectionRight;
-    [liveVideo[indexALL] addGestureRecognizer:rightSwipe];
+//    [liveVideo[indexALL] addGestureRecognizer:rightSwipe];
+    [videoSubBaseView addGestureRecognizer:rightSwipe];
+//    for (int i = 0; i <videoFrameArr.count; i++)
+//    {
+//        [liveVideo[i] addGestureRecognizer:rightSwipe];
+//    }
+    
 }
 - (void)leftAndRightSwipe:(UISwipeGestureRecognizer *)swipe
 {
     int index = (int)swipe.view.tag-LiveTag;
     //NSLog(@"%d",index);
-    
+    index = indexALL;
     if (swipe.direction == UISwipeGestureRecognizerDirectionLeft) {
         //NSLog(@"左滑");
         if (index < DefaultLiveCount - 1) {
@@ -519,6 +542,9 @@
             liveVideo[index + 1].videoSelect = YES;
             //对应的数字的状态
             numbtnSelect[index + 1] = YES;
+            
+            indexALL = index + 1;
+            
             //UI上对选中的数字按钮的处理
             UIButton *numBtn2 = (UIButton *)[self.view viewWithTag:NumBtnTag+index+1];
             numBtn2.tintColor = NumBtnSelectColor;
@@ -555,6 +581,9 @@
             liveVideo[index - 1].videoSelect = YES;
             //对应的数字的状态
             numbtnSelect[index - 1] = YES;
+            
+            indexALL = index - 1;
+            
             //UI上对选中的数字按钮的处理
             UIButton *numBtn2 = (UIButton *)[self.view viewWithTag:NumBtnTag+index-1];
             numBtn2.tintColor = NumBtnSelectColor;
@@ -833,6 +862,7 @@
         UIView *btnBaseView = [[UIView alloc]initWithFrame:CGRectMake(btnBaseViewWidth*i, 0,btnBaseViewWidth , ViewH(videoNumHub))];
         [videoNumHub addSubview:btnBaseView];
         
+        
         UIButton *btn          = [UIButton buttonWithType:UIButtonTypeSystem];
         btn.frame              = CGRectMake(0, 0, btnWith, btnWith);
         btn.titleLabel.font    = [UIFont systemFontOfSize:24];
@@ -843,10 +873,21 @@
 //        btn.layer.cornerRadius = 5;
         btn.center             = BoundsCenter(btnBaseView);
         btn.tag                = NumBtnTag+i;
-        [btn addTarget:self action:@selector(numBarBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+//        [btn addTarget:self action:@selector(numBarBtnAction:) forControlEvents:UIControlEventTouchUpInside];
         [btnBaseView addSubview:btn];
         
         videoIsSelect[i] = NO;
+        
+        
+        /*
+        UILabel *numLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, btnWith, btnWith)];
+        numLabel.text = [NSString stringWithFormat:@"%d",i+1];
+        numLabel.font = [UIFont systemFontOfSize:24];
+        numLabel.textColor = NumBtnNormalColor;
+        numLabel.center = BoundsCenter(btnBaseView);;
+        [btnBaseView addSubview:numLabel];
+        */
+        
     }
     
     UIView *btmLineView = [[UIView alloc]initWithFrame:CGRectMake(0, ViewH(videoNumHub)-.5,ViewW(videoNumHub), .5)];
@@ -969,9 +1010,11 @@
                     //创建成功，写进去
                     BOOL result = [UIImagePNGRepresentation(liveVideo[indexALL].currentImage)writeToFile: path atomically:YES]; // 保存成功会返回YES
                     if (result == YES) {
-                        [self showAlertWithAlertString:@"保存成功"];
+//                        [self.view makeToast:CustomLocalizedString(@"screenshot_success", nil)];
+                        [self showAlertWithAlertString:CustomLocalizedString(@"screenshot_success", nil)];
                     }else{
-                        [self showAlertWithAlertString:@"保存失败"];
+//                        [self.view makeToast:CustomLocalizedString(@"screenshot_failure", nil)];
+                        [self showAlertWithAlertString:CustomLocalizedString(@"screenshot_failure", nil)];
                     }
                 }else{
                     
@@ -1001,6 +1044,8 @@
             
         case 1://录像
         {
+//            static int lvXiangIndex;//录像通道
+            
             if ([self getExistenceLiveAndSelectNumBtnContain:YES].count == 0) {
                 [self showAlertWithAlertString:@"请先选择一个通道"];
             }else
@@ -1011,18 +1056,17 @@
                     //录像
 //                    [self showAlertWithAlertString:@"正在录像"];
                     isLuXiang = YES;
+                    lvXiangIndex = indexALL;
                     [sender setTitle:@"结束录像" forState:UIControlStateNormal];
                     NSLog(@"开始录像");
                     
                     //开始录像
-                    //保存到相册中
-                    //                        [liveVideo[indexALL] beginRecord];
                     //保存到沙盒路径下
-                    
+                    //                        [liveVideo[indexALL] beginRecord];
                     if ([_fileManager fileExistsAtPath:LibCachesNVRVideoPath]) {
                         NSLog(@"该路径下已存在同名文件夹");
                         
-                        [liveVideo[indexALL] beginRecordWithFilePath:path];
+                        [liveVideo[lvXiangIndex] beginRecordWithFilePath:path];
                     }else{
                         BOOL isCreate = [_fileManager createDirectoryAtPath:LibCachesNVRVideoPath withIntermediateDirectories:YES attributes:nil error:nil];//Direction是目录，也是文件夹的意思,intermediate中间文件夹
                         if (isCreate) {
@@ -1032,7 +1076,7 @@
                             BOOL isCreateFile = [_fileManager createFileAtPath:path contents:nil attributes:nil];
                             if (isCreateFile) {
                                 //文件创建成功
-                                [liveVideo[indexALL] beginRecordWithFilePath:path];
+                                [liveVideo[lvXiangIndex] beginRecordWithFilePath:path];
                             }else{
                                 NSLog(@"文件创建失败");
                             }
@@ -1063,7 +1107,7 @@
                      }];
                      */
                     //保存到沙盒路径中
-                    int a = [liveVideo[indexALL] endRecord];
+                    int a = [liveVideo[lvXiangIndex] endRecord];
                     if (a == 0) {
                         [self showAlertWithAlertString:@"录制成功"];
                     }else{

@@ -112,8 +112,14 @@
     }
     NSString *path = [LibCachesNVRVideoPath stringByAppendingString:[NSString stringWithFormat:@"%@%@",@"/",_dataSource[indexPath.row]]];
     NSLog(@"%@",_dataSource);
-    cell.myImageView.image = [self getImage:path];
-    
+    if ([self getImage:path] == nil){
+        NSLog(@"%@该位置没有数据",path);
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        [fileManager removeItemAtPath:path error:nil];
+        [_dataSource removeObjectAtIndex:indexPath.item];
+    }else{
+        cell.myImageView.image = [self getImage:path];
+    }
     NSArray *dateArray = [_dataSource[indexPath.row] componentsSeparatedByString:@"."];
     NSArray *dateArr = [dateArray[0] componentsSeparatedByString:@"_"];
     NSString *dateString = [NSString stringWithFormat:@"%@%@%@%@%@%@%@%@%@%@%@",dateArr[0],@"-",dateArr[1],@"-",dateArr[2],@" ",dateArr[3],@":",dateArr[4],@":",dateArr[5]];
@@ -156,6 +162,7 @@
     
     NSFileManager *fileManager = [NSFileManager defaultManager];
     [fileManager removeItemAtPath:path error:nil];
+    
     [_dataSource removeObjectAtIndex:indexPath.item];
     
     [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];

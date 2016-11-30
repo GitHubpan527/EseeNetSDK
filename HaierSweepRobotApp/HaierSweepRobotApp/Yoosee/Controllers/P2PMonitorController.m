@@ -2436,6 +2436,7 @@
     NSData *imgData = [NSData dataWithData:UIImagePNGRepresentation(tempImage)];
     [Utils saveScreenshotFile:imgData];
     [tempImage release];
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.view makeToast:CustomLocalizedString(@"screenshot_success", nil)];
     });

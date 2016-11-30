@@ -136,6 +136,7 @@ CFBundleDisplayName = "海尔";
 "about_us" = "关于我们";
 
 "screenshot_success" = "截图成功";
+"screenshot_failure" = "截图失败";
 
 "sure_to_delete" = "你确定要删除吗?";
 "sure_to_clear" = "你确定要清空吗?";
