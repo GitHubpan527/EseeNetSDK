@@ -35,15 +35,19 @@
     [[RequestManager shareRequestManager] requestDataType:RequestTypePOST urlStr:DeviceTypeFrontFindAll parameters:nil successBlock:^(id successObject) {
         [self mb_stop];
         if ([successObject[@"result"] boolValue]) {
-
+            
             self.typeArray = [DeviceTypeModel mj_objectArrayWithKeyValuesArray:successObject[@"object"]];
             DeviceTypeModel *typeModel = self.typeArray[0];
             NSArray *deviceListArray = typeModel.deviceModelList;
             if (deviceListArray.count) {
-                for (int i = 0; i < 2; i++) {
+                for (int i = 1; i < deviceListArray.count; i++) {
+                    
                     AddFacilityModel *model = deviceListArray[i];
+//                    if (![model.deviceModelName isEqualToString:@"套装 NVR"]) {
+//                        
+//                    }
                     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-                    button.frame = CGRectMake(10+90*i, 10, 80, 80);
+                    button.frame = CGRectMake(10+90*(i - 1), 10, 80, 80);
                     [button sd_setImageWithURL:[NSURL URLWithString:model.icon] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"海尔"]];
                     [button lc_block:^(UIButton *sender) {
                         

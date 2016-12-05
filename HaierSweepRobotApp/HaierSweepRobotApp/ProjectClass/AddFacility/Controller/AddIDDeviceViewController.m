@@ -46,7 +46,6 @@
     }else{
         _AllChannelString = @"8";
     }
-    
 }
 
 
@@ -123,12 +122,21 @@
              */
             //HL_ALERT(@"提示", @"相关操作");
             NSDictionary *requestDic = [NSDictionary dictionary];
-            requestDic = @{@"userId":_userNameTextField.text,
+            
+            NSDictionary *dict = @{@"NVRAllChannel":_AllChannelString,
+                                  @"NVRUserName":_userNameTextField.text};
+            NSError *error;
+            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dict
+                                                               options:NSJSONWritingPrettyPrinted
+                                                                 error:&error];
+            NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+            
+            requestDic = @{@"userId":userModel.id,//_userNameTextField.text
                            @"modelId":NVRID,//NVR:358113623439362//云台:349655620622338
                            @"deviceId":_yunIDTextField.text,
                            @"name":_deviceNameTextField.text,
-                           @"devicepw":_passwordTextField.text
-                           
+                           @"devicepw":_passwordTextField.text,
+                           @"res3":_AllChannelString
                            };
             
             [[NSUserDefaults standardUserDefaults] setObject:_yunIDTextField.text forKey:@"NVRDeviceID"];
@@ -143,6 +151,8 @@
             [[RequestManager shareRequestManager] requestDataType:RequestTypePOST urlStr:DeviceAdd parameters:requestDic successBlock:^(id successObject) {
                 NSLog(@"success");
                 if ([successObject[@"result"] integerValue]) {//添加成功
+                    
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshNVR" object:nil];
                     [self.navigationController popViewControllerAnimated:YES];
                 }
             } FailBlock:^(id failObject) {

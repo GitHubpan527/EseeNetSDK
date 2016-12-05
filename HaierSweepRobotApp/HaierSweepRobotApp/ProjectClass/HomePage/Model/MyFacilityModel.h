@@ -21,4 +21,6 @@
 @property (nonatomic,copy)NSString *modelImg;
 @property (nonatomic , copy) NSString * res2;//设备id
 @property (nonatomic , copy) NSString * res1;//设备密码
+@property (nonatomic , copy) NSString * res3;//附加信息
+
 @end

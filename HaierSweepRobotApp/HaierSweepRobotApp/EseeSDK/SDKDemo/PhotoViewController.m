@@ -9,6 +9,7 @@
 #import "PhotoViewController.h"
 #import "PhotoCollectionViewCell.h"
 #import "OnePhotoViewController.h"
+#import "ENLiveViewController.h"
 
 #define LibCachesNVRPhotoPath [NSString stringWithFormat:@"%@%@",[NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) lastObject],@"/Caches/NVRPhoto"]
 

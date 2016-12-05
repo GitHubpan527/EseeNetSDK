@@ -2438,7 +2438,10 @@
     [tempImage release];
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self.view makeToast:CustomLocalizedString(@"screenshot_success", nil)];
+        
+        HL_ALERT(nil, CustomLocalizedString(@"screenshot_success", nil));
+//        [self.view makeToast:CustomLocalizedString(@"screenshot_success", nil)];
+        
     });
     
 }

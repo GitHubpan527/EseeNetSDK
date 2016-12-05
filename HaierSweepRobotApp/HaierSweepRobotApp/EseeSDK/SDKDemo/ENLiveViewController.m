@@ -10,20 +10,25 @@
 #import "EseeNetLive.h"
 #import "UIColor+LC.h"
 #import "ENPlaybackkViewController.h"
-#include <ifaddrs.h>
-#include <arpa/inet.h>
-#include <net/if.h>
 #import "PhotoViewController.h"
 #import "VedioViewController.h"
 #import "AFNetworking.h"
 #import "Toast+UIView.h"
+
+//获取流量信息的类
+#include <arpa/inet.h>
+#include <net/if.h>
+#include <ifaddrs.h>
+#include <net/if_dl.h>
+
 
 //截图保存在沙盒路径Library下的Caches文件下NVRPhoto中
 #define LibCachesNVRPhotoPath [NSString stringWithFormat:@"%@%@",[NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) lastObject],@"/Caches/NVRPhoto"]
 //录像保存在沙盒路径Library下的Caches文件下NVRVideo中
 #define LibCachesNVRVideoPath [NSString stringWithFormat:@"%@%@",[NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) lastObject],@"/Caches/NVRVideo"]
 
-
+#define WIDTH_SCREEN       [UIScreen mainScreen].bounds.size.width
+#define HEIGHT_SCREEN      [UIScreen mainScreen].bounds.size.height
 #define WIDTH              self.view.bounds.size.width
 #define HEIGHT             self.view.bounds.size.height
 #define ViewX(view)        view.frame.origin.x
@@ -96,6 +101,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self initView];
+    //初始化UI
+    [self _initViewStyle];
+    //初始化视频窗口,并开始播放
+    [self _initVideo];
+}
+- (void)initView
+{
     //屏蔽侧边右滑返回
     if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
         self.navigationController.interactivePopGestureRecognizer.enabled = NO;
@@ -103,7 +116,7 @@
     
     isLuXiang = NO;
     DefaultLiveCount = [deviceInfo[@"AllChannel"] intValue];
-//    LiveCount = [deviceInfo[@"AllChannel"] intValue];
+    //    LiveCount = [deviceInfo[@"AllChannel"] intValue];
     // Do any additional setup after loading the view.
     _fileManager = [NSFileManager defaultManager];
     self.view.backgroundColor = [UIColor grayColor];
@@ -114,27 +127,66 @@
     [self.view addGestureRecognizer:tap];
     
     
-    //初始化UI
-    [self _initViewStyle];
-    //初始化视频窗口,并开始播放
-    [self _initVideo];
+    //    //初始化UI
+    //    [self _initViewStyle];
+    //    //初始化视频窗口,并开始播放
+    //    [self _initVideo];
     
     NSLog(@"===================%d=====================",indexALL);
-    
     
 }
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     
-    for (int i = 0; i <videoFrameArr.count; i++)
+//    [self initView];
+//    //初始化UI
+//    [self _initViewStyle];
+//    //初始化视频窗口,并开始播放
+//    [self _initVideo];
+    
+    for (int i = 0; i < videoFrameArr.count; i++)
     {
-        if (i  < DefaultLiveCount) {
-            [liveVideo[i] connectAndPlay];
+//        if (i  < DefaultLiveCount) {
+            [liveVideo[i] videoResume];
+//        }
+    }
+}
+- (void)exit
+{
+    for (int i = 0; i < videoFrameArr.count; i++)
+    {
+        if (liveVideo[i])
+        {
+            //先关闭音频
+            [liveVideo[i] audioClose];
+            //代理设置为nil
+            liveVideo[i].delegate = nil;
+            //关闭视频,并断开连接
+            [liveVideo[i] stop];
+            //UI上移除该Video
+            [liveVideo[i] removeFromSuperview];
+//            for (int i = 0; i < self.view.subviews.count; i ++) {
+//                [self.view.subviews[i] removeFromSuperview];
+//            }
+            //内存释放
+            liveVideo[i] = nil;
         }
     }
 }
-
+- (void)exit1
+{
+    for (int i = 0; i < videoFrameArr.count; i++)
+    {
+        if (liveVideo[i])
+        {
+            //先关闭音频
+//            [liveVideo[i] audioClose];
+            //关闭视频,并断开连接
+            [liveVideo[i] videoPause];
+        }
+    }
+}
 
 /*
 - (void)viewWillDisappear:(BOOL)animated
@@ -209,7 +261,7 @@
     view[index].layer.cornerRadius = 30;
     view[index].layer.masksToBounds = YES;
     [videoSubBaseView addSubview:view[index]];
-
+     
     liveVideo[index] = [[EseeNetLive alloc] initEseeNetLiveVideoWithFrame:view[index].frame];
     [view[index] addSubview:liveVideo[index]];
     */
@@ -267,7 +319,7 @@
      *
      *  @param ErrorText'key: @"connecting", @"connectFail", @"logining", @"loginFail", @"timeOut", @"loading", @"searching", @"searchFail", @"searchNull", @"playFail"
      */
-    [liveVideo[index] initOSDText:@{@"connecting":@"连接中",@"connectFail":@"连接失败",@"logining":@"登录中",@"loginFail":@"登录失败",@"timeOut":@"超时",@"loading":@"登录中",@"searching":@"搜索中",@"searchFail":@"搜索失败",@"searchNull":@"没有视频",@"playFail":@"播放失败"}];
+    [liveVideo[index] initOSDText:@{@"connecting":@"连接中",@"connectFail":@"连接失败",@"logining":@"登录中",@"loginFail":@"登录失败",@"timeOut":@"超时",@"loading":@"加载中",@"searching":@"搜索中",@"searchFail":@"搜索失败",@"searchNull":@"没有视频",@"playFail":@"播放失败"}];
     
 }
 
@@ -600,39 +652,24 @@
     [self.navigationController popViewControllerAnimated:YES];
     
 }
-
-- (void)exit
-{
-    for (int i = 0; i < LiveCount; i++)
-    {
-        if (liveVideo[i])
-        {
-            //先关闭音频
-            [liveVideo[i] audioClose];
-            //代理设置为nil
-            liveVideo[i].delegate = nil;
-            //关闭视频,并断开连接
-            [liveVideo[i] stop];
-            //UI上移除该Video
-            [liveVideo[i] removeFromSuperview];
-            //内存释放
-            liveVideo[i] = nil;
-            
-        }
-    }
-}
-
-#pragma mark - 音频按钮
+#pragma mark - 刷新按钮
 - (void)refreshBtn:(UIButton *)sender
 {
+//    for (int i = 0; i <videoFrameArr.count; i++)
+//    {
+////        if (i  < LiveCount) {
+////        [liveVideo[i] videoResume];
+//        //添加设备信息
+//        [liveVideo[i] setDeviceInfoWithDeviceID:deviceInfo[@"devID"]
+//                                          Passwords:deviceInfo[@"password"]
+//                                           UserName:deviceInfo[@"userName"]
+//                                            Channel:i
+//                                               Port:[deviceInfo[@"port"] intValue]];
+//        
+//        [liveVideo[i] connectAndPlay];
+////        }
+//    }
     
-    for (int i = 0; i <videoFrameArr.count; i++)
-    {
-        if (i  < LiveCount) {
-            [liveVideo[i] connectAndPlay];
-        }
-    }
-    /*
     static BOOL isOn = YES;
     if ([self getExistenceLiveAndSelectNumBtnContain:YES].count == 0) {
         [self showAlertWithAlertString:@"请先选择一个通道"];
@@ -647,7 +684,7 @@
                 //开启音效
                 [sender setImage:[UIImage imageNamed:@"novedio.png"] forState:UIControlStateNormal];
                 [liveVideo[[index intValue]] audioOpen];
-                [self showAlertWithAlertString:@"音效已开启"];
+//                [self showAlertWithAlertString:@"音效已开启"];
             }
             isOn = NO;
         }else{
@@ -656,20 +693,17 @@
                 //开启音效
                 [sender setImage:[UIImage imageNamed:@"vedio.png"] forState:UIControlStateNormal];
                 [liveVideo[[index intValue]] audioClose];
-                [self showAlertWithAlertString:@"音效已关闭"];
+//                [self showAlertWithAlertString:@"音效已关闭"];
             }
             isOn = YES;
         }
     }
-     */
 }
 
 - (void)dealloc
 {
     NSLog(@"----- Controller Dealloc -----");
 }
-
-
 
 #pragma mark - --- UI ---
 //初始化集合
@@ -701,9 +735,9 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
     //刷新按钮
     UIButton *refreshButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    refreshButton.frame = CGRectMake(WIDTH - 30, 27, 30, 30);
+    refreshButton.frame = CGRectMake(WIDTH_SCREEN - 30, 27, 30, 30);
     //    vedioButton.imageEdgeInsets = UIEdgeInsetsMake(0, -20, 0, 0);
-    [refreshButton setImage:[UIImage imageNamed:@"更新-(1)"] forState:UIControlStateNormal];
+    [refreshButton setImage:[UIImage imageNamed:@"vedio.png"] forState:UIControlStateNormal];//vedio.png  更新-(1)
     [refreshButton addTarget:self action:@selector(refreshBtn:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:refreshButton];
     
@@ -711,12 +745,11 @@
 //网络状态栏
 - (void)_net
 {
-    
     netState = [[UILabel alloc] initWithFrame:CGRectMake(WIDTH - 250, 0, 250 - 8, 26)];
     netState.textColor = [UIColor whiteColor];
     netState.textAlignment = NSTextAlignmentRight;
     
-    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(getInternetface) userInfo:nil repeats:YES];
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(getInternetface) userInfo:nil repeats:YES];
     [timer fireDate];
     
     [self.view addSubview:netState];
@@ -777,11 +810,12 @@
     return netStr;
 }
 - (void)getInternetface {
-    long long hehe = [self getInterfaceBytes];
-    NSLog(@"hehe:%lld",hehe);
-    
+//    long long hehe = [self getInterfaceBytes];
+//    NSLog(@"hehe:%lld",hehe);
+    NSArray *DataArr = [self getDataCounters];
     NSString *netSpeed = nil;
-    float speed = [self getInterfaceBytes] / 1024;
+//    float speed = [self getInterfaceBytes] / (8 * 1024);
+    float speed = (ABS([DataArr[1] floatValue]) + ABS([DataArr[3] floatValue])) / (8 * 1024);
     //B
     netSpeed = [NSString stringWithFormat:@"%.2f%@",speed,@"B/s"];
     NSLog(@"speed:%f",speed);
@@ -800,7 +834,7 @@
 - (void)_initVideoView
 {
     float videoBaseViewHeight = WIDTH;//*.9
-    if (self.view.bounds.size.height < 568) {
+    if (HEIGHT_SCREEN < 568) {
         videoBaseViewHeight = WIDTH*.64;
     }
     videoBaseView = [[UIView alloc]initWithFrame:CGRectMake(0, ViewH(netState), WIDTH, videoBaseViewHeight)];
@@ -1207,7 +1241,6 @@
 }
 - (void)clickOK:(UIBarButtonItem *)item
 {
-    
     NSDate *selected = [datePicker date];
     NSLog(@"date: %@", selected);//date: 2016-11-19 16:33:17 +0000
     NSArray *arrDate = [[NSString stringWithFormat:@"%@",selected] componentsSeparatedByString:@" "];
@@ -1216,7 +1249,7 @@
     [playback setPlayBackInfoWithDevIDOrIP:deviceInfo[@"devID"] UserName:deviceInfo[@"userName"] Passwords:deviceInfo[@"password"] Channel:1 Port:0 PlayTime:arrDate[0]];
     
 //    [self presentViewController:playback animated:YES completion:nil];
-    
+    [self exit1];
     [self.navigationController pushViewController:playback animated:YES];
 }
 
@@ -1248,7 +1281,7 @@
 //更换成查看、回放
 - (void)_initPhotoAndVideo
 {
-    bottomBaseView = [[UIView alloc]initWithFrame:CGRectMake(0, ViewBtmY(ctrlHub), WIDTH, HEIGHT-ViewBtmY(ctrlHub)-64)];
+    bottomBaseView = [[UIView alloc]initWithFrame:CGRectMake(0, ViewBtmY(ctrlHub), WIDTH_SCREEN, HEIGHT_SCREEN-ViewBtmY(ctrlHub)-64)];
     bottomBaseView.backgroundColor = [UIColor colorWithRed:0.9254901960784314 green:0.9411764705882353 blue:0.9450980392156862 alpha:1];
     [self.view addSubview:bottomBaseView];
     //截图、回放
@@ -1311,12 +1344,13 @@
     UIAlertController * alertCtr = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     UIAlertAction * action1 = [UIAlertAction actionWithTitle:message1 style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         PhotoViewController *photo = [[PhotoViewController alloc] init];
-        
+        [self exit1];
         [self.navigationController pushViewController:photo animated:YES];
     }];
     UIAlertAction * action2 = [UIAlertAction actionWithTitle:message2 style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         //[self datePicker];
         VedioViewController *vedio = [[VedioViewController alloc] init];
+        [self exit1];
         [self.navigationController pushViewController:vedio animated:YES];
         
     }];
@@ -1544,6 +1578,55 @@
 }
 
 #pragma mark - 获取网络流量信息
+- (NSArray *)getDataCounters
+{
+    BOOL   success;
+    struct ifaddrs *addrs;
+    const struct ifaddrs *cursor;
+    const struct if_data *networkStatisc;
+    
+    int WiFiSent = 0;
+    int WiFiReceived = 0;
+    int WWANSent = 0;
+    int WWANReceived = 0;
+    
+    NSString *name=[[NSString alloc]init];
+    
+    success = getifaddrs(&addrs) == 0;
+    if (success)
+    {
+        cursor = addrs;
+        while (cursor != NULL)
+        {
+            name=[NSString stringWithFormat:@"%s",cursor->ifa_name];
+            NSLog(@"ifa_name %s == %@\n", cursor->ifa_name,name);
+            // names of interfaces: en0 is WiFi ,pdp_ip0 is WWAN
+            if (cursor->ifa_addr->sa_family == AF_LINK)
+            {
+                if ([name hasPrefix:@"en"])
+                {
+                    networkStatisc = (const struct if_data *) cursor->ifa_data;
+                    WiFiSent+=networkStatisc->ifi_obytes;
+                    WiFiReceived+=networkStatisc->ifi_ibytes;
+                    NSLog(@"WiFiSent %d ==%d",WiFiSent,networkStatisc->ifi_obytes);
+                    NSLog(@"WiFiReceived %d ==%d",WiFiReceived,networkStatisc->ifi_ibytes);
+                }
+                if ([name hasPrefix:@"pdp_ip"])
+                {
+                    networkStatisc = (const struct if_data *) cursor->ifa_data;
+                    WWANSent+=networkStatisc->ifi_obytes;
+                    WWANReceived+=networkStatisc->ifi_ibytes;
+                    NSLog(@"WWANSent %d ==%d",WWANSent,networkStatisc->ifi_obytes);
+                    NSLog(@"WWANReceived %d ==%d",WWANReceived,networkStatisc->ifi_ibytes);
+                }
+            }
+            cursor = cursor->ifa_next;
+        }
+        freeifaddrs(addrs);
+    }
+    return [NSArray arrayWithObjects:[NSNumber numberWithInt:WiFiSent], [NSNumber numberWithInt:WiFiReceived],[NSNumber numberWithInt:WWANSent],[NSNumber numberWithInt:WWANReceived], nil];
+}
+
 - (long long) getInterfaceBytes
 {
     struct ifaddrs *ifa_list = 0, *ifa;

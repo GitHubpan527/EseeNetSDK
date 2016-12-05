@@ -128,6 +128,7 @@
 - (void)refreshBtn:(UIButton *)sender
 {
     [self play];
+    
 }
 - (void)btnView
 {
@@ -185,7 +186,6 @@
 #pragma mark - EseeNetRecordDelegate
 - (void)eseeNetRecordCurTime:(int)curTime
 {
-    
     endLabel.text = [self getAllTime];
     NSLog(@"%d,%@",curTime,[self TimeStamp:[NSString stringWithFormat:@"%d",curTime]]);
     NSString *string = [self TimeStamp:[NSString stringWithFormat:@"%d",curTime]];

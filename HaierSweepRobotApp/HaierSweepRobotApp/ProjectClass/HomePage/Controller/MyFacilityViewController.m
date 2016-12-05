@@ -209,7 +209,6 @@
     
     [self.sideTB reloadData];
     
-//    [self initComponent];
     
 }
 
@@ -226,8 +225,17 @@
     }];
 }
 
+- (void)refreshNVR {
+    [self refreshRobotList];
+    
+    [self.sideTB reloadData];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshNVR) name:@"refreshNVR" object:nil];
+    
     //获取NVR ID
     [self getID];
     

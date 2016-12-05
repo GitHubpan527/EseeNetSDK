@@ -230,6 +230,7 @@
 }
 //导航返回
 - (IBAction)backBtnAction:(UIBarButtonItem *)sender {
+    
     [_recordVideo stop:^(BOOL success) {
         
     }];

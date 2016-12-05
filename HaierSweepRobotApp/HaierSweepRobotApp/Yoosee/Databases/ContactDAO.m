@@ -65,7 +65,6 @@
             FMResultSet *rs = [tmp executeQuery:sql];
             while ([rs next]) {
                 
-                
                 NSString *contactName = [rs stringForColumn:@"cName"];
                 NSString *contactId = [rs stringForColumn:@"accountNPC"];
                 NSString *contactPassword = [rs stringForColumn:@"pwdNPC"];
