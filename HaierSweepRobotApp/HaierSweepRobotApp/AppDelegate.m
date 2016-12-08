@@ -333,6 +333,9 @@
                                                               userInfo:nil];
         }
     }
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"NVRHengScreen" object:nil];
+    
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {

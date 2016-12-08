@@ -857,6 +857,17 @@
 		53A121151DD9A1D200F22BFE /* AddIDDeviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 53A121131DD9A1D200F22BFE /* AddIDDeviceViewController.m */; };
 		53A121161DD9A1D200F22BFE /* AddIDDeviceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53A121141DD9A1D200F22BFE /* AddIDDeviceViewController.xib */; };
 		53CC9AE71DDAF273008EADB9 /* nvr.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 53CC9AE61DDAF273008EADB9 /* nvr.jpg */; };
+		53E593A81DF8ECF100E09AF1 /* NVR截图.png in Resources */ = {isa = PBXBuildFile; fileRef = 53E5939E1DF8ECF100E09AF1 /* NVR截图.png */; };
+		53E593A91DF8ECF100E09AF1 /* NVR截图的副本.png in Resources */ = {isa = PBXBuildFile; fileRef = 53E5939F1DF8ECF100E09AF1 /* NVR截图的副本.png */; };
+		53E593AA1DF8ECF100E09AF1 /* NVR录像-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 53E593A01DF8ECF100E09AF1 /* NVR录像-2.png */; };
+		53E593AB1DF8ECF100E09AF1 /* NVR录像.png in Resources */ = {isa = PBXBuildFile; fileRef = 53E593A11DF8ECF100E09AF1 /* NVR录像.png */; };
+		53E593AC1DF8ECF100E09AF1 /* NVR录像的副本 2.png in Resources */ = {isa = PBXBuildFile; fileRef = 53E593A21DF8ECF100E09AF1 /* NVR录像的副本 2.png */; };
+		53E593AD1DF8ECF100E09AF1 /* NVR录像的副本.png in Resources */ = {isa = PBXBuildFile; fileRef = 53E593A31DF8ECF100E09AF1 /* NVR录像的副本.png */; };
+		53E593AE1DF8ECF100E09AF1 /* NVR全屏.png in Resources */ = {isa = PBXBuildFile; fileRef = 53E593A41DF8ECF100E09AF1 /* NVR全屏.png */; };
+		53E593AF1DF8ECF100E09AF1 /* NVR智能摄像头-分辨率高.png in Resources */ = {isa = PBXBuildFile; fileRef = 53E593A51DF8ECF100E09AF1 /* NVR智能摄像头-分辨率高.png */; };
+		53E593B01DF8ECF100E09AF1 /* NVRjieshuTime.png in Resources */ = {isa = PBXBuildFile; fileRef = 53E593A61DF8ECF100E09AF1 /* NVRjieshuTime.png */; };
+		53E593B11DF8ECF100E09AF1 /* NVRqishiTime.png in Resources */ = {isa = PBXBuildFile; fileRef = 53E593A71DF8ECF100E09AF1 /* NVRqishiTime.png */; };
+		53E593B31DF93DA500E09AF1 /* NVR结束.png in Resources */ = {isa = PBXBuildFile; fileRef = 53E593B21DF93DA500E09AF1 /* NVR结束.png */; };
 		93B135D8DEFACB9B034C5827 /* Pods_HaierSweepRobotApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50AE88EE06F58C816722D978 /* Pods_HaierSweepRobotApp.framework */; };
 		95494EFA1D8654640003CBBE /* MessageListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 95494EF81D8654640003CBBE /* MessageListCell.m */; };
 		95494EFB1D8654640003CBBE /* MessageListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95494EF91D8654640003CBBE /* MessageListCell.xib */; };
@@ -2084,6 +2095,17 @@
 		53A121131DD9A1D200F22BFE /* AddIDDeviceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddIDDeviceViewController.m; sourceTree = "<group>"; };
 		53A121141DD9A1D200F22BFE /* AddIDDeviceViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddIDDeviceViewController.xib; sourceTree = "<group>"; };
 		53CC9AE61DDAF273008EADB9 /* nvr.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = nvr.jpg; sourceTree = "<group>"; };
+		53E5939E1DF8ECF100E09AF1 /* NVR截图.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NVR截图.png"; sourceTree = "<group>"; };
+		53E5939F1DF8ECF100E09AF1 /* NVR截图的副本.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NVR截图的副本.png"; sourceTree = "<group>"; };
+		53E593A01DF8ECF100E09AF1 /* NVR录像-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NVR录像-2.png"; sourceTree = "<group>"; };
+		53E593A11DF8ECF100E09AF1 /* NVR录像.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NVR录像.png"; sourceTree = "<group>"; };
+		53E593A21DF8ECF100E09AF1 /* NVR录像的副本 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NVR录像的副本 2.png"; sourceTree = "<group>"; };
+		53E593A31DF8ECF100E09AF1 /* NVR录像的副本.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NVR录像的副本.png"; sourceTree = "<group>"; };
+		53E593A41DF8ECF100E09AF1 /* NVR全屏.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NVR全屏.png"; sourceTree = "<group>"; };
+		53E593A51DF8ECF100E09AF1 /* NVR智能摄像头-分辨率高.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NVR智能摄像头-分辨率高.png"; sourceTree = "<group>"; };
+		53E593A61DF8ECF100E09AF1 /* NVRjieshuTime.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NVRjieshuTime.png; sourceTree = "<group>"; };
+		53E593A71DF8ECF100E09AF1 /* NVRqishiTime.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NVRqishiTime.png; sourceTree = "<group>"; };
+		53E593B21DF93DA500E09AF1 /* NVR结束.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NVR结束.png"; sourceTree = "<group>"; };
 		7903138627F3297B0C40CD23 /* Pods-HaierSweepRobotApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HaierSweepRobotApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-HaierSweepRobotApp/Pods-HaierSweepRobotApp.release.xcconfig"; sourceTree = "<group>"; };
 		95494EF71D8654640003CBBE /* MessageListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageListCell.h; sourceTree = "<group>"; };
 		95494EF81D8654640003CBBE /* MessageListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageListCell.m; sourceTree = "<group>"; };
@@ -4269,6 +4291,17 @@
 		53A120F51DD99CE900F22BFE /* photo */ = {
 			isa = PBXGroup;
 			children = (
+				53E593B21DF93DA500E09AF1 /* NVR结束.png */,
+				53E5939E1DF8ECF100E09AF1 /* NVR截图.png */,
+				53E5939F1DF8ECF100E09AF1 /* NVR截图的副本.png */,
+				53E593A01DF8ECF100E09AF1 /* NVR录像-2.png */,
+				53E593A11DF8ECF100E09AF1 /* NVR录像.png */,
+				53E593A21DF8ECF100E09AF1 /* NVR录像的副本 2.png */,
+				53E593A31DF8ECF100E09AF1 /* NVR录像的副本.png */,
+				53E593A41DF8ECF100E09AF1 /* NVR全屏.png */,
+				53E593A51DF8ECF100E09AF1 /* NVR智能摄像头-分辨率高.png */,
+				53E593A61DF8ECF100E09AF1 /* NVRjieshuTime.png */,
+				53E593A71DF8ECF100E09AF1 /* NVRqishiTime.png */,
 				530F16861DE813EA0080A9CC /* back.png */,
 				530F16871DE813EA0080A9CC /* liuliang.png */,
 				537FFEDA1DE6C0CE00103150 /* shuaxin.png */,
@@ -4505,6 +4538,7 @@
 				1661C5BB1D7537B3007875B4 /* anim_monitor3.png in Resources */,
 				1683A4721D757C8200342181 /* date_selection_left.png in Resources */,
 				16538B361D75A69500F4AD2C /* QRQuardIcon03.png in Resources */,
+				53E593AF1DF8ECF100E09AF1 /* NVR智能摄像头-分辨率高.png in Resources */,
 				1661C5D31D7537B3007875B4 /* bg_bar_btn_top.png in Resources */,
 				1661C5B01D7537B3007875B4 /* amp5.png in Resources */,
 				1652621C1D338709009B6E5B /* SetupViewController.xib in Resources */,
@@ -4526,6 +4560,7 @@
 				1684EF571D54A385001F1AC5 /* wordlist_utf8.txt in Resources */,
 				1661C69E1D7537B3007875B4 /* ic_tab_keyboard_p.png in Resources */,
 				1661C5D21D7537B3007875B4 /* bg_bar_btn_single_p.png in Resources */,
+				53E593B11DF8ECF100E09AF1 /* NVRqishiTime.png in Resources */,
 				1661C6AA1D7537B3007875B4 /* img_radar_add.png in Resources */,
 				1661C5C71D7537B3007875B4 /* ap_playback.png in Resources */,
 				537FFEDB1DE6C0CE00103150 /* shuaxin.png in Resources */,
@@ -4553,6 +4588,7 @@
 				1661C6B41D7537B3007875B4 /* monitor_defence_off_h_p.png in Resources */,
 				1661C6491D7537B3007875B4 /* ic_header_play.png in Resources */,
 				1661C5B81D7537B3007875B4 /* anim_call_out3.png in Resources */,
+				53E593AB1DF8ECF100E09AF1 /* NVR录像.png in Resources */,
 				16518C3A1D92307600DA62C9 /* 缩小-@2x.png in Resources */,
 				1661C6151D7537B3007875B4 /* ic_call_out_accept.png in Resources */,
 				1661C66D1D7537B3007875B4 /* ic_operator_item_modify.png in Resources */,
@@ -4618,6 +4654,7 @@
 				168E92031D34F2D900FDEC78 /* RenameCell.xib in Resources */,
 				167CD8BD1D93BEE500E94BE1 /* APP使用协议.docx in Resources */,
 				1661C6951D7537B3007875B4 /* ic_tab_item_discover.png in Resources */,
+				53E593AA1DF8ECF100E09AF1 /* NVR录像-2.png in Resources */,
 				1661C65E1D7537B3007875B4 /* ic_keyboard_two.png in Resources */,
 				168E91891D3493CB00FDEC78 /* MyFacilityCell.xib in Resources */,
 				1661C5E21D7537B3007875B4 /* bg_infrared_set_wifi_p.png in Resources */,
@@ -4651,6 +4688,7 @@
 				16538B371D75A69500F4AD2C /* QRQuardIcon04.png in Resources */,
 				1661C6B71D7537B3007875B4 /* monitor_half_screen.png in Resources */,
 				165392C61D88E95900A6B1D1 /* 设置-@3x.png in Resources */,
+				53E593AD1DF8ECF100E09AF1 /* NVR录像的副本.png in Resources */,
 				1661C6471D7537B3007875B4 /* ic_header.png in Resources */,
 				1661C68C1D7537B3007875B4 /* ic_strength3.png in Resources */,
 				537FFF511DE6CC6C00103150 /* read_me.txt in Resources */,
@@ -4670,6 +4708,7 @@
 				1661C5AE1D7537B3007875B4 /* amp3.png in Resources */,
 				166A48C81D5852DD00C99629 /* ResetPwViewController.xib in Resources */,
 				1684EF561D54A385001F1AC5 /* stock_10001.gram in Resources */,
+				53E593A81DF8ECF100E09AF1 /* NVR截图.png in Resources */,
 				1661C6391D7537B3007875B4 /* ic_ctl_switch_camera.png in Resources */,
 				1661C6691D7537B3007875B4 /* ic_operator_item_control.png in Resources */,
 				1657B5F61DB0D61A0033CAE8 /* CameraTypeViewController.xib in Resources */,
@@ -4756,6 +4795,7 @@
 				1661C5DB1D7537B3007875B4 /* bg_button.png in Resources */,
 				1661C66F1D7537B3007875B4 /* ic_operator_item_monitor.png in Resources */,
 				1661C6A91D7537B3007875B4 /* img_insert_smart_key.png in Resources */,
+				53E593AC1DF8ECF100E09AF1 /* NVR录像的副本 2.png in Resources */,
 				1661C66C1D7537B3007875B4 /* ic_operator_item_message.png in Resources */,
 				1661C5A91D7537B3007875B4 /* alarm_doorbell_left2.png in Resources */,
 				1683A4711D757C8200342181 /* date_selection_center.png in Resources */,
@@ -4766,6 +4806,7 @@
 				1661C5B21D7537B3007875B4 /* amp7.png in Resources */,
 				1661C63B1D7537B3007875B4 /* ic_ctl_update_device.png in Resources */,
 				1661C67E1D7537B3007875B4 /* ic_remember_pwd.png in Resources */,
+				53E593B01DF8ECF100E09AF1 /* NVRjieshuTime.png in Resources */,
 				1661C5FA1D7537B3007875B4 /* contactCell_header_shadow_img.png in Resources */,
 				168E91E81D34E02D00FDEC78 /* AccountViewController.xib in Resources */,
 				1661C60D1D7537B3007875B4 /* ic_bar_btn_add_contact.png in Resources */,
@@ -4819,11 +4860,13 @@
 				1661C65B1D7537B3007875B4 /* ic_keyboard_seven.png in Resources */,
 				16D4F7F91D33A8D200017379 /* MessageListViewController.xib in Resources */,
 				1661C5C41D7537B3007875B4 /* ap_help_p.png in Resources */,
+				53E593B31DF93DA500E09AF1 /* NVR结束.png in Resources */,
 				1661C6AB1D7537B3007875B4 /* img_scanning_code.png in Resources */,
 				165392AC1D88E95900A6B1D1 /* 图册-@3x.png in Resources */,
 				1661C5AA1D7537B3007875B4 /* alarm_doorbell_left3.png in Resources */,
 				1661C67B1D7537B3007875B4 /* ic_radio_button_p.png in Resources */,
 				1661C6B91D7537B3007875B4 /* monitor_localLenght_narrow_normal.png in Resources */,
+				53E593A91DF8ECF100E09AF1 /* NVR截图的副本.png in Resources */,
 				1661C6A31D7537B3007875B4 /* ic_tab_toolbox.png in Resources */,
 				1661C6921D7537B3007875B4 /* ic_tab_discover_p.png in Resources */,
 				16518C371D92307600DA62C9 /* 摄像头-@3x.png in Resources */,
@@ -4866,6 +4909,7 @@
 				537FFEB71DE484FB00103150 /* NVRpause.png in Resources */,
 				1661C5B51D7537B3007875B4 /* anim_call_in3.png in Resources */,
 				165A494E1D5B357C00252D1A /* AboutUsViewController.xib in Resources */,
+				53E593AE1DF8ECF100E09AF1 /* NVR全屏.png in Resources */,
 				1661C5FF1D7537B3007875B4 /* down_accept.png in Resources */,
 				1661C6CD1D7537B3007875B4 /* point_right1.png in Resources */,
 				1661C5E81D7537B3007875B4 /* bg_keyboard_view.png in Resources */,

@@ -196,7 +196,7 @@
                   moduleName = "HaierSweepRobotApp"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/lichaopan/Desktop/EseeNetSDK/HaierSweepRobotApp/HaierSweepRobotApp/Yoosee/Controllers/CreateInitPasswordController.m"
-                  timestampString = "502612583.855846"
+                  timestampString = "502875180.950359"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "566"
@@ -211,7 +211,7 @@
                   moduleName = "HaierSweepRobotApp"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/lichaopan/Desktop/EseeNetSDK/HaierSweepRobotApp/HaierSweepRobotApp/Yoosee/Controllers/CreateInitPasswordController.m"
-                  timestampString = "502612583.857494"
+                  timestampString = "502875180.95194"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "566"
@@ -494,7 +494,7 @@
                   moduleName = "HaierSweepRobotApp"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/lichaopan/Desktop/EseeNetSDK/HaierSweepRobotApp/HaierSweepRobotApp/ProjectClass/AddFacility/Controller/AddFacilityViewController.m"
-                  timestampString = "502612583.907576"
+                  timestampString = "502875181.011644"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "41"
@@ -509,7 +509,7 @@
                   moduleName = "HaierSweepRobotApp"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/lichaopan/Desktop/EseeNetSDK/HaierSweepRobotApp/HaierSweepRobotApp/ProjectClass/AddFacility/Controller/AddFacilityViewController.m"
-                  timestampString = "502612583.909183"
+                  timestampString = "502875181.013725"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "41"
@@ -542,7 +542,7 @@
                   moduleName = "HaierSweepRobotApp"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/lichaopan/Desktop/EseeNetSDK/HaierSweepRobotApp/HaierSweepRobotApp/ProjectClass/AddFacility/Controller/AddIDDeviceViewController.m"
-                  timestampString = "502612583.912357"
+                  timestampString = "502875181.017884"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "71"
@@ -557,7 +557,7 @@
                   moduleName = "HaierSweepRobotApp"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/lichaopan/Desktop/EseeNetSDK/HaierSweepRobotApp/HaierSweepRobotApp/ProjectClass/AddFacility/Controller/AddIDDeviceViewController.m"
-                  timestampString = "502612583.913921"
+                  timestampString = "502875181.019617"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "72"
@@ -660,101 +660,6 @@
             startingLineNumber = "2149"
             endingLineNumber = "2149"
             landmarkName = "-refreshRobotList"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "HaierSweepRobotApp/PublicClass/Request/RequestManager.m"
-            timestampString = "502612509.258937"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "49"
-            endingLineNumber = "49"
-            landmarkName = "-requestDataType:urlStr:parameters:successBlock:FailBlock:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "HaierSweepRobotApp/PublicClass/Request/RequestManager.m"
-            timestampString = "502612518.786491"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "47"
-            endingLineNumber = "47"
-            landmarkName = "-requestDataType:urlStr:parameters:successBlock:FailBlock:"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[RequestManager requestDataType:urlStr:parameters:successBlock:FailBlock:]"
-                  moduleName = "HaierSweepRobotApp"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/lichaopan/Desktop/EseeNetSDK/HaierSweepRobotApp/HaierSweepRobotApp/PublicClass/Request/RequestManager.m"
-                  timestampString = "502612583.937735"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "47"
-                  endingLineNumber = "47"
-                  offsetFromSymbolStart = "772">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__75-[RequestManager requestDataType:urlStr:parameters:successBlock:FailBlock:]_block_invoke"
-                  moduleName = "HaierSweepRobotApp"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/lichaopan/Desktop/EseeNetSDK/HaierSweepRobotApp/HaierSweepRobotApp/PublicClass/Request/RequestManager.m"
-                  timestampString = "502612583.939323"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "47"
-                  endingLineNumber = "47"
-                  offsetFromSymbolStart = "56">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__75-[RequestManager requestDataType:urlStr:parameters:successBlock:FailBlock:]_block_invoke_2"
-                  moduleName = "HaierSweepRobotApp"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/lichaopan/Desktop/EseeNetSDK/HaierSweepRobotApp/HaierSweepRobotApp/PublicClass/Request/RequestManager.m"
-                  timestampString = "502612583.940872"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "47"
-                  endingLineNumber = "47"
-                  offsetFromSymbolStart = "24">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "HaierSweepRobotApp/PublicClass/Request/RequestManager.m"
-            timestampString = "502612617.178935"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "48"
-            endingLineNumber = "48"
-            landmarkName = "-requestDataType:urlStr:parameters:successBlock:FailBlock:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

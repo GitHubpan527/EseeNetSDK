@@ -24,6 +24,8 @@
 #define ViewRightX(view)   (view.frame.size.width+view.frame.origin.x)
 #define BoundsCenter(view) (CGPoint){view.center.x-view.frame.origin.x,view.center.y-view.frame.origin.y}
 #define Jianju 3
+#define ChangeTime 1212
+#define GongNeng 1314
 
 @interface ENPlaybackkViewController ()<EseeNetRecordDelegate>
 {
@@ -37,6 +39,9 @@
     
     int _fromTime;
     int _toTime;
+    
+    int _fromTime1;
+    int _toTime1;
     
     UIView *btnView;//btn的承载view
     
@@ -57,6 +62,22 @@
     
     BOOL isFullScreen;
     UIDeviceOrientation orientation;
+    
+    UIView *contentView;
+    UIDatePicker *datePicker;
+    
+    int isStartOrendLabel;
+    UILabel *toolbarLabel;
+    
+    int isWitch;//哪种方式进入
+    
+    UIButton *qiShiBtn;
+    UIButton *jieShuBtn;
+    UIButton *jieTuBtn;
+    UIButton *luXiangBtn;
+    float juli;
+    
+    int isFirstShuScreen;
 }
 @end
 
@@ -73,11 +94,16 @@
                    @"playTime":playTime
                    };
     _fromTime = [self toGMT:[NSString stringWithFormat:@"%@ 00:00:00",playTime]];
-    _toTime = _fromTime + 86400;
+    _toTime = _fromTime + 86399;
     
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    isFirstShuScreen = 0;
+    _fromTime1 = 0;
+    _toTime1 = 0;
+    isStartOrendLabel = 0;
+    isWitch = 0;
     _isHavePlay = NO;
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor grayColor];
@@ -89,16 +115,20 @@
     [self btnView];
     [self playAndPauseView];
     
+    [self gongNengView];
+
     orientation = [UIDevice currentDevice].orientation;
-    
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshNVRHengScreenUI) name:@"NVRHengScreen" object:nil];
     
 }
 - (void)layoutRecordVideo
 {
 //    [self _shouldRotateToOrientation:(UIDeviceOrientation)[UIApplication sharedApplication].statusBarOrientation];
     
-    _recordVideo = [[EseeNetRecord alloc]initEseeNetRecordVideoWithFrame:CGRectMake(0, (HEIGHT - WIDTH) / 2, WIDTH, WIDTH)];
+    _recordVideo = [[EseeNetRecord alloc]initEseeNetRecordVideoWithFrame:CGRectMake(0, (HEIGHT1 - WIDTH1) / 2 , WIDTH1, WIDTH1)];
+    isFirstShuScreen = 1;
     NSLog(@"wwwwwwwwwwwwww%f---%f",self.view.frame.size.height,self.view.frame.size.width);
     _recordVideo.delegate = self;
     
@@ -128,10 +158,10 @@
 - (void)refreshBtn:(UIButton *)sender
 {
     [self play];
-    
 }
 - (void)btnView
 {
+    isWitch = 1;
     btnView = [[UIView alloc] initWithFrame:CGRectMake((_recordVideo.bounds.size.width - 64 ) / 2, (_recordVideo.bounds.size.height - 64 ) / 2, 64, 64)];
     [_recordVideo addSubview:btnView];
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -140,6 +170,73 @@
     [btn addTarget:self action:@selector(play) forControlEvents:UIControlEventTouchUpInside];
     [btnView addSubview:btn];
     
+}
+- (void)gongNengView{
+    juli = ViewH(_recordVideo) / 4;
+    qiShiBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    qiShiBtn.frame = CGRectMake(0, juli - 15, 30, 30);
+    [qiShiBtn setTitle:@"起始时间" forState:UIControlStateNormal];
+    [qiShiBtn setImage:[UIImage imageNamed:@"NVRqishiTime.png"] forState:UIControlStateNormal];
+    qiShiBtn.tag = ChangeTime + 1;
+    [qiShiBtn addTarget:self action:@selector(changeTimeClick:) forControlEvents:UIControlEventTouchUpInside];
+    [_recordVideo addSubview:qiShiBtn];
+    jieShuBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    jieShuBtn.frame = CGRectMake(WIDTH1 - 30, juli - 15, 30, 30);
+    [jieShuBtn setImage:[UIImage imageNamed:@"NVRjieshuTime.png"] forState:UIControlStateNormal];
+    jieShuBtn.tag = ChangeTime + 2;
+    [jieShuBtn addTarget:self action:@selector(changeTimeClick:) forControlEvents:UIControlEventTouchUpInside];
+    [_recordVideo addSubview:jieShuBtn];
+    
+    jieTuBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    jieTuBtn.frame = CGRectMake(0, juli * 3 - 15, 30, 30);
+    [jieTuBtn setImage:[UIImage imageNamed:@"NVR截图.png"] forState:UIControlStateNormal];
+    jieTuBtn.tag = GongNeng + 1;
+    [jieTuBtn addTarget:self action:@selector(gongNengClick:) forControlEvents:UIControlEventTouchUpInside];
+    [_recordVideo addSubview:jieTuBtn];
+    luXiangBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    luXiangBtn.frame = CGRectMake(WIDTH1 - 30, juli * 3 - 15, 30, 30);
+    [luXiangBtn setImage:[UIImage imageNamed:@"NVR录像.png"] forState:UIControlStateNormal];
+    luXiangBtn.tag = GongNeng + 2;
+    [luXiangBtn addTarget:self action:@selector(gongNengClick:) forControlEvents:UIControlEventTouchUpInside];
+    [_recordVideo addSubview:luXiangBtn];
+    qiShiBtn.alpha = 0;
+    jieShuBtn.alpha = 0;
+    jieTuBtn.alpha = 0;
+    luXiangBtn.alpha = 0;
+}
+- (void)gongNengClick:(UIButton *)sender
+{
+    if (sender.tag == GongNeng + 1) {
+        NSLog(@"截图");
+        [_recordVideo captureImage:@"HaierWireless" Completion:^(int result) {
+            if (result == 0) {
+//                0:成功, 1:无录像画面可截, 2:无相册访问权限, 3:相册名空, 4:保存到相册失败
+                [self showAlertWithAlertString:@"已保存到相册"];
+            }else{
+                [self showAlertWithAlertString:@"截图失败"];
+            }
+        }];
+        
+    }else if (sender.tag == GongNeng + 2){
+        NSLog(@"录像");
+        BOOL isRecord = YES;
+        if (isRecord) {
+            [_recordVideo beginRecord];
+            [sender setImage:[UIImage imageNamed:@"NVR结束"] forState:UIControlStateNormal];
+            isRecord = NO;
+        }else{
+            [_recordVideo endRecordAndSave:@"HaierWireless" Completion:^(int result) {
+                //0:成功, 1:录像文件未生产(可能录制时间为0), 2:无相册访问权限, 3:相册名空, 4:保存到相册失败
+                if (result == 0) {
+                    [self showAlertWithAlertString:@"已保存到相册"];
+                }else{
+                    [self showAlertWithAlertString:@"录像失败"];
+                }
+            }];
+            [sender setImage:[UIImage imageNamed:@"NVR录像"] forState:UIControlStateNormal];
+            isRecord = YES;
+        }
+    }
 }
 - (void)playAndPauseView
 {
@@ -160,15 +257,16 @@
     [btnB addTarget:self action:@selector(fullScreen:) forControlEvents:UIControlEventTouchUpInside];
     [bottomView addSubview:btnB];
     isFullScreen = NO;
-    
     //
-    startLabel = [[UILabel alloc] initWithFrame:CGRectMake(ViewRightX(btnA) + Jianju, (ViewH(bottomView) - 30) / 2, 43, 30)];
+    startLabel = [[UILabel alloc] init];
+    startLabel.frame = CGRectMake(ViewRightX(btnA) + Jianju, (ViewH(bottomView) - 30) / 2, 43, 30);
     startLabel.text = @"00:00:00";
     startLabel.font = [UIFont systemFontOfSize:9];
     startLabel.textColor = [UIColor whiteColor];
     [bottomView addSubview:startLabel];
     //
-    endLabel = [[UILabel alloc] initWithFrame:CGRectMake(ViewX(btnB) - Jianju - 43, (ViewH(bottomView) - 30) / 2, 43, 30)];
+    endLabel = [[UILabel alloc] init];
+    endLabel.frame = CGRectMake(ViewX(btnB) - Jianju - 43, (ViewH(bottomView) - 30) / 2, 43, 30);
 //    endLabel.text = [self getAllTime];
     endLabel.font = [UIFont systemFontOfSize:9];
     endLabel.textColor = [UIColor whiteColor];
@@ -181,15 +279,159 @@
     slider.maximumTrackTintColor = [UIColor blackColor];
     [slider addTarget:self action:@selector(slidered:) forControlEvents:UIControlEventValueChanged];
     [bottomView addSubview:slider];
+}
+- (void)changeTimeClick:(UIButton *)sender
+{
+    if (sender.tag == ChangeTime + 1) {
+        NSLog(@"起始时间");
+        isStartOrendLabel = 1;
+        [self datePicker];
+        toolbarLabel.text = @"设置初始时间";
+        
+    }else if (sender.tag == ChangeTime + 2){
+        NSLog(@"结束时间");
+        isStartOrendLabel = 2;
+        [self datePicker];
+        toolbarLabel.text = @"设置结束时间";
+    }
+}
+#pragma mark - 显示一个DatePicker
+- (void)datePicker
+{
+    //
+    contentView = [[UIView alloc] initWithFrame:CGRectMake(0, HEIGHT1 - 158, WIDTH1, 158)];
+    contentView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:contentView];
+    //
+    //创建工具条
+    UIToolbar *toolbar=[[UIToolbar alloc]init];
+    //设置工具条的颜色
+    toolbar.barTintColor=[UIColor grayColor];
     
+    //设置工具条的frame
+    toolbar.frame=CGRectMake(0, 0, WIDTH, 44);
+    //给工具条添加按钮
+    UIBarButtonItem *item0=[[UIBarButtonItem alloc]initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(clickCancel:)];
+    [item0 setTintColor:[UIColor whiteColor]];
+    
+    UIBarButtonItem *item1=[[UIBarButtonItem alloc]initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(clickOK:)];
+    [item1 setTintColor:[UIColor whiteColor]];
+    
+    toolbarLabel = [[UILabel alloc] initWithFrame:CGRectMake(WIDTH1 - 150, 0, 150, toolbar.frame.size.height)];
+    [toolbarLabel setTextColor:[UIColor whiteColor]];
+    toolbarLabel.alpha = 0.4;
+    toolbarLabel.textAlignment = NSTextAlignmentRight;
+    [toolbar addSubview:toolbarLabel];
+    
+    toolbar.items = @[item0,item1];
+    //设置文本输入框键盘的辅助视图
+    //    self.textfield.inputAccessoryView=toolbar;
+    [contentView addSubview:toolbar];
+    //
+    datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, 44, WIDTH, 158 - 44)];
+    // 设置当前显示
+//    [datePicker setDate:[NSDate date] animated:YES];
+    [datePicker setLocale:[NSLocale systemLocale]];
+    [datePicker setLocale:[[NSLocale alloc]initWithLocaleIdentifier:@"zh_Hans_CN"]];
+//    [datePicker setTimeZone:[NSTimeZone timeZoneWithName:@"UTC+8"]];//UTC GMT
+    // 显示模式
+    [datePicker setDatePickerMode:UIDatePickerModeCountDownTimer];
+    // 回调的方法由于UIDatePicker 是UIControl的子类 ,可以在UIControl类的通知结构中挂接一个委托
+    //    [datePicker addTarget:self action:@selector(datePickerValueChanged:) forControlEvents:UIControlEventValueChanged];
+    [contentView addSubview:datePicker];
+}
+- (void)clickCancel:(UIBarButtonItem *)item{
+    [contentView removeFromSuperview];
+    contentView = nil;
+}
+
+- (void)clickOK:(UIBarButtonItem *)item{
+    NSDate *selected = [datePicker date];
+    NSLog(@"date: %@", selected);//2016-12-07 05:50:18 +0000
+    NSString *selectedDate = deviceInfo[@"playTime"];
+    NSString *selectedTime = [[NSString stringWithFormat:@"%@",selected] componentsSeparatedByString:@" "][1];
+    NSString *selectedDateAndTime = [NSString stringWithFormat:@"%@ %@",selectedDate,selectedTime];
+    if (isStartOrendLabel == 1) {
+        //起始时间
+        isWitch = 2;
+        _fromTime1 = [self toGMT:selectedDateAndTime];
+        __weak ENPlaybackkViewController *weakSelf = self;
+        [_recordVideo stop:^(BOOL success) {
+            if (success == YES) {
+                _didConnected = NO;
+                [weakSelf play];
+            }
+        }];
+        startLabel.text = selectedTime;
+        
+    }else if (isStartOrendLabel == 2){
+        //结束时间
+        NSDate *date1 = [self dateFromString:startLabel.text];
+        NSDate *date2 = [self dateFromString:selectedTime];
+        if ([date2 compare:date1] <= 0) {
+            [self showAlertWithAlertString:@"结束时间应大于起始时间"];
+        }else{
+            isWitch = 3;
+            _toTime1 = [self toGMT:selectedDateAndTime];
+            __weak ENPlaybackkViewController *weakSelf = self;
+            [_recordVideo stop:^(BOOL success) {
+                if (success == YES) {
+                    _didConnected = NO;
+                    [weakSelf play];
+                }
+            }];
+            endLabel.text = selectedTime;
+        }
+    }
+    slider.value = 0;
+    [contentView removeFromSuperview];
+    contentView = nil;
+}
+- (NSDate *)dateFromString:(NSString *)string{
+    
+    NSDateFormatter *inputFormatter = [[NSDateFormatter alloc] init];
+//    [inputFormatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"zh_Hans_CN"]];
+    [inputFormatter setDateFormat:@"HH:mm:ss"];
+    NSDate *inputDate = [inputFormatter dateFromString:string];
+     return inputDate;
 }
 #pragma mark - EseeNetRecordDelegate
 - (void)eseeNetRecordCurTime:(int)curTime
 {
-    endLabel.text = [self getAllTime];
+    NSString *endText = [[[recordTimer firstObject][@"endTime"] componentsSeparatedByString:@" "] lastObject];
+    endLabel.text = endText;
+    
+//    endLabel.text = [self getAllTime];
+    
     NSLog(@"%d,%@",curTime,[self TimeStamp:[NSString stringWithFormat:@"%d",curTime]]);
+    
     NSString *string = [self TimeStamp:[NSString stringWithFormat:@"%d",curTime]];
-    startLabel.text = [string componentsSeparatedByString:@" "][1];//00:01:11
+    startLabel.text = [string componentsSeparatedByString:@" "][1];
+    int isNum0 = 0;
+    int isNum1 = 0;
+    for (int i = 0; i < recordTimer.count; i ++) {
+        NSDictionary *dict = recordTimer[i];
+        NSString *startTime = dict[@"startTime"];
+        NSString *endTime = dict[@"endTime"];
+        NSDateFormatter *inputFormatter= [[NSDateFormatter alloc] init];
+        [inputFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        NSDate *firstDate = [[NSDate alloc] init];
+        NSDate *lastDate = [[NSDate alloc] init];
+        NSDate *currentDate = [[NSDate alloc] init];
+        firstDate = [inputFormatter dateFromString:startTime];
+        lastDate = [inputFormatter dateFromString:endTime];
+        currentDate = [inputFormatter dateFromString:string];
+        if ([currentDate compare:firstDate] >= 0 && [currentDate compare:lastDate] <= 0) {
+            isNum0 ++;
+        }else{
+            isNum1 ++;
+        }
+    }
+    if (isNum0 == 1) {
+        slider.minimumTrackTintColor = [UIColor whiteColor];
+    }else if (isNum0 == 0){
+        slider.minimumTrackTintColor = [UIColor redColor];
+    }
     
     NSArray *arrStar = [startLabel.text componentsSeparatedByString:@":"];
     starTime = [arrStar[0] floatValue] * 3600.0 + [arrStar[1] floatValue] * 60.0 + [arrStar[2] floatValue] * 1.0;
@@ -209,6 +451,7 @@
     int second = sliderNow.value * timerAll - hour * 3600 - minute * 60;
     NSString *timeStr = [NSString stringWithFormat:@"%@ %02d:%02d:%02d",day,hour,minute,second];
     [self changeTime:timeStr];
+    
 }
 - (void)changeTime:(NSString *)timeStr
 {
@@ -277,7 +520,9 @@
 {
     NSLog(@"%f - %f - %f - %f",WIDTH1,HEIGHT1,WIDTH,HEIGHT);
     self.automaticallyAdjustsScrollViewInsets = NO;
+#warning 这里是不是有点问题
     _recordVideo.frame = CGRectMake(0, (WIDTH1 - HEIGHT1) / 2 - 64, HEIGHT1, HEIGHT1);
+    isFirstShuScreen = 2;
     bottomView.frame = CGRectMake(0, WIDTH1 - 50 - 64, HEIGHT1, 50);
     btnA.frame = CGRectMake(Jianju, (ViewH(bottomView) - 32) / 2, 32, 32);
     //change
@@ -285,26 +530,21 @@
     startLabel.frame = CGRectMake(ViewRightX(btnA) + Jianju, (ViewH(bottomView) - 30) / 2, 43, 30);
     endLabel.frame = CGRectMake(ViewX(btnB) - Jianju - 43, (ViewH(bottomView) - 30) / 2, 43, 30);
     slider.frame = CGRectMake(ViewRightX(startLabel) + Jianju, (ViewH(bottomView) - 30) / 2, ViewX(endLabel) - Jianju * 2 - ViewRightX(startLabel), 30);
-//    }];
+    
+    juli = ViewH(_recordVideo) / 4;
+    qiShiBtn.frame = CGRectMake(0, ViewY(_recordVideo) + juli - 15 - 60, 30, 30);
+    jieShuBtn.frame = CGRectMake(HEIGHT1 - 30, ViewY(_recordVideo) + juli - 15 - 60, 30, 30);
+    jieTuBtn.frame = CGRectMake(0, ViewY(_recordVideo) + juli * 3 - 15 - 60, 30, 30);
+    luXiangBtn.frame = CGRectMake(HEIGHT1 - 30, ViewY(_recordVideo) + juli * 3 - 15 - 60, 30, 30);
+    
+    self.navigationController.navigationBar.hidden = NO;
 }
 //横屏
 -(void)rightHengpinAction
 {
     NSLog(@"%f - %f - %f - %f",WIDTH1,HEIGHT1,WIDTH,HEIGHT);
-    _recordVideo.frame = CGRectMake(0, -32, HEIGHT1, WIDTH1);
-    bottomView.frame = CGRectMake(0, WIDTH1 - 50 - 32, HEIGHT1, 50);
-    btnA.frame = CGRectMake(Jianju, (ViewH(bottomView) - 32) / 2, 32, 32);
-    //change
-    btnB.frame = CGRectMake(HEIGHT1 - Jianju - 32, (ViewH(bottomView) - 32) / 2, 32, 32);
-    startLabel.frame = CGRectMake(ViewRightX(btnA) + Jianju, (ViewH(bottomView) - 30) / 2, 43, 30);
-    endLabel.frame = CGRectMake(ViewX(btnB) - Jianju - 43, (ViewH(bottomView) - 30) / 2, 43, 30);
-    slider.frame = CGRectMake(ViewRightX(startLabel) + Jianju, (ViewH(bottomView) - 30) / 2, ViewX(endLabel) - Jianju * 2 - ViewRightX(startLabel), 30);
-}
-//横屏
--(void)leftHengpinAction
-{
-    _recordVideo.frame = CGRectMake(0, -32, HEIGHT1, WIDTH1);
-    bottomView.frame = CGRectMake(0, WIDTH1 - 50 - 32, HEIGHT1, 50);
+    _recordVideo.frame = CGRectMake(0, 0, HEIGHT1, WIDTH1);
+    bottomView.frame = CGRectMake(0, WIDTH1 - 50, HEIGHT1, 50);
     btnA.frame = CGRectMake(Jianju, (ViewH(bottomView) - 32) / 2, 32, 32);
     //change
     btnB.frame = CGRectMake(HEIGHT1 - Jianju - 32, (ViewH(bottomView) - 32) / 2, 32, 32);
@@ -312,9 +552,48 @@
     endLabel.frame = CGRectMake(ViewX(btnB) - Jianju - 43, (ViewH(bottomView) - 30) / 2, 43, 30);
     slider.frame = CGRectMake(ViewRightX(startLabel) + Jianju, (ViewH(bottomView) - 30) / 2, ViewX(endLabel) - Jianju * 2 - ViewRightX(startLabel), 30);
     
-//    }];
+    juli = ViewH(_recordVideo) / 4;
+    qiShiBtn.frame = CGRectMake(0, ViewY(_recordVideo) + juli - 15, 30, 30);
+    jieShuBtn.frame = CGRectMake(HEIGHT1 - 30, ViewY(_recordVideo) + juli - 15, 30, 30);
+    jieTuBtn.frame = CGRectMake(0, ViewY(_recordVideo) + juli * 3 - 15, 30, 30);
+    luXiangBtn.frame = CGRectMake(HEIGHT1 - 30, ViewY(_recordVideo) + juli * 3 - 15, 30, 30);
+    self.navigationController.navigationBar.hidden = YES;
+    
 }
-
+//横屏
+-(void)leftHengpinAction
+{
+    _recordVideo.frame = CGRectMake(0, 0, HEIGHT1, WIDTH1);
+    bottomView.frame = CGRectMake(0, WIDTH1 - 50, HEIGHT1, 50);
+    btnA.frame = CGRectMake(Jianju, (ViewH(bottomView) - 32) / 2, 32, 32);
+    //change
+    btnB.frame = CGRectMake(HEIGHT1 - Jianju - 32, (ViewH(bottomView) - 32) / 2, 32, 32);
+    startLabel.frame = CGRectMake(ViewRightX(btnA) + Jianju, (ViewH(bottomView) - 30) / 2, 43, 30);
+    endLabel.frame = CGRectMake(ViewX(btnB) - Jianju - 43, (ViewH(bottomView) - 30) / 2, 43, 30);
+    slider.frame = CGRectMake(ViewRightX(startLabel) + Jianju, (ViewH(bottomView) - 30) / 2, ViewX(endLabel) - Jianju * 2 - ViewRightX(startLabel), 30);
+    
+    juli = ViewH(_recordVideo) / 4;
+    qiShiBtn.frame = CGRectMake(0, ViewY(_recordVideo) + juli - 15, 30, 30);
+    jieShuBtn.frame = CGRectMake(HEIGHT1 - 30, ViewY(_recordVideo) + juli - 15, 30, 30);
+    jieTuBtn.frame = CGRectMake(0, ViewY(_recordVideo) + juli * 3 - 15, 30, 30);
+    luXiangBtn.frame = CGRectMake(HEIGHT1 - 30, ViewY(_recordVideo) + juli * 3 - 15, 30, 30);
+    self.navigationController.navigationBar.hidden = YES;
+    
+}
+- (void)refreshNVRHengScreenUI
+{
+    if ([UIDevice currentDevice].orientation == UIDeviceOrientationLandscapeLeft || [UIDevice currentDevice].orientation == UIDeviceOrientationLandscapeRight) {
+        //横屏
+        _recordVideo.frame = CGRectMake(0, 0, HEIGHT1, WIDTH1);
+    }else if ([UIDevice currentDevice].orientation == UIDeviceOrientationPortrait){
+        //竖屏
+        if (isFirstShuScreen == 1) {
+            _recordVideo.frame = CGRectMake(0, (HEIGHT1 - WIDTH1) / 2 , WIDTH1, WIDTH1);
+        }else if (isFirstShuScreen == 2){
+            _recordVideo.frame = CGRectMake(0, (WIDTH1 - HEIGHT1) / 2 - 64, HEIGHT1, HEIGHT1);
+        }
+    }
+}
 //得到所有的时间
 - (NSString *)getAllTime
 {
@@ -335,7 +614,6 @@
         | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond;
         // 对比时间差
         NSDateComponents *dateCom = [calendar components:unit fromDate:startDate toDate:endDate options:0];
-        
         //小时差额 = dateCom.hour, 分钟差额 = dateCom.minute, 秒差额 = dateCom.second
         hourTmp = dateCom.hour;
         minuteTmp = dateCom.minute;
@@ -410,19 +688,56 @@
             bottomView.userInteractionEnabled = NO;
         }else{
             bottomView.userInteractionEnabled = YES;
+            qiShiBtn.alpha = 1.0;
+            jieShuBtn.alpha = 1.0;
+            jieTuBtn.alpha = 1.0;
+            luXiangBtn.alpha = 1.0;
         }
         self.navigationController.navigationBar.hidden = NO;
         isTap = NO;
     }else{
         bottomView.alpha = 0;
+        qiShiBtn.alpha = 0;
+        jieShuBtn.alpha = 0;
+        jieTuBtn.alpha = 0;
+        luXiangBtn.alpha = 0;
         self.navigationController.navigationBar.hidden = YES;
         isTap = YES;
     }
+    if ([UIDevice currentDevice].orientation == UIDeviceOrientationLandscapeLeft || [UIDevice currentDevice].orientation == UIDeviceOrientationLandscapeRight) {
+        self.navigationController.navigationBar.hidden = YES;
+    }
+    
+    
+}
+- (void)play
+{
+    if (isWitch == 1) {
+        int a = _fromTime;
+        int b = _toTime;
+        [self play:a and:b];
+    }else if (isWitch == 2){
+        if (_toTime1 == 0) {
+            _toTime1 = _toTime;
+        }
+        int a = _fromTime1;
+        int b = _toTime1;
+        [self play:a and:b];
+    }else if (isWitch == 3){
+        if (_fromTime1 == 0) {
+            _fromTime1 = _fromTime;
+        }
+        int a = _fromTime1;
+        int b = _toTime1;
+        [self play:a and:b];
+    }
+    
 }
 //播放
-- (void)play{
+- (void)play:(int)fromTiem and:(int)toTime{
     _isHavePlay = YES;
     [btnView removeFromSuperview];
+    
     if (_didConnected == NO) {
         [_recordVideo connectDevice:^(RecordConnectResult result) {
             switch (result) {
@@ -430,14 +745,14 @@
                 {
                     _didConnected = YES;
                     NSLog(@"--- Connect Success --- ");
-                    [_recordVideo searchRecordWithFromTime:_fromTime ToTime:_toTime Completion:^(NSArray *recordTimesArr) {
+                    [_recordVideo searchRecordWithFromTime:fromTiem ToTime:toTime Completion:^(NSArray *recordTimesArr) {
                         
                         if (recordTimesArr.count > 0)
                         {
                             NSLog(@"--- Search Success -->%@",recordTimesArr);
                             //将时间戳转换为时间点
                             
-                            [_recordVideo playWithStartTime:_fromTime ToTime:_toTime];
+                            [_recordVideo playWithStartTime:fromTiem ToTime:toTime];
                             dispatch_sync(dispatch_get_main_queue(), ^(){
                                 // 这里的代码会在主线程执行
                                 recordTimer = [[NSMutableArray alloc] init];
@@ -524,7 +839,14 @@
     int GMT             = [mydate timeIntervalSince1970];
     return GMT;
 }
-
+//提示框封装
+- (void)showAlertWithAlertString:(NSString *)alertString
+{
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:alertString delegate:nil cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
+    
+    
+    [alert show];
+}
 //通知处理的监听事件
 /*
 - (void)orientChange:(NSNotification *)noti {
