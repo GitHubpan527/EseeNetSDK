@@ -28,7 +28,7 @@
     endLoad = 1;
     failLoad = 1;
     
-    self.navigationItem.title = @"商城";
+    self.navigationItem.title = CustomLocalizedString(@"mall", nil);//
     
     //[self requestLinkAddress];
     

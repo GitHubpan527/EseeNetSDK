@@ -14,6 +14,7 @@
 #import "VedioViewController.h"
 #import "AFNetworking.h"
 #import "Toast+UIView.h"
+#import "HDManager.h"
 
 //获取流量信息的类
 #include <arpa/inet.h>
@@ -41,7 +42,9 @@
 
 #define NumBtnNormalColor [UIColor grayColor]
 #define NumBtnSelectColor [UIColor redColor]
-
+#define BackgroundColor [UIColor grayColor]
+//[UIColor grayColor]
+//[UIColor colorWithRed:56/255 green:56/255 blue:56/255 alpha:1.0]
 #define LiveCount 8 //视频最大数量
 //#define DefaultLiveCount 4 // 初次进入视频个数
 
@@ -52,6 +55,10 @@
 #define PTZBtnTag  400
 #define BitrateActionSheetTag 500
 #define BottomBase 600
+#define NetHeight 23
+#define ControlBtnTag  700
+
+//CustomLocalizedString(@"playFail", nil)
 
 @interface ENLiveViewController () <UIActionSheetDelegate,EseeNetLiveDelegate>
 {
@@ -106,6 +113,7 @@
     [self _initViewStyle];
     //初始化视频窗口,并开始播放
     [self _initVideo];
+    
 }
 - (void)initView
 {
@@ -119,13 +127,12 @@
     //    LiveCount = [deviceInfo[@"AllChannel"] intValue];
     // Do any additional setup after loading the view.
     _fileManager = [NSFileManager defaultManager];
-    self.view.backgroundColor = [UIColor grayColor];
+    self.view.backgroundColor = BackgroundColor;//magentaColor grayColor
     self.view.userInteractionEnabled = YES;
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(taped:)];
     [self.view addGestureRecognizer:tap];
-    
     
     //    //初始化UI
     //    [self _initViewStyle];
@@ -282,12 +289,12 @@
     
     deviceChanelDic = liveVideo[index].deviceInfo;
     
-    if (DefaultLiveCount == 8) {
-        if (index != 3 && index != 4) {
-            liveVideo[index].layer.cornerRadius = 10;
-            liveVideo[index].layer.masksToBounds = YES;
-        }
-    }
+//    if (DefaultLiveCount == 8) {
+//        if (index != 3 && index != 4) {
+//            liveVideo[index].layer.cornerRadius = 10;
+//            liveVideo[index].layer.masksToBounds = YES;
+//        }
+//    }
     //设置代理
     liveVideo[index].delegate = self;
     //添加到视频BaseView窗口上
@@ -319,8 +326,7 @@
      *
      *  @param ErrorText'key: @"connecting", @"connectFail", @"logining", @"loginFail", @"timeOut", @"loading", @"searching", @"searchFail", @"searchNull", @"playFail"
      */
-    [liveVideo[index] initOSDText:@{@"connecting":@"连接中",@"connectFail":@"连接失败",@"logining":@"登录中",@"loginFail":@"登录失败",@"timeOut":@"超时",@"loading":@"加载中",@"searching":@"搜索中",@"searchFail":@"搜索失败",@"searchNull":@"没有视频",@"playFail":@"播放失败"}];
-    
+    [liveVideo[index] initOSDText:@{@"connecting":CustomLocalizedString(@"connecting", nil),@"connectFail":CustomLocalizedString(@"connectFail", nil),@"logining":CustomLocalizedString(@"logining", nil),@"loginFail":CustomLocalizedString(@"loginFail", nil),@"timeOut":CustomLocalizedString(@"timeOut", nil),@"loading":CustomLocalizedString(@"loading", nil),@"searching":@"搜索中",@"searchFail":CustomLocalizedString(@"searchFail", nil),@"searchNull":CustomLocalizedString(@"searchNull", nil),@"playFail":CustomLocalizedString(@"playFail", nil)}];
 }
 
 
@@ -397,11 +403,13 @@
 
 - (void)changeLiveBitrateWithType:(BITREAT)type ChangeLiveArr:(NSArray *)changeLiveArr
 {
+    [HDManager startLoading];
     NSLog(@"Change Bitrate Live Contain == %@",changeLiveArr);
     for (NSNumber *index in changeLiveArr)
     {
         [liveVideo[[index intValue]] changeBitrate:type];
     }
+//    [HDManager stopLoading];
 }
 //云台控制部分      -----  摇头机
 #pragma mark - --- PTZ ---
@@ -429,12 +437,28 @@
 #pragma mark - 清晰度回调
 - (void)eseeNetLive:(EseeNetLive *)live BitrateChanged:(BITREAT)bitrate
 {
-#warning 此处之前的加上一个加载指示器，加载成功后，此处停止加载指示器，同时给出码流改变成功的提示
+    //[HDManager stopLoading];
     NSLog(@"%@-----%lu",live,(unsigned long)bitrate);
-    
+    if (bitrate == 0) {
+        [self showAlertWithAlertString:@"当前为高清"];
+    }else if (bitrate == 1){
+        [self showAlertWithAlertString:@"当前为标清"];
+    }
 }
 #pragma mark - 数字按钮的点击事件
-
+- (void)vedioSelected:(int)index
+{
+    for (int i = 0; i < DefaultLiveCount; i ++) {
+        if (i == index)
+        {
+            //添加红色边框,表示为选中状态
+            liveVideo[i].videoSelect = YES;
+        }else{
+            liveVideo[i].videoSelect = NO;
+        }
+    }
+}
+/*
 - (void)numBarBtnAction:(UIButton *)sender
 {
     NSInteger index = sender.tag-NumBtnTag;
@@ -453,6 +477,13 @@
     //改变视频是否为:红色边框选中状态
     numbtnSelect[index] = !numbtnSelect[index];
     
+//    if (DefaultLiveCount == 8) {
+//        if (index != 3 && index != 4) {
+//            sender.layer.cornerRadius = 10;
+//            sender.layer.masksToBounds = YES;
+//        }
+//    }
+    
     if (liveVideo[index])
     {
         //添加红色边框,表示为选中状态
@@ -461,7 +492,7 @@
     }
     
 }
- 
+ */
 #pragma mark - 单击手势的点击事件
 //UIView上的
 - (void)taped:(UITapGestureRecognizer *)sender
@@ -472,7 +503,7 @@
 - (void)liveTapActionOne:(UITapGestureRecognizer *)sender
 {
     int index = (int)sender.view.tag-LiveTag;
-    
+    NSLog(@"============================%d========================",indexALL);
     for (int i = 0; i < LiveCount; i++)
     {
         if (i == index)
@@ -486,9 +517,10 @@
             numbtnSelect[i] = YES;//此处表示要将其变成非选择状态
         }
         
-        NSInteger numBtnTag = i + NumBtnTag;
-        UIButton *btn = (UIButton *)[self.view viewWithTag:numBtnTag];
-        [self numBarBtnAction:btn];
+        [self vedioSelected:index];
+//        NSInteger numBtnTag = i + NumBtnTag;
+//        UIButton *btn = (UIButton *)[self.view viewWithTag:numBtnTag];
+//        [self numBarBtnAction:btn];
     }
     NSLog(@"============================%d========================",indexALL);
     
@@ -510,14 +542,13 @@
             [liveVideo[i] removeFromSuperview];
         }
         float margin_top   = 0;
-        float margin_btm   = 15;
-        float margin_left  = 8;
-        float margin_right = 8;
+        float margin_btm   = 0;
+        float margin_left  = 0;
+        float margin_right = 0;
         
         if (self.view.frame.size.height < 504) {//4寸以下
-            margin_top = 8;
-            margin_btm = 8;
-            
+            margin_top = 0;
+            margin_btm = 0;
         }
         
         liveVideo[indexALL].frame = CGRectMake(0, 0, videoBaseView.bounds.size.width - margin_left - margin_right, videoBaseView.bounds.size.height - margin_top - margin_btm);
@@ -533,7 +564,15 @@
         for (int i = 0; i < videoFrameArr.count; i ++) {
             liveVideo[i].frame = [videoFrameArr[i] CGRectValue];
             [videoSubBaseView addSubview:liveVideo[i]];
+            
+//            if (DefaultLiveCount == 8) {
+//                if (i != 3 && i != 4) {
+//                    liveVideo[i].layer.cornerRadius = 10;
+//                    liveVideo[i].layer.masksToBounds = YES;
+//                }
+//            }
         }
+        
         isOne = YES;
     }
 }
@@ -578,13 +617,13 @@
             
             [liveVideo[index] removeFromSuperview];
             float margin_top   = 0;
-            float margin_btm   = 15;
-            float margin_left  = 8;
-            float margin_right = 8;
+            float margin_btm   = 0;
+            float margin_left  = 0;
+            float margin_right = 0;
             
             if (self.view.bounds.size.height < 504) {//4寸以下
-                margin_top = 8;
-                margin_btm = 8;
+                margin_top = 0;
+                margin_btm = 0;
             }
             
             liveVideo[index + 1].frame = CGRectMake(0, 0, videoBaseView.bounds.size.width - margin_left - margin_right, videoBaseView.bounds.size.height - margin_top - margin_btm);
@@ -617,13 +656,13 @@
             
             [liveVideo[index] removeFromSuperview];
             float margin_top   = 0;
-            float margin_btm   = 15;
-            float margin_left  = 8;
-            float margin_right = 8;
+            float margin_btm   = 0;
+            float margin_left  = 0;
+            float margin_right = 0;
             
             if (self.view.bounds.size.height < 504) {//4寸以下
-                margin_top = 8;
-                margin_btm = 8;
+                margin_top = 0;
+                margin_btm = 0;
             }
             
             liveVideo[index - 1].frame = CGRectMake(0, 0, videoBaseView.bounds.size.width - margin_left - margin_right, videoBaseView.bounds.size.height - margin_top - margin_btm);
@@ -672,7 +711,7 @@
     
     static BOOL isOn = YES;
     if ([self getExistenceLiveAndSelectNumBtnContain:YES].count == 0) {
-        [self showAlertWithAlertString:@"请先选择一个通道"];
+        [self showAlertWithAlertString:CustomLocalizedString(@"Please select a channel", nil)];
     }else if ([self getExistenceLiveAndSelectNumBtnContain:YES].count > 1)
     {
         [self showAlertWithAlertString:@"只能选择一个通道"];
@@ -710,12 +749,13 @@
 - (void)_initViewStyle
 {
     [self _initNav];
-    [self _net];
     [self _initVideoView];
-    [self _initVideoNumHub];
-    [self _intiCtrlHub];
-    //[self _initPtzView];
-    [self _initPhotoAndVideo];
+    [self _net];
+//    [self _initVideoNumHub];
+    [self _initControlBtn];
+//    [self _intiCtrlHub];
+//    [self _initPtzView];
+//    [self _initPhotoAndVideo];
 }
 
 //导航栏
@@ -725,7 +765,7 @@
     self.navigationController.navigationBar.translucent = NO;
     self.navigationController.navigationBar.barTintColor = [UIColor lc_colorWithR:48 G:155 B:228 alpha:1.0];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:20],NSForegroundColorAttributeName:[UIColor whiteColor]}];
-    self.navigationItem.title = @"套装NVR";
+    self.navigationItem.title = self.navigatioName;
     //返回按钮
     UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     backButton.frame = CGRectMake(0, 27, 30, 30);
@@ -733,29 +773,30 @@
     [backButton setImage:[UIImage imageNamed:@"返回按钮"] forState:UIControlStateNormal];
     [backButton addTarget:self action:@selector(backClick:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
-    //刷新按钮
+    //按钮
+    /*
     UIButton *refreshButton = [UIButton buttonWithType:UIButtonTypeCustom];
     refreshButton.frame = CGRectMake(WIDTH_SCREEN - 30, 27, 30, 30);
     //    vedioButton.imageEdgeInsets = UIEdgeInsetsMake(0, -20, 0, 0);
     [refreshButton setImage:[UIImage imageNamed:@"vedio.png"] forState:UIControlStateNormal];//vedio.png  更新-(1)
     [refreshButton addTarget:self action:@selector(refreshBtn:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:refreshButton];
-    
+    */
 }
 //网络状态栏
 - (void)_net
 {
-    netState = [[UILabel alloc] initWithFrame:CGRectMake(WIDTH - 250, 0, 250 - 8, 26)];
+    netState = [[UILabel alloc] initWithFrame:CGRectMake(WIDTH - 250, 0, 250 - 8, NetHeight)];
     netState.textColor = [UIColor whiteColor];
     netState.textAlignment = NSTextAlignmentRight;
-    
-    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(getInternetface) userInfo:nil repeats:YES];
+    netState.font = [UIFont systemFontOfSize:12];//Default is 17
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(getInternetface) userInfo:nil repeats:YES];
     [timer fireDate];
     
     [self.view addSubview:netState];
     
     liuliangImageView = [[UIImageView alloc] init];
-    liuliangImageView.frame = CGRectMake(WIDTH - 8 - 100 - 26, 3, 20, 20);
+    liuliangImageView.frame = CGRectMake(WIDTH - 8 - 100 - NetHeight, 0, 20, NetHeight);
     liuliangImageView.alpha = 0;
     liuliangImageView.image = [UIImage imageNamed:@"liuliang.png"];
     [self.view addSubview:liuliangImageView];
@@ -779,25 +820,25 @@
         switch (status) {
             case AFNetworkReachabilityStatusUnknown:
                 netStr = @"未知:";
-                netState.frame = CGRectMake(WIDTH - 250, 0, 250 - 8, 26);
+                netState.frame = CGRectMake(WIDTH - 250, 0, 250 - 8, NetHeight);
                 liuliangImageView.alpha = 0;
                 break;
             case AFNetworkReachabilityStatusNotReachable:
                 NSLog(@"没有网络");
                 netStr = @"没有网络:";
-                netState.frame = CGRectMake(WIDTH - 250, 0, 250 - 8, 26);
+                netState.frame = CGRectMake(WIDTH - 250, 0, 250 - 8, NetHeight);
                 liuliangImageView.alpha = 0;
                 break;
             case AFNetworkReachabilityStatusReachableViaWWAN:
                 NSLog(@"3G");
                 netStr = @"";
-                netState.frame = CGRectMake(ViewRightX(liuliangImageView), 0, 100, 26);
+                netState.frame = CGRectMake(ViewRightX(liuliangImageView), 0, 100, NetHeight);
                 liuliangImageView.alpha = 1.0;
                 break;
             case AFNetworkReachabilityStatusReachableViaWiFi:
                 NSLog(@"WIFI");
                 netStr = @"WIFI:";
-                netState.frame = CGRectMake(WIDTH - 250, 0, 250 - 8, 26);
+                netState.frame = CGRectMake(WIDTH - 250, 0, 250 - 8, NetHeight);
                 liuliangImageView.alpha = 0;
                 break;
             default:
@@ -837,24 +878,24 @@
     if (HEIGHT_SCREEN < 568) {
         videoBaseViewHeight = WIDTH*.64;
     }
-    videoBaseView = [[UIView alloc]initWithFrame:CGRectMake(0, ViewH(netState), WIDTH, videoBaseViewHeight)];
-    videoBaseView.backgroundColor = [UIColor grayColor];
+    videoBaseView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, WIDTH, videoBaseViewHeight)];//ViewH(netState)
+    videoBaseView.backgroundColor = BackgroundColor;//grayColor
     [self.view addSubview:videoBaseView];
     
-    float margin_top   = 3;
-    float margin_btm   = 15;
-    float margin_left  = 8;
-    float margin_right = 8;
+    float margin_top   = 0;
+    float margin_btm   = 0;
+    float margin_left  = 0;
+    float margin_right = 0;
     
     if (self.view.bounds.size.height < 568) {//4寸以下
-        margin_top = 8;
-        margin_btm = 8;
+        margin_top = 0;
+        margin_btm = 0;
     }
     
     videoSubBaseView = [[UIView alloc]initWithFrame:CGRectMake(margin_left, margin_top, videoBaseView.bounds.size.width-margin_left-margin_right, videoBaseView.bounds.size.height-margin_top-margin_btm)];
     [videoBaseView addSubview:videoSubBaseView];
     
-    float videoMargin = 5;
+    float videoMargin = 0;
     
     if (DefaultLiveCount == 4){
         float videoWidth  = videoSubBaseView.frame.size.width/2-videoMargin/2;
@@ -884,7 +925,7 @@
 //初始化数字按钮
 - (void)_initVideoNumHub
 {
-    videoNumHub = [[UIView alloc]initWithFrame:CGRectMake(0, ViewBtmY(videoBaseView), WIDTH, 44)];
+    videoNumHub = [[UIView alloc]initWithFrame:CGRectMake(0, ViewBtmY(videoBaseView), WIDTH, 24)];
     videoNumHub.backgroundColor = [UIColor colorWithRed:249/255.0 green:249/255.0 blue:249/255.0 alpha:1];
     [self.view addSubview:videoNumHub];
     
@@ -895,11 +936,9 @@
         
         UIView *btnBaseView = [[UIView alloc]initWithFrame:CGRectMake(btnBaseViewWidth*i, 0,btnBaseViewWidth , ViewH(videoNumHub))];
         [videoNumHub addSubview:btnBaseView];
-        
-        
         UIButton *btn          = [UIButton buttonWithType:UIButtonTypeSystem];
         btn.frame              = CGRectMake(0, 0, btnWith, btnWith);
-        btn.titleLabel.font    = [UIFont systemFontOfSize:24];
+        btn.titleLabel.font    = [UIFont systemFontOfSize:18];
         [btn setTitle:[NSString stringWithFormat:@"%d",i+1] forState:UIControlStateNormal];
         btn.tintColor          = NumBtnNormalColor;
 //        btn.layer.borderColor  = NumBtnNormalColor.CGColor;
@@ -911,7 +950,6 @@
         [btnBaseView addSubview:btn];
         
         videoIsSelect[i] = NO;
-        
         
         /*
         UILabel *numLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, btnWith, btnWith)];
@@ -931,36 +969,74 @@
 - (void)chooseOneTongDao
 {
     if ([self getExistenceLiveAndSelectNumBtnContain:YES].count == 0) {
-        [self showAlertWithAlertString:@"请先选择一个通道"];
+        [self showAlertWithAlertString:CustomLocalizedString(@"Please select a channel", nil)];
+    }
+}
+- (void)_initControlBtn
+{
+    UIView *controlView = [[UIView alloc] init];
+    controlView.backgroundColor = [UIColor whiteColor];
+    controlView.frame = CGRectMake(0, ViewBtmY(videoBaseView), WIDTH, HEIGHT_SCREEN - ViewBtmY(videoBaseView) - 64);//videoNumHub  videoNumHub
+    [self.view addSubview:controlView];
+    NSArray *controlBtnArr = @[@"截图",@"录像",@"全屏",@"分辨率",@"查看",@"回放"];
+    int btnWidth = 70;
+    int btnheight = 55;
+    float partWidth = (WIDTH - 3 * btnWidth) / 6;
+    float partHeight = (ViewH(controlView) - btnheight * 2) / 4;
+    for (int i = 0; i < 2; i ++) {
+        for (int j = 0; j < 3; j ++) {
+            UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+            btn.frame = CGRectMake(partWidth * (2 * j + 1) + btnWidth * j, partHeight * (2 * i + 1) + btnheight * i , btnWidth, btnheight);
+            [btn setBackgroundColor:[UIColor colorWithRed:213.0/255.0 green:213/255.0 blue:213/255.0 alpha:1.0]];
+            [btn setTitle:controlBtnArr[3 * i + j] forState:UIControlStateNormal];
+            [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            btn.titleLabel.font = [UIFont systemFontOfSize:14.0];
+            if (3 * i + j < 4) {
+                if (3 * i + j == 2) {
+                    btn.tag = CtrlBtnTag + 3 * i + j + 1;
+                }else if (3 * i + j == 3){
+                    btn.tag = CtrlBtnTag + 3 * i + j - 1;
+                }else{
+                    btn.tag = CtrlBtnTag + 3 * i + j;
+                }
+                [btn addTarget:self action:@selector(ctrlBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+            }else if (3 * i + j >= 4 && 3 * i + j <= 5){
+                btn.tag = BottomBase + 3 * i + j - 4;
+                [btn addTarget:self action:@selector(BottomBaseAction:) forControlEvents:UIControlEventTouchUpInside];
+            }
+            btn.layer.cornerRadius = 15.0;
+            [controlView addSubview:btn];
+        }
     }
 }
 //截图、录像、分辨率、全屏
 - (void)_intiCtrlHub
 {
-    ctrlHub = [[UIView alloc]initWithFrame:CGRectMake(0, ViewBtmY(videoNumHub), WIDTH, 44)];
+    ctrlHub = [[UIView alloc]initWithFrame:CGRectMake(0, ViewBtmY(videoNumHub), WIDTH, 64)];
     ctrlHub.backgroundColor = [UIColor colorWithRed:249/255.0 green:249/255.0 blue:249/255.0 alpha:1];
     [self.view addSubview:ctrlHub];
     //    NSArray *btnTitleArr = @[@"添加",@"移除",@"暂停",@"继续",@"停止",@"码流"];
-    NSArray *btnTitleArr = @[@"截图",@"录像",@"分辨率",@"全屏"];
-    float btnWith          = 50;
-    float btnHeight        = 30;
-    float btnBaseViewWidth = ViewW(ctrlHub)/btnTitleArr.count;
-    
-    for (int i = 0; i < btnTitleArr.count; i++) {
+//    NSArray *btnTitleArr = @[@"截图",@"录像",@"分辨率",@"全屏"];
+    NSArray *ImageNameArr = @[@"NVR截图的副本",@"NVR录像的副本 2",@"NVR智能摄像头-分辨率高",@"NVR全屏"];
+    float btnWith          = 32;
+    float btnHeight        = 32;
+    float btnBaseViewWidth = ViewW(ctrlHub)/ImageNameArr.count;
+    for (int i = 0; i < ImageNameArr.count; i++) {
         
-        UIView *btnBaseView = [[UIView alloc]initWithFrame:CGRectMake(btnBaseViewWidth*i, 0,btnBaseViewWidth , ViewH(ctrlHub))];
+        UIView * btnBaseView = [[UIView alloc]initWithFrame:CGRectMake(btnBaseViewWidth*i, 0,btnBaseViewWidth , ViewH(ctrlHub))];
         [ctrlHub addSubview:btnBaseView];
         
-        UIButton *btn                = [UIButton buttonWithType:UIButtonTypeSystem];
+        UIButton *btn                = [UIButton buttonWithType:UIButtonTypeCustom];
         btn.frame                    = CGRectMake(0, 0, btnWith, btnHeight);
-        btn.titleLabel.font          = [UIFont systemFontOfSize:14];
-        [btn setTitle:btnTitleArr[i] forState:UIControlStateNormal];
-        btn.titleLabel.textAlignment = NSTextAlignmentCenter;
-        btn.titleLabel.adjustsFontSizeToFitWidth = YES;
-        btn.tintColor          = NumBtnNormalColor;
-        btn.layer.borderColor  = NumBtnNormalColor.CGColor;
-        btn.layer.borderWidth  = 1;
-        btn.layer.cornerRadius = 4;
+        [btn setImage:[UIImage imageNamed:ImageNameArr[i]] forState:UIControlStateNormal];
+//        btn.titleLabel.font          = [UIFont systemFontOfSize:14];
+//        [btn setTitle:btnTitleArr[i] forState:UIControlStateNormal];
+//        btn.titleLabel.textAlignment = NSTextAlignmentCenter;
+//        btn.titleLabel.adjustsFontSizeToFitWidth = YES;
+//        btn.tintColor          = NumBtnNormalColor;
+//        btn.layer.borderColor  = NumBtnNormalColor.CGColor;
+//        btn.layer.borderWidth  = 1;
+//        btn.layer.cornerRadius = 4;
         btn.center             = BoundsCenter(btnBaseView);
         btn.tag                = CtrlBtnTag+i;
         [btn addTarget:self action:@selector(ctrlBtnAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -973,7 +1049,7 @@
         */
     }
     
-    UIView *btmLineView = [[UIView alloc]initWithFrame:CGRectMake(0, ViewH(videoNumHub)-.5,ViewW(videoNumHub), .5)];
+    UIView *btmLineView = [[UIView alloc]initWithFrame:CGRectMake(0, ViewH(ctrlHub)-.5,ViewW(videoNumHub), .5)];
     btmLineView.backgroundColor = [UIColor grayColor];
     [ctrlHub addSubview:btmLineView];
     
@@ -1011,7 +1087,7 @@
         case 0://截图
         {
             if ([self getExistenceLiveAndSelectNumBtnContain:YES].count == 0) {
-                [self showAlertWithAlertString:@"请先选择一个通道"];
+                [self showAlertWithAlertString:CustomLocalizedString(@"Please select a channel", nil)];//CustomLocalizedString(@"Please select a channel",nil)
             }else
             {
                 NSLog(@"截图代码");
@@ -1061,9 +1137,9 @@
                             //创建成功，写进去
                             BOOL result = [UIImagePNGRepresentation(liveVideo[indexALL].currentImage)writeToFile: path atomically:YES]; // 保存成功会返回YES
                             if (result == YES) {
-                                [self showAlertWithAlertString:@"保存成功"];
+                                [self showAlertWithAlertString:CustomLocalizedString(@"Save success", nil)];
                             }else{
-                                [self showAlertWithAlertString:@"保存失败"];
+                                [self showAlertWithAlertString:CustomLocalizedString(@"Save failed", nil)];
                             }
                         }else{
                             NSLog(@"文件路径创建失败");
@@ -1081,7 +1157,7 @@
 //            static int lvXiangIndex;//录像通道
             
             if ([self getExistenceLiveAndSelectNumBtnContain:YES].count == 0) {
-                [self showAlertWithAlertString:@"请先选择一个通道"];
+                [self showAlertWithAlertString:CustomLocalizedString(@"Please select a channel", nil)];
             }else
             {
                 NSString *path = [LibCachesNVRVideoPath stringByAppendingString:[NSString stringWithFormat:@"%@%@%@",@"/",[self dateAndTime],@".mp4"]];
@@ -1092,6 +1168,7 @@
                     isLuXiang = YES;
                     lvXiangIndex = indexALL;
                     [sender setTitle:@"结束录像" forState:UIControlStateNormal];
+                    sender.titleLabel.font = [UIFont systemFontOfSize:15.0];
                     NSLog(@"开始录像");
                     
                     //开始录像
@@ -1143,9 +1220,9 @@
                     //保存到沙盒路径中
                     int a = [liveVideo[lvXiangIndex] endRecord];
                     if (a == 0) {
-                        [self showAlertWithAlertString:@"录制成功"];
+                        [self showAlertWithAlertString:CustomLocalizedString(@"Recording success", nil)];
                     }else{
-                        [self showAlertWithAlertString:@"录制失败"];
+                        [self showAlertWithAlertString:CustomLocalizedString(@"Recording failed", nil)];
                     }
                     isStarting = YES;
                 }
@@ -1161,21 +1238,20 @@
             }else{
                 //                sender.enabled = NO;
                 if ([self getExistenceLiveAndSelectNumBtnContain:YES].count == 0) {
-                    [self showAlertWithAlertString:@"请先选择一个通道"];
+                    [self showAlertWithAlertString:CustomLocalizedString(@"Please select a channel", nil)];
                 }else{
-                    UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:@"码流选择" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"高清",@"标清", nil];
+                    UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:CustomLocalizedString(@"Choice of clarity", nil) delegate:self cancelButtonTitle:CustomLocalizedString(@"cancel", nil) destructiveButtonTitle:nil otherButtonTitles:CustomLocalizedString(@"HD", nil),CustomLocalizedString(@"SD", nil), nil];
                     sheet.tag = BitrateActionSheetTag;
                     [sheet showInView:self.view];
                 }
             }
-            
         }
             break;
             
         case 3://全屏
         {
             if ([self getExistenceLiveAndSelectNumBtnContain:YES].count == 0) {
-                [self showAlertWithAlertString:@"请先选择一个通道"];
+                [self showAlertWithAlertString:CustomLocalizedString(@"Please select a channel", nil)];
             }else{
                 [self oneAndFourView:sender];
             }
@@ -1201,14 +1277,40 @@
     
     //设置工具条的frame
     toolbar.frame=CGRectMake(0, 0, WIDTH, 44);
+    
+    UIButton *btn1 = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn1.frame = CGRectMake(10, 5, 60, 44 - 10);
+    [btn1 setTitle:CustomLocalizedString(@"cancel", nil) forState:UIControlStateNormal];
+    btn1.titleLabel.font = [UIFont systemFontOfSize:14];
+    [btn1 setTintColor:[UIColor whiteColor]];
+    btn1.layer.borderColor = [UIColor whiteColor].CGColor;
+    btn1.layer.borderWidth = 1;
+    btn1.layer.cornerRadius = 4;
+    [btn1 addTarget:self action:@selector(clickCancel:) forControlEvents:UIControlEventTouchUpInside];
+    [toolbar addSubview:btn1];
+    
+    UIButton *btn2 = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn2.frame = CGRectMake(WIDTH - 70, 5, 60, 44 - 10);
+    [btn2 setTitle:CustomLocalizedString(@"ok", nil) forState:UIControlStateNormal];
+    btn2.titleLabel.font = [UIFont systemFontOfSize:14];
+    [btn2 setTintColor:[UIColor whiteColor]];
+    btn2.layer.borderColor = [UIColor whiteColor].CGColor;
+    btn2.layer.borderWidth = 1;
+    btn2.layer.cornerRadius = 4;
+    [btn2 addTarget:self action:@selector(clickOK:) forControlEvents:UIControlEventTouchUpInside];
+    [toolbar addSubview:btn2];
+    
     //给工具条添加按钮
-    UIBarButtonItem *item0=[[UIBarButtonItem alloc]initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(clickCancel:)];
-    [item0 setTintColor:[UIColor whiteColor]];
-    
-    UIBarButtonItem *item1=[[UIBarButtonItem alloc]initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(clickOK:)];
-    [item1 setTintColor:[UIColor whiteColor]];
-    
-    toolbar.items = @[item0,item1];
+//    UIBarButtonItem *item0=[[UIBarButtonItem alloc]initWithTitle:CustomLocalizedString(@"cancel", nil) style:UIBarButtonItemStylePlain target:self action:@selector(clickCancel:)];
+//    [item0 setTintColor:[UIColor whiteColor]];
+//    item0.style = UIBarButtonSystemItemFixedSpace;
+//    
+//    UIBarButtonItem *item1=[[UIBarButtonItem alloc]initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(clickOK:)];
+//    [item1 setTintColor:[UIColor whiteColor]];
+//    item1.style = UIBarButtonSystemItemFlexibleSpace;
+//    
+//    toolbar.items = @[item0,item1];
+//    
     //设置文本输入框键盘的辅助视图
 //    self.textfield.inputAccessoryView=toolbar;
     [contentView addSubview:toolbar];
@@ -1216,8 +1318,7 @@
     //
     NSDate *currentTime  = [NSDate date];
     datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, 44, WIDTH, HEIGHT - ViewBtmY(videoBaseView) - 44)];
-    // [datePicker   setTimeZone:[NSTimeZone defaultTimeZone]];
-    // [datePicker setTimeZone:[NSTimeZone timeZoneWithName:@"GMT+8"]];
+    [datePicker setTimeZone:[NSTimeZone timeZoneWithName:@"GMT+0800"]];//UTC GMT
     // 设置当前显示
     [datePicker setDate:currentTime animated:YES];
     // 显示模式
@@ -1239,18 +1340,43 @@
     contentView = nil;
     
 }
+//将任意时间转化为当前时间
+- (NSDate *)getNowDateFromatAnDate:(NSDate *)anyDate
+{
+    //设置源日期时区
+    NSTimeZone* sourceTimeZone = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];//或GMT
+    //设置转换后的目标日期时区
+    NSTimeZone* destinationTimeZone = [NSTimeZone timeZoneWithAbbreviation:@"GMT+0800"];
+    //得到源日期与世界标准时间的偏移量
+    NSInteger sourceGMTOffset = [sourceTimeZone secondsFromGMTForDate:anyDate];
+    //目标日期与本地时区的偏移量
+    NSInteger destinationGMTOffset = [destinationTimeZone secondsFromGMTForDate:anyDate];
+    //得到时间偏移量的差值
+    NSTimeInterval interval = destinationGMTOffset - sourceGMTOffset;
+    //转为现在时间
+    NSDate* destinationDateNow = [[NSDate alloc] initWithTimeInterval:interval sinceDate:anyDate];
+    return destinationDateNow;
+}
 - (void)clickOK:(UIBarButtonItem *)item
 {
     NSDate *selected = [datePicker date];
+    NSDate *nowDated = [self getNowDateFromatAnDate:selected];
     NSLog(@"date: %@", selected);//date: 2016-11-19 16:33:17 +0000
-    NSArray *arrDate = [[NSString stringWithFormat:@"%@",selected] componentsSeparatedByString:@" "];
+    NSArray *arrDate = [[NSString stringWithFormat:@"%@",nowDated] componentsSeparatedByString:@" "];
     [contentView removeFromSuperview];
     ENPlaybackkViewController *playback = [[ENPlaybackkViewController alloc] init];
-    [playback setPlayBackInfoWithDevIDOrIP:deviceInfo[@"devID"] UserName:deviceInfo[@"userName"] Passwords:deviceInfo[@"password"] Channel:1 Port:0 PlayTime:arrDate[0]];
-    
-//    [self presentViewController:playback animated:YES completion:nil];
-    [self exit1];
-    [self.navigationController pushViewController:playback animated:YES];
+    if ([self getExistenceLiveAndSelectNumBtnContain:YES].count == 0) {
+        [self showAlertWithAlertString:CustomLocalizedString(@"Please select a channel", nil)];
+    }else{
+        int index = [[[self getExistenceLiveAndSelectNumBtnContain:YES] firstObject] intValue];
+        //channel 通道号
+        [playback setPlayBackInfoWithDevIDOrIP:deviceInfo[@"devID"] UserName:deviceInfo[@"userName"] Passwords:deviceInfo[@"password"] Channel:index Port:0 PlayTime:arrDate[0]];
+        
+        //    [self presentViewController:playback animated:YES completion:nil];
+        [self exit1];
+        [self.navigationController pushViewController:playback animated:YES];
+        
+    }
 }
 
 
@@ -1259,10 +1385,12 @@
 - (NSString *)dateAndTime
 {
     NSDate *currentDate = [NSDate date];//获取当前时间，日期
+//    currentDate = [self getNowDateFromatAnDate:currentDate];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"YYYY_MM_dd_HH_mm_ss"];
     NSString *dateString = [dateFormatter stringFromDate:currentDate];
     NSLog(@"dateString:%@",dateString);
+    
     return dateString;
 }
 #pragma mark - 提示框的代理方法
@@ -1287,8 +1415,6 @@
     //截图、回放
     NSArray *btnTitleArr = @[@"查看",@"回放"];
     NSArray *btnImageArr = @[@"chakan",@"huifang"];
-    float btnWith          = 70;
-    float btnHeight        = 70;
     float btnBaseViewWidth = ViewW(bottomBaseView) / btnImageArr.count;
     
     for (int i = 0; i < btnImageArr.count; i ++) {
@@ -1297,7 +1423,7 @@
         [bottomBaseView addSubview:btnBaseView];
         
         float btnWith = btnBaseView.frame.size.width / 2;
-        float btnHeight = btnBaseView.frame.size.height - 15 * 2;
+        float btnHeight = btnBaseView.frame.size.height - 25 * 2;
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
         btn.frame = CGRectMake(0, 0, btnWith, btnHeight);
         [btn setImage:[UIImage imageNamed:btnImageArr[i]] forState:UIControlStateNormal];
@@ -1330,7 +1456,7 @@
     switch (sender.tag - BottomBase) {
         case 0://查看
             NSLog(@"查看");
-            [self AlertCTwo:@"截图" and:@"录像"];
+            [self AlertCTwo:CustomLocalizedString(@"screenshots", nil) and:CustomLocalizedString(@"video", nil)];
             break;
         case 1://回放
             NSLog(@"回放");
@@ -1354,8 +1480,8 @@
         [self.navigationController pushViewController:vedio animated:YES];
         
     }];
-    UIAlertAction * action3 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-        NSLog(@"取消");
+    UIAlertAction * action3 = [UIAlertAction actionWithTitle:CustomLocalizedString(@"cancel", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        NSLog(CustomLocalizedString(@"cancel", nil));
     }];
     [alertCtr addAction:action1];
     [alertCtr addAction:action2];
@@ -1399,7 +1525,6 @@
     leftBtn.center  = CGPointMake(leftBtn.center.x, BoundsCenter(ptzPane).y);
     rightBtn.center = CGPointMake(rightBtn.center.x, BoundsCenter(ptzPane).y);
     stopBtn.center  = BoundsCenter(ptzPane);
-    
     
     [upBtn    addTarget:self action:@selector(PTZBtnAction:) forControlEvents:UIControlEventTouchDown];
     [downBtn  addTarget:self action:@selector(PTZBtnAction:) forControlEvents:UIControlEventTouchDown];
@@ -1536,7 +1661,7 @@
 //提示框封装
 - (void)showAlertWithAlertString:(NSString *)alertString
 {
-    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:alertString delegate:nil cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:alertString delegate:nil cancelButtonTitle:nil otherButtonTitles:CustomLocalizedString(@"ok", nil), nil];
     [alert show];
 }
 

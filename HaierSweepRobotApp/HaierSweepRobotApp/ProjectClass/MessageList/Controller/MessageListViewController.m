@@ -57,8 +57,8 @@
     [super viewDidLoad];
     
     //self.navigationItem.title = CustomLocalizedString(@"message_item", nil);
-    self.navigationItem.title = @"系统消息";
-
+    self.navigationItem.title = CustomLocalizedString(@"system_message", nil);
+    
     self.messageListTB.requestDelegate = self;
 }
 

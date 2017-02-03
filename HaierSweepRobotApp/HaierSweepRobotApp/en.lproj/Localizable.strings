@@ -1,0 +1,1429 @@
+/* 
+  Localizable.strings
+  HaierSweepRobotApp
+
+  Created by lichao pan on 2017/1/16.
+  Copyright © 2017年 LC-World. All rights reserved.
+*/
+
+"news_cameras" = "News cameras";
+"news_sweeper" = "News sweeper";
+"myDevice" = "My Devices";
+"addDevice" = "Add Device";
+"addNVRDevice" = "Add NVR";
+"selectType" = "Select Device Type";
+"sureNet" = "Confirm Connection";
+"cancel" = "Cancel";
+"nextStep" = "Next Step";
+"inputPw11" = "Enter Password";
+"currentNetwork" = "Your Current Network:";
+"inputWifiPw" = "Enter Password";
+"rightInputPw" = "Please enter the correct WiFi password and tap on “next step”";
+"connecting" = "Connecting";
+"configurationProcess" = "Configuration takes about 60 seconds. Please wait.";
+"wiftConnecting" = "Connecting to WiFi";
+"connectSuccess" = "Connection Successful";
+"wifiConnectSuccess" = "Congratulations! WiFi connection successful.";
+"sure" = "Confirm";
+"mall" = "Store";
+"setup0" = "Settings";
+"lookRecord" = "Check Cleaning Record";
+"cleanRecord" = "Cleaning Record";
+"startTime" = "Start Time";
+"endTime" = "End Time";
+"timeRange" = "Set Cleaning Range";
+"cleanRange" = "Cleaning Range";
+"feedBack" = "Feedback";
+"exit" = "Exit";
+"The two passwords is different" = "The two passwords is different"; 
+"Please enter 6 ~ 16 password again" = "Please enter 6 ~ 16 password again";
+"Must agree to the user registration agreement to register" = "Must agree to the user registration agreement to register";
+"If confirm the exit from the current account?" = "If confirm the exit from the current account?";
+"Phone number format is not correct" = "Phone number format is not correct";
+"aboutUs" = "About Us";
+"Failure of exit" = "Failure of exit";
+"Successful modification" = "Successful modification";
+"useHelp" = "Help";
+"camera" = "Camera";
+"We will send an email to you to change the email for verification" = "We will send an email to you to change the email for verification";
+"modefyuser" = "Modefy Nickname";
+"please input your nickname" = "Please input your nickname";
+"systemMessage" = "System's Message"; 
+"useAgreement" = "UseAgreement";
+"cleanCache" = "Clear Cache";
+"switchLanguage" = "Switch Language";
+"networkSettings" = "Network Settings";
+"useAgreement" = "Users’ Agreement";
+"loginOut" = "Log out";
+"userIcon" = "Display Picture";
+"userName" = "Name";
+"userSex" = "Gender";
+"userMobile" = "Mobile Number";
+"userEmail" = "Email Address";
+"accountSafe" = "Account Safety";
+"save" = "Save";
+"sendEmail" = "We will send an email to your email address to confirm your change of email address.";
+"modifyPw" = "Change Password";
+"oldPw" = "Please enter the 6-16 digit old password";
+"firstPw" = "Please enter a 6-16 digit new password";
+"secondPw" = "Please re-enter the 6-16 digit new password";
+"reName" = "Re-name";
+"delete" = "Delete";
+"sterilize" = "UV Bacteria-Killing";
+"silence" = "Eco-Silence";
+"cleanPattern" = "Cleaning Pattern";
+"designateArea" = "Designate Area";
+"backCharge" = "Return to Charge";
+"arch" = "Arch";
+"edgewise" = "Follow the Edge";
+"fixed" = "Fixed";
+"outside-in" = "Inwards";
+"polygon" = "Polygon";
+"deviceName" = "Device Name";
+"deviceModel" = "Device Model";
+"bindTime" = "Time of Binding";
+"timeAppoint" = "Schedule";
+"houseType" = "House Type";
+"deviceSet" = "Device Settings";
+"timeSwitch" = "Scheduled ON/OFF";
+"repeat" = "Repeat";
+"cleanRegion" = "Cleaning Area";
+"storage" = "Storage";
+"Sunday" = "Every Sunday";
+"Monday" = "Every Monday";
+"Tuesday" = "Every Tuesday";
+"Wednesday" = "Every Wednesday";
+"Thursday" = "Every Thursday";
+"Friday" = "Every Friday";
+"Saturday" = "Every Saturday";
+"AppMessage" = "Message";
+"messageDetail" = "Message Details";
+"life" = "Smart in Living, Wisdom in Life";
+"goRegister" = "Go Register";
+"forgetPw" = "Forgot Password?";
+"login" = "Login";
+"inputMobile" = "Please enter mobile number";
+"inputCode" = "Please enter verification Code";
+"getCode" = "Obtain verification code";
+"inputPw" = "Please enter the 6-16 digit password";
+"register" = "Register";
+"userAgree" = "Users’ Agreement";
+"forgetPassword" = "Forgot Password";
+"setNew" = "Set New Password";
+"addType" = "Add Type";
+//NVR
+"connecting" = "connecting";
+"connectFail" = "connectFail";
+"logining" = "logining";
+"loginFail" = "loginFail";
+"timeOut" = "timeOut";
+"loading" = "loading";
+"searching" = "searching";
+"searchFail" = "searchFail";
+"searchNull" = "searchNull";
+"searchNull" = "searchNull";
+"Please select a channel" = "Please select a channel";
+"Save the photo album" = "Save the photo album";
+"Delete the picture" = "Delete the picture";
+"Successful delete" = "Successful delete";
+"playback" = "Playback";
+"playFail" = "playFail";
+"Sets the initial time" = "Sets the initial time";
+"Failure of the video" = "Failure of the video";
+"Start time should be less than end time" = "Start time should be less than end time";
+"End time should be greater than start time" = "End time should be greater than start time";
+"Sets the end time" = "Sets the end time";
+"This image has been saved to the photo album" = "This image has been saved to the photo album";
+//ljp
+"account_login" = "Account Login";
+"input_username" = "Please input Email/ID";
+"input_password" = "Please input Password";
+"login" = "Login";
+"unInputUsername" = "Please input Email/ID";
+"unInputPassword" = "Please input Password";
+
+"login_failure" = "Login Failure";
+"user_unexist" = "User Unexist";
+"password_error" = "Password Error";
+
+"ok" = "OK";
+"cancel" = "Cancel";
+"setup" = "setting up";
+
+"contact" = "Device list";
+
+"logout" = "Logout";
+
+"logout_prompt" = "Are you sure to logout?";
+"call" = "Call";
+"monitor" = "Monitor";
+"accept" = "Accept";
+"reject" = "HangUp";
+
+//"feedBack" = "FeedBack";
+"aboutUs" = "AboutUs";
+"useHelp" = "UseHelp";
+"cleanCache" = "CleanCache";
+"switchLanguage" = "SwitchLanguage";
+"networkSettings" = "NetworkSettings";
+"useAgreement" = "UseAgreement";
+"loginOut" = "loginOut";
+"basicInformation" = "BasicInformation";
+
+"input_device_password" = "Please input device password";
+
+"account_info" = "Account Info";
+"check_update" = "Update";
+"update" = "Update";
+"screenshot" = "Images";
+"about_us" = "About";
+
+"screenshot_success" = "Snapshot Success";
+
+"sure_to_delete" = "Are you sure to delete?";
+"sure_to_clear" = "Are you sure to clear?";
+"operator_success" = "Operate Successfully";
+"operator_failure" = "Operate Failed";
+"no_permission" = "Permissions denied";
+
+"online" = "Online";
+"offline" = "Offline";
+
+"add_contact" = "Add Online Device";
+"input_contact_id" = "Please input device ID";
+"input_contact_name" = "Please input device name";
+"input_contact_password" = "Please input device password";
+
+"next" = "Next";
+"save" = "Save";
+
+"contact_already_exists" = "Device already exists";
+
+"chat" = "Call";
+"message" = "Message";
+"playback" = "Playback";
+"control" = "Settings";
+"device_control" = "Settings";
+"modify" = "Edit";
+
+"recent_one_day" = "One day";
+"recent_three_day" = "Three day";
+"recent_one_month" = "One month";
+"custom" = "Custom";
+
+"device_password_error" = "Device password error";
+"net_exception" = "Network Error";
+
+"about" = "About";
+"about_text" = "Yoosee is a free app designed for IP camera which is a new generation of smart home product.It uses advanced P2P network transmission technology,remote monitoring has never been easier,it is the best way to engage with family and friends.";
+
+"start_time" = "Start Time:";
+"end_time" = "End Time:";
+"search" = "Search";
+
+"unselected_start_time" = "Please select start time";
+"unselected_end_time" = "Please select end time";
+"start_time_must_before_end_time" = "Start time must before End time";
+
+"account" = "Account";
+"email" = "Email";
+"userEmail" = "Email";
+"phone_number" = "Phone";
+"modify_login_password" = "Login Password";
+
+"unbind" = "unbind";
+
+"modify_password" = "Modify Password";
+"input_original_password" = "Please input old password";
+"input_new_password" = "Please input new password";
+"confirm_input" = "Confirm Input";
+"two_passwords_not_match" = "Two passwords do not match";
+"password_too_long" = "Password can not exceed 30 characters";
+"original_password_error" = "Original password error";
+
+"unknown_error" = "Unknown error";
+
+"sure_to_unbind_email" = "Are you sure to unbind the email?";
+"sure_to_unbind_phone" = "Are you sure to unbind the phone?";
+
+"bind_email" = "Bind Email";
+"input_email" = "Please input email";
+"email_length_error" = "Email must be 5-31 characters in length";
+"email_used" = "Email has been used";
+"email_format_error" = "Email format error";
+
+"input_login_password" = "Please input login password";
+"session_error" = "Session error,your account may be login elsewhere,please relogin";
+
+
+"time_set" = "Date and Time";
+"media_set" = "Media Settings";
+"security_set" = "Security Settings";
+"network_set" = "Network Settings";
+"alarm_set" = "Alarm Settings";
+"record_set" = "Record Settings";
+"defenceArea_set" = "Defence Area Settings";
+"remote_set" = "Remote Settings";
+"device_update" = "Device Update";
+
+"apply" = "Apply";
+"video_format_pal" =  "PAL";
+"video_format_ntsc" = "NTSC";
+
+"video_format" = "Video Format";
+"volume" = "Volume";
+
+"modify_device_password" = "Modify device password";
+
+"motion" = "Motion Detection";
+"buzzer" = "Buzzer";
+"buzzer_time" = "Buzzer Time(minute)";
+
+"alarm_email" = "Alarm Email";
+"bind_account" = "Bind Account";
+
+"sure_to_unbind_account" = "Are you sure to unbind this alarm ID?";
+"input_alarm_id" = "Please input alarm ID";
+"id_too_long" = "ID must not more than 9 character";
+"alarm_id_must_zero_begin" = "Alarm ID must be \'0\' at the beginning";
+"add_bind_account_prompt1" = "Can only add";
+"add_bind_account_prompt2" = "alarm account";
+
+"remote_defence" = "Remote Defence";
+"remote_record" = "Remote Record";
+
+"record_type" = "Record Type";
+"record_time" = "Record Time(minute)";
+
+"manual_record" = "Manual Recording";
+"alarm_record" = "Alarm Recording";
+"timer_record" = "Scheduled Recording";
+"plan_time_table" = "Plan Schedule";
+
+"net_type" = "Network Type";
+"wired" = "Ethernet";
+"wifi" = "WIFI";
+"alarm_push" = "Alarm push ID";
+
+"change_net_prompt" = "Change the network may cause the device to disconnect,please confirm the action!";
+
+"wifi_list" = "WIFI List";
+
+"input_wifi_password" = "Please input wifi password";
+"wifi_password_format_error" = "Wifi password format error";
+
+"remote" = "Remote";
+"hall" = "Hall";
+"window" = "Window";
+"balcony" = "Balcony";
+"bedroom" = "Bedroom";
+"kitchen" = "Kitchen";
+"courtyard" = "Courtyard";
+"door_lock" = "Door Lock";
+"other" = "Other";
+
+"clear_defence_prompt" = "Confirm to clear?";
+"learn_defence_prompt" = "Click ok to trigger the wireless sensor to code";
+
+"device_not_support_defence_area" = "The current device does not support Defence Area";
+
+"bind_phone" = "Bind Phone";
+"input_phone" = "Please input your phone number";
+
+"china" = "China";
+"america" = "America";
+
+"phone_length_error" = "Phone must be 6-15 characters in length";
+
+"phone_used" = "Phone has been used";
+"get_phone_code_too_times" = "Get phone code too frequently,please try again later";
+"phone_format_error" = "Phone number format error";
+
+"phone_code_was_send_to" = "Verification code has been send to";
+"phone_check_code" = "Verification Code";
+
+"choose_country" = "Choose Country";
+
+"email_id_login" = "Email/User ID";
+"phone_login" = "Phone";
+
+
+"register_success_prompt" = "Register Success!";
+
+
+"create_init_password_prompt" = "Please create a password contains 6 to 30 characters including alphabetic and numbers";
+
+"device_already_exist_password" = "Add failed,Device already exists password";
+
+"call_in_prompt" = "Calling from";
+"call_out_prompt" = "Calling to";
+"monitor_out_prompt" = "Loading...";
+
+"net_warning_prompt" = "Current network is unavailable,Please check your network settings";
+
+"now_version_is_latest" = "This is latest version";
+"other_was_check_device_update" = "Device Busy";
+"device_not_support" = "Device not support";
+
+"send" = "Send";
+
+"alarm_history" = "Alarm logs";
+"alarm_device" = "Device:";
+"alarm_type" = "Type :";
+"unknown_type" = "Unknown :";
+
+"input_message" = "Please input message";
+"message_too_long" = "Message too long";
+"can_not_send_message_to_myself" = "Can't send message to myself";
+"send_failure" = "Send Failure";
+
+"device" = "Device";
+"view" = "View";
+"extern_alarm" = "Extern Alarm";
+"motion_dect_alarm" = "Motion Detection Alarm";
+"emergency_alarm" = "Emergency Alarm";
+"ext_line_alarm" = "I/O Alarm";
+"low_vol_alarm" = "Low Voltage Alarm";
+"pir_alarm" = "PIR Detection Alarm";
+
+"forget_password" = "Forget Password?";
+
+"guest_password_too_long" = "Guest password must be no more than 9 character";
+"guest_password_number_format_error" = "Guest password must be only 0-9 combination";
+"device_password_too_long" = "Device password must be no more than 30 character";
+"password_zero_format_error" = "Device password must be digit combination and Can not be \'0\' at the beginning";
+
+
+"input_ssid" = "Please input WIFI-SSID";
+
+"discovered" = "Discover";
+"new_device" = "New Device";
+"local_device_list" = "New Device List";
+
+"device_id_zero_format_error" = "Invalid Device ID";
+
+"id_unknown_error" = "Unknown Error";
+"id_overdate" = "Remote ID has expired";
+"id_disabled" = "Remote ID is disabled";
+"id_inactived" = "Remote ID is not activated";
+"id_offline" = "Offline";
+"id_busy" = "Busy";
+"id_powerdown" = "Target id offline";
+"id_connect_failed" = "Connect Failed";
+"id_hangup" = "Hangup";
+"id_timeout" = "Timeout";
+"id_internal_error" = "Internal Error";
+"id_no_accept" = "No one answer";
+"id_password_error" = "Device password error";
+"id_not_support" = "Not Support";
+
+"cur_version_is" = "Current version is";
+"can_update_to" = "Will update to";
+"can_update_sd" = "Will update from SD card";
+"start_update" = "Start to update";
+"update_failed" = "Update Failed";
+"cancel_update" = "Cancel";
+
+"loading" = "loading...";
+"cur_version" = "CurVersion";
+"kernel_version" = "KernelVersion";
+"rootfs_version" = "RootfsVersion";
+"uboot_version" = "uBootVersion";
+
+"device_info" = "Device Info";
+"Please make sure the input" = "Please make sure the input";
+"release_new_version"="newVersion has been released";
+"ask_update_immediately"="update immediately?";
+"remain_me"="remain me later";
+"update_me"="update right now";
+"rate_me"="rate for me";
+"skip_me"="skip this version";
+"latest_version"="This is the latest version";
+"quit_update"="No need to updata";
+
+"no_init_password_device" = "No set password device";
+
+"defence_group" = "Group";
+"defence_item" = "Item";
+"already_learn" = "have been coded";
+"learning" = "coding...";
+"clearing" = "clearing...";
+
+"qrcode_add" = "Smartlink";
+"add_new_device" = "Add New Device";
+"qrcode" = "Set Wifi By QR Code";
+"help" = "Help";
+
+"add_device" = "Add Device";
+
+"empty_contact_prompt" = "Here is empty.So take action now to add device!";
+"manually_add" = "Manual";
+
+
+"set_scanning_code_prompt" = "Please aim the camera to the Smart Scan Code,Wait until you hear a Ding sound";
+"heard" = "Heard";
+"waiting_content_prompt" = "Waiting for WiFi connection";
+"set_wifi_failed_title" = "Connect failed";
+"set_wifi_failed_prompt" = "1.Your phone and the device are not in the same LAN\n2.The device can't connect to the WiFi\n3.The device can't support 5G wifi";
+"set_wifi_success_title" = "Setting Success!";
+
+"qrcode_prompt" = "Please place mobile phone 20 to 30 centimeters away from camera,let camera face the Smart Scan code,wait until you hear a Ding sound?";
+
+"modify_visitor_password" = "Guest password";
+"auto_update" = "Auto Update";
+
+"accept_alarm" = "Receive Alarm Msg";
+"human_infrared" = "Infrared switch";
+"wired_alarm_input" = "Wired alarm input";
+"wired_alarm_output" = "Wired alarm output";
+"image_inversion" = "Image Reverse";
+
+"input_new_visitor_password" = "Please input guest password";
+"input_new_visitor_password_ex" = "Please input new guest password";
+
+
+"anonymous" = "Anonymous";
+
+"remote_record_switch" = "Record Switch";
+
+"modify_manager_password" = "Admin password";
+
+"SD" = "SD";
+"LD" = "LD";
+"HD" = "HD";
+"Save success" = "Save success";
+"Save failed" = "Save failed";
+"screenshots" = "Screenshots";
+"video" = "Video";
+"No Data" = "No Data";
+"Recording success" = "Recording success";
+"Recording failed" = "Recording failed";
+"Choice of clarity" = "Choice of clarity";
+"number_viewer" = "Number of viewers:";
+
+"time_zone_set" = "Timezone Setting";
+
+/*
+ * new translations(2014.12.20)-已同步Chinese
+ */
+"new_account_register" = "Register";
+"phone_register" = "Register by phone";
+"email_register" = "Register by email";
+"register_account" = "Register Guide";
+
+"storage_info" = "Storage Info";
+"sd_card_capacity" = "SD Capacity:";
+"sd_card_rem_capacity" = "SD Remainder Capacity:";
+"u_disk_capacity" = "U Disk Capacity:";
+"u_disk_rem_capacity" = "U Remainder Capacity:";
+"sd_card_format" = "Erase SD Card";
+"no_storage" = "No storage device";
+"not_support_format" = "The device dose not support format.";
+"sd_format_success" = "Erase sd card Successfully";
+"format_sd_card" = "Format SD Card";
+"confirm_format" = "Are you sure to clear?If you do this,you will lose all the data!";
+
+"device_not_support_sensor_switch" = "The current device does not support sensor switch";
+"learn_code" = "Learn code";
+
+"no_record" = "No Record";
+"no_more_record" = "No more records.";
+
+"debug_alarm" = "Debug Alarm";
+
+"defence_alarm" = "Defence Alarm";
+"defence_disable_alarm" = "Defence Disable Alarm";
+"battery_low_vol" = "Battery Low Voltage Alarm";
+"upload_to_ser" = "Parameters Upload Server";
+
+/*
+ * new translations(2015.02.10)-已同步Chinese
+ */
+"send_request_fail" = "Send request failed";
+"get_data_fail" = "Failed to get data";
+"mall_id_unexist" = "Store ID does not exist";
+"invalid_link" = "The link does not work";
+"message_item" = "Message";
+"screen_shot_item" = "Images";
+"more_item" = "More";
+"alarm_message" = "Alarm message";
+"system_message" = "System message";
+"open" = "open";//推送消息
+
+"somebody_visit" = "Somebody Visit";
+
+"scan_prompt01" = "Camera needs Wi-Fi to connect(Can't support 5G Wi-Fi right now)";
+"add_tab_title00" = "Smart link";
+"add_tab_title01" = "QR code";
+"add_guard_text00" = "Welcome, you need to be ready";
+"add_guard_text01" = "Smart cameras";
+"add_guard_text02" = "Connect the power";
+"add_guard_text03" = "WIFI";
+"add_guard_text04" = "Tips:\nYou need to first connect your phone or tablet to WIFI.";
+"add_guard_text05" = "Do not prompt";
+"add_guard_text06" = "Power On";
+"add_guard_text07" = "Power on, wait for connection sound from camera;\nif you do not hear the connection sound, please reset it";
+
+"qrcode_prompt01" = "Wait until you hear a “Ding” sound from camera，then click “Heard”";
+
+"waiting_content_prompt01" = "Waiting for connection";
+"waiting_content_prompt02" = "Connecting...\nPlease be patient,connection is complete soon.";
+
+"connection_failure" = "Connect failed";
+"failure_reason" = "Possible reason:\n1.Wrong Wi-Fi password\n2.The camera does not support the 5G Wi-Fi\n3.Bad network quality";
+"try_again" = "Try Again";
+
+"link_wifi" = "Please connect your phone or tablet to WIFI.";
+
+/*
+ * new translations(2015.04.30)-已同步Chinese
+ */
+"not_support_operation" = "The device does not support this operation.";
+"too_frequent" = "The operation is too frequent.";
+"not_open" = "The GPIO does not open.";
+"door_bell" = "Door bell";
+"confirm_open" = "Confirm open?";
+
+"no_alarm_push_id" = "No alarm push ID";
+"no_next_files" = "No next file";
+"no_previous_files" = "No previous file";
+
+"add_by_qrcode" = "Add by QRCode";
+
+//app更新
+"can_update_to" = "Can update to";
+"version" = "version";
+"next_time" = "Cancel";
+"update_now" = "Update";
+
+"no_playback_file" = "No record files";
+
+"pwd_too_simple" = "Please use 6 to 30 characters including alphabetic and numbers";
+
+"strong" = "Strong";
+"general" = "General";
+"weak" = "Weak";
+
+"logging" = "Logging";
+
+"mailbox" = "Email:";
+"password" = "Password:";
+"check_box" = "Check box, the sender and the recipient are the same person";
+"recipient" = "Recipient:";
+"pwd_error" = "Password do not match";
+"validating" = "Waiting for verifying";
+"not_verified" = "Mailbox not verified，make sure SMTP service is enable.";
+"not_support" = "Not supported";
+"unbind_email" = "Unbind";
+
+"clear_visitor_pwd" = "clear";
+
+"early_record" = "Early record";
+
+"delete_alarm_push_id" = "Unbind";
+"confirm_unbind" = "After unbinding,will no longer receive push messages of the device!";
+
+"ap_mode_introduce01" = "1、Enter settings Wi-Fi, connection wifi named at the beginning of AP_IPC;";
+"ap_mode_introduce02" = "2、wifi default password and viewing method;";
+"ap_mode_introduce03" = "3、After connecting wifi, enter the software automatically switches to stand-alone mode;";
+"ap_mode_introduce04" = "4、Disconnect wifi, re-enter the software automatically exits stand-alone mode;";
+"ap_mode_guard" = "AP mode guard";
+"ap_mode_text" = "AP mode";
+"ap_mode_quit" = "Disconnect the current wifi, re-enter the program automatically switches to network mode";
+"ap_mode_set_password" = "set wifi password";
+"ap_mode_btn_photoalbum" = "Photo album";
+"ap_mode_btn_defence" = "Defence";
+"ap_mode_btn_playback" = "Playback";
+"ap_mode_btn_help" = "Help";
+"ap_mode_btn_setting" = "Setting";
+"ap_device_id" = "Device ID";
+"ap_setwifiok_tip" = "wifi set successfully, ipc is rebooting. Please enter the phone settings -wifi, reconnect wifi, and then continue to use the software.";
+"ap_password_length_tip" = "Please enter a password of 8 to 16";
+"ap_reconnect_wifi_tip" = "IPC will reboot after setting a password successfully.  If iphone always can not connect to IPC's wifi after it reboot, please do the following: \n1, Eenter the Wi-Fi settings; \n2, Opening the details of this wifi, ignoring this network; \n3, Close Wi- Fi, and then reopen it; \n4, After iphone find IPC's wifi, you can re-enter the password to connect it";
+"rtsp_unsupport_intercom" = "The device dose not support intercom on rtsp!";
+"rtsp_failed_intercom" = "Open intercom failed!";
+
+"save_to_photo" = "Save picture";
+"delete_photo" = "Delete photo";
+
+//手动设置邮箱翻译
+"recipient" = "Recipient:";
+"recipient_number" = "Only can support three recipients,and separated by commas";
+"recipient_not_empty" = "The recipient can't be empty";
+"recipient_scope" = "The recipient can't exceed three";
+"recipient_length_format" = "The length of recipient's mailbox should be 5 to 31";
+"recipient_format" = "The recipient's mail format is incorrect";
+
+"sender" = "Sender:";
+"input_sender" = "Please input sender's mail address";
+"sender_not_empty" = "The sender can't be empty";
+"sender_scope" = "The sender can't exceed one";
+"sender_length_format" = "The length of sender's mailbox should be 5 to 31";
+"sender_format" = "The sender's mail format is incorrect";
+
+"smtp_address" = "Smtp Address:";
+"smtp_number" = "Only can support five, and separated by commas";
+"smtp_not_empty" = "The smtp address can't be empty";
+"smtp_scope" = "Smtp address can't exceed five";
+"smtp_format" = "The smtp address is incorrect";
+
+"port" = "Port:";
+"input_port" = "Please input the port number";
+"non_encrypted" = "25(unencrypted)";
+"port_not_empty" = "The port number can't be empty";
+"port_scope" = "The scope of port number should be between 0 and 65535";
+"port_format" = "The port format is digital";
+
+"encryption_mode" = "encryption mode";
+"one_encryption" = "None";
+
+"manual_setting" = "manual setting";
+"pwd_smtp_error" = "The smtp or the password is incorrect";
+
+//语言设置
+"push_language" = "Device language";
+"language_switching" = "Language switching";
+"push_language_english" = "English";
+"push_language_simplified" = "Chinese Simplified";
+"push_language_japanese" = "Japanese";
+"push_language_portuguese" = "Portuguese";
+"push_language_spanish" = "Spanish";
+"push_language_traditional" = "Chinese Traditional";
+"push_language_french" = "French";
+"push_language_russian" = "Russian";
+
+//记住用户登录密码
+"un_rem_pass" = "Foget password";
+"rem_pass" = "Remember password";
+
+"device_password_too_simple" = "Device password is too simple, New password must be 6 to 30 characters including alphabetic and numbers";
+"device_new_password_prompt" = "New password must be 6 to 30 characters including alphabetic and numbers";
+
+"device_update_timeout" = "Timeout";
+
+"apsta_switch_ok" = "Operate Successfully, device will reboot";
+"apsta_switch_to_ap" = "Switch to AP mode";
+"apsta_switch_to_sta" = "Switch to network mode";
+"apsta_switch_sure" = "Are you sure to switch mode?";
+
+"ap_reconnect_tip" = "Please connect to your camera wifi";
+
+"year" = "year";
+"month" = "month";
+"day" = "day";
+"hour" = "hour";
+"minute" = "min";
+
+"system_maintenance" = "System is down for maintenance, please try again later";
+
+"prompt" = "prompt";
+
+//gwell//gwell//gwell//gwell//gwell//gwell//gwell//gwell//gwell//gwell
+"account_login" = "Account logon";
+"input_username" = "Please enter the mailbox /ID";
+"input_password" = "Please enter the password";
+"login" = "Login";
+"unInputUsername" = "Please enter the mailbox /ID";
+"unInputPassword" = "Please enter the password";
+"login_failure" = "Logon failed";
+"user_unexist" = "User not exists";
+"password_error" = "Incorrect password";
+//"ok" = "Confirmed";
+"cancel" = " Cancel";
+"contact" = "Device list";
+"logout" = "Cancel ";
+"logout_prompt" = "Are you sure to log off the current user?";
+"call" = "Call ";
+"accept" = "Answer";
+"reject" = "Hangup";
+"input_device_password" = "Please enter device password";
+"account_info" = "Account information";
+"update" = "Update";
+"screenshot" = "Image";
+"about_us" = "About";
+"screenshot_success" = "Successful screenshot";
+"sure_to_delete" = "Are you sure to delete?";
+"sure_to_clear" = "Are you sure to empty?";
+"operator_success" = "Successful operation";
+"operator_failure" = "Operation failed";
+"no_permission" = "Inadequate permission";
+"online" = "On-line";
+"offline" = "Offline";
+"add_contact" = "Add networked device";
+"input_contact_id" = "Please enter device ID";
+"input_contact_name" = "Please enter device name";
+"input_contact_password" = "Please enter device password";
+"next" = "Next step";
+"save" = "Save";
+"contact_already_exists" = "Device already existed";
+"chat" = "Call";
+"message" = "Digital message";
+"playback" = "Playback";
+"control" = "Setting";
+"device_control" = "Device setting";
+"modify" = "Edit";
+"recent_one_day" = "Recent day";
+"recent_three_day" = "Recent three days";
+"recent_one_month" = "Recent one month";
+"custom" = "User-defined";
+"device_password_error" = "Incorrect device password";
+"net_exception" = "Abnormal network";
+"about" = "About";
+"about_text" = "Yoosee is a charge-free APP custom-made for the new generation of smart home appliance. It adopts the advanced Cloudlink P2P network transmission technology. Remote monitoring can be realized so simply, letting you care about your families and friends at any time everywhere.";
+"start_time" = "Starting time:";
+"end_time" = "End time:";
+"search" = "Inquiry";
+"unselected_start_time" = "Please choose the starting time";
+"unselected_end_time" = "Please choose the end time";
+"start_time_must_before_end_time" = "The starting time shall be earlier than the end time";
+"account" = "Account No.  ";
+"email" = "Mailbox";
+"phone_number" = "Mobile phone";
+"modify_login_password" = "Change login password";
+"unbind" = "Not bound";
+"modify_password" = "Change password";
+"input_original_password" = "Please enter the current password";
+"input_new_password" = "Please enter the new password";
+"confirm_input" = "Confirm to enter";
+"two_passwords_not_match" = "Different passwords";
+"password_too_long" = "Password shall not contain more than 30 characters";
+"original_password_error" = "Incorrect original password";
+"new_password_contains_invalid_character" = "New password contains invalid characters";
+"unknown_error" = "Unknown error";
+"sure_to_unbind_email" = "Release mailbox binding?";
+"sure_to_unbind_phone" = "Confirm to unbinding mobile phone";
+"bind_email" = "Mailbox binding";
+"input_email" = "Please enter the mailbox";
+"email_length_error" = "The mailbox name shall contain 5~ 31 characters";
+"email_used" = "Mailbox occupied";
+"email_format_error" = "Mailbox format error";
+"input_login_password" = "Please enter the logon password";
+"session_error" = "Dialog error; your account may be logged on in other place; please log on again";
+"time_set" = "Time setting";
+"media_set" = "Media setting";
+"security_set" = "Safety setting";
+"network_set" = "Network setting";
+//"alarm_set" = "Alarm setting";
+"record_set" = "Video recording setting";
+"defenceArea_set" = "Defence area setting";
+"remote_set" = "Remote setting";
+"device_update" = "Check device update";
+"apply" = "Application";
+"video_format_pal" = "PAL";
+"video_format_ntsc" = "NTSC";
+"video_format" = "Video format";
+"volume" = "Sound volume";
+"modify_device_password" = "Change device password";
+"motion" = "Motion detection";
+"buzzer" = "Buzzer";
+"buzzer_time" = "Buzzing time (min)";
+"alarm_email" = "Alarm mailbox";
+"bind_account" = "Bind the account";
+"sure_to_unbind_account" = "Confirm to unbind this alarm account";
+"input_alarm_id" = "Please enter the alarm ID";
+"id_too_long" = " ID number shall not contain more than 9 characters";
+"alarm_id_must_zero_begin" = "Alarm ID number shall begin with \'0\'";
+"add_bind_account_prompt1" = "xx can be added";
+"add_bind_account_prompt2" = " alarm account ";
+"remote_defence" = "Remote defence";
+"remote_record" = "Remote video recording";
+"record_type" = "Record mode";
+"record_time" = "Recording time (min)";
+"manual_record" = "Manual video recording";
+"alarm_record" = "Alarm record";
+"timer_record" = "Timed video recording";
+"plan_time_table" = "Planned time";
+"net_type" = "Network type";
+"wired" = "Wired";
+"wifi" = "WIFI";
+"alarm_push" = "Alarm sending account number";
+"change_net_prompt" = "Revising network may cause disconnection of device. Please confirm the operation!";
+"wifi_list" = " WIFI list";
+"input_wifi_password" = "Please enter WiFi password";
+"wifi_password_format_error" = "Incorrect WIFI password format";
+"remote" = "Remote control";
+"hall" = "Lobby";
+"window" = "Window";
+"balcony" = "Balcony";
+"bedroom" = "Bedroom";
+"kitchen" = "Kitchen";
+"courtyard" = "Yard";
+"door_lock" = "Door lock";
+"other" = "Others";
+"clear_defence_prompt" = "Confirm to clear this channel";
+"learn_defence_prompt" = "Click yes to trigger the wireless sensor";
+"device_not_support_defence_area" = "The current device doesn't support defence area";
+"bind_phone" = "Bind the mobile phone number";
+"input_phone" = "Please enter your mobile phone number";
+"china" = "China";
+"america" = " USA";
+"phone_length_error" = "Mobile phone number shall be 6-15 characters";
+"phone_used" = "Mobile phone number occupied";
+"get_phone_code_too_times" = "Obtain mobile phone verification code too frequently. Please try later.";
+"phone_format_error" = "Mobile phone number format error";
+"phone_code_was_send_to" = "Mobile phone verification code sent to";
+"phone_check_code" = "Mobile phone verification code";
+"choose_country" = "Choose country";
+"email_id_login" = "Mailbox/user ID";
+"phone_login" = "Mobile phone number";
+"register_success_prompt" = "Congratulations, you've registered successfully!";
+"create_init_password_prompt" = "Please create a device password containing 6 ~ 30 letters and digits";
+"create_init_password_prompt_nvr" = "Please create a device password containing 6 ~ 10 letters and digits";
+"device_already_exist_password" = "Adding failed. The device has had an initial password.";
+"call_in_prompt" = "From";
+"call_out_prompt" = "Calling";
+"monitor_out_prompt" = "Loading";
+"net_warning_prompt" = "The current network is not available. Please check your network setting.";
+"now_version_is_latest" = "The current device is the latest edition";
+"other_was_check_device_update" = "Device busy";
+"device_not_support" = "Not supported by the device";
+"send" = "Send   ";
+"alarm_history" = "Alarm logging";
+"alarm_device" = "Device";
+"alarm_type" = "Type";
+"unknown_type" = "Unknown  ";
+"input_message" = "Please enter the message";
+"message_too_long" = "Too long message";
+"can_not_send_message_to_myself" = "Sending message to yourself prohibited";
+"send_failure" = "Failure notice";
+"device" = "Device";
+"view" = "Check";
+"extern_alarm" = "External alarm";
+"motion_dect_alarm" = "Mobile surveillance";
+"emergency_alarm" = "Urgent alarm";
+"ext_line_alarm" = "Wired alarming";
+"low_vol_alarm" = "Low voltage alarming";
+"pir_alarm" = "Human body infrared alarm";
+"forget_password" = "Forget password";
+"guest_password_too_long" = "Guest password shall not contain more than 9 characters";
+"guest_password_number_format_error" = "Guest password can only contain 0~9 digits";
+"device_password_too_long" = "Device password shall not contain more than 30 characters";
+"device_password_too_long_nvr" = "Device password no more than10 characters";
+"password_zero_format_error" = "Device password must be digit combination not starting with \'0\'";
+"input_ssid" = "Please enter WIFI-SSID";
+"discovered" = "Discover";
+"new_device" = " new devices";
+"local_device_list" = "New device list";
+"device_id_zero_format_error" = "Invalid device ID";
+"id_unknown_error" = "Undefined reason";
+"id_overdate" = "Out-of-date ID ";
+"id_disabled" = " ID forbidden";
+"id_inactived" = " ID not activated";
+"id_offline" = "Device online";
+"id_busy" = "Device busy";
+"id_powerdown" = "The phone is turned off.";
+"id_connect_failed" = "Connection failed";
+"id_hangup" = "Hangup";
+"id_timeout" = "Connection timed out";
+"id_internal_error" = "Internal error";
+"id_no_accept" = "Not answered";
+"id_password_error" = "Incorrect device password";
+"id_not_support" = "Not supported by the device";
+"cur_version_is" = "Current version is";
+"can_update_to" = "Update to";
+"can_update_sd" = "Upgrade from SD card available";
+"start_update" = "Begin to update";
+"update_failed" = "Update failed";
+"cancel_update" = " Cancel update";
+"loading" = "Loading...";
+"cur_version" = "Current version";
+"kernel_version" = "Kernel version";
+"rootfs_version" = "System version";
+"uboot_version" = " uBoot version";
+//"device_info" = "Device information";
+"release_new_version" = "The new edition has been released";
+"ask_update_immediately" = "Do you want to upgrade now?";
+"remain_me" = "Remind next time";
+"update_me" = "Update now";
+"skip_me" = "Skip this version";
+"rate_me" = "Give me a score";
+"latest_version" = "The current version is the latest";
+"quit_update" = "No need for upgrade";
+"no_init_password_device" = "No encryption device";
+"defence_group" = "Defence area";
+"defence_item" = "Channel";
+"already_learn" = "Added";
+"learning" = "Adding...";
+"clearing" = "Clearing...";
+"qrcode_add" = "Smartlink";
+"add_new_device" = "Add new device";
+"qrcode" = "Scan 2D code to configure WIFI";
+"help" = "Help ";
+"add_device" = "Add device";
+"empty_contact_prompt" = "It's still empty! You need to add equipment to watch the video. Get started now~";
+"manually_add" = "Add manually";
+"set_scanning_code_prompt" = "Please aim your camera at the 2D code till you hear a ting.";
+"heard" = "Heard";
+"waiting_content_prompt" = "Wait for the device to connect wifi";
+"set_wifi_failed_title" = "Connection failure tips";
+"set_wifi_failed_prompt" = " 1. Mobile phone and device not in the same LAN \n 2. device connection to WiFi failed";
+"set_wifi_success_title" = "Hey hey! Set successfully!";
+"qrcode_prompt" = "Please aim the camera at the 2D code with a distance of 20-30cm, till you hear a ting. Hear it?";
+"modify_visitor_password" = "Set guest password";
+"auto_update" = "Automatic upgrade";
+"accept_alarm" = "Receive warning message";
+"human_infrared" = "Human body infrared switch";
+"wired_alarm_input" = "Wired alarming input";
+"wired_alarm_output" = "Wired alarming output";
+"image_inversion" = "Picture inversion";
+"input_new_visitor_password" = "Please enter the guest password";
+"input_new_visitor_password_ex" = "Please enter the new guest password";
+"anonymous" = "Anonymous";
+"remote_record_switch" = "Recording switch";
+"modify_manager_password" = "Set admin password";
+"At least 6 letters and Numbers of new password" = "At least 6 letters and Numbers of new password";
+"SD" = "SD";
+"LD" = "LD";
+"HD" = "HD";
+"number_viewer" = "Current number of audiences:";
+"time_zone_set" = "Time zone setting";
+"new_account_register" = "Register";
+"phone_register" = "Mobile phone register";
+"email_register" = "Mailbox register";
+"register_account" = "Register wizard";
+"storage_info" = "Stored information";
+"sd_card_capacity" = "SD card capacity:";
+"sd_card_rem_capacity" = "Surplus capacity of SD card:";
+"u_disk_capacity" = "Capacity of USB flash disk:";
+"u_disk_rem_capacity" = "Surplus capacity of USB flash disk:";
+"sd_card_format" = " SD card format";
+"no_storage" = "No storage device";
+"not_support_format" = "Device formatting not supported";
+"sd_format_success" = " Format of SD card succeeded";
+"format_sd_card" = "  SD card formatted";
+"confirm_format" = "Empty SD card? By doing so, you will lose all the data stored in the card!";
+"device_not_support_sensor_switch" = "The current device doesn't support sensing switch";
+"learn_code" = "Adding match code";
+"no_record" = " No record temporarily";
+"no_more_record" = "No more record";
+"debug_alarm" = "Debugging alarming";
+"defence_alarm" = "Set alarm";
+"defence_disable_alarm" = "Defence off warning";
+"battery_low_vol" = "Low battery";
+"update_to_ser" = "Parameter uploading server";
+"send_request_fail" = "  RTS failure";
+"get_data_fail" = "Data acquisition failure";
+"mall_id_unexist" = "Store ID not exists";
+"invalid_link" = "Invalid link";
+"message_item" = "Message";
+"screen_shot_item" = "Image";
+"more_item" = "More";
+"alarm_message" = "Warning message";
+"system_message" = "System message";
+"open" = "Open//send message";
+"somebody_visit" = "You have a guest";
+"scan_prompt01" = "Camera needs to connect to WIFI (doesn't support 5G Wi-Fi temporarily)";
+"add_tab_title00" = "Smart connection";
+"add_tab_title01" = " 2D code";
+"add_guard_text00" = "Welcome to use it. You need to prepare";
+"add_guard_text01" = "Smart camera";
+"add_guard_text02" = "Connect to power";
+"add_guard_text03" = "Network WIFI";
+"add_guard_text04" = "Tips:\n you need to connect your mobile phone or tablet PC to WIFI network first.";
+"add_guard_text05" = "No further tip";
+"add_guard_text06" = "Connected to the power supply";
+"add_guard_text07" = "Power on and wait for the camera to give out the connection cue tone \n if no connection cue tone is heard, please reset the camera";
+"qrcode_prompt01" = "Please wait for device connection \n till you hear a ting. Can you hear it?";
+"waiting_content_prompt01" = "Queued for connection";
+"waiting_content_prompt02" = "Connecting... \n please wait patiently. It's going to succeed.";
+"connection_failure" = "Connection failed";
+"failure_reason" = "Probable causes: \n1. Incorrect wifi password is entered \n2. The camera doesn't support 5G network \n3. The current network environment is poor";
+"try_again" = "Try again";
+"link_wifi" = "Please connect your phone or tablet PC to WIFI first";
+"not_support_operation" = "The device doesn't support this operation.";
+"too_frequent" = "Too frequent operations";
+"not_open" = "GPIO not opened";
+"door_bell" = "Door bell";
+"confirm_open" = "Sure to open";
+"no_alarm_push_id" = "No alarm sending account";
+"no_next_files" = "No next file";
+"no_previous_files" = "No last file";
+"add_by_qrcode" = "Try to add by scanning 2D code";
+"app_can_update_to" = "Renewable to";
+"version" = "Version";
+"next_time" = "Next time";
+"update_now" = "Update now";
+"no_playback_file" = "No video recording file";
+"pwd_too_simple" = "Please use 6 ~ 30 characters containing digits and letters as the password";
+"strong" = "Strong";
+"general" = "Middle";
+"weak" = "Weak  ";
+"logging" = "Logging on";
+"mailbox" = "Mailbox: ";
+"password" = "Password:";
+"check_box" = "Check the box and the addresser and addressee will be the same person.";
+"recipient" = "Addressee:";
+"pwd_error" = "Password unmatched";
+"validating" = "Waiting for verification";
+"not_verified" = "Mailbox not verified; please ensure the mailbox SMTP service is available!";
+"not_support" = "Not supported";
+"unbind_email" = "Unbinding";
+"clear_visitor_pwd" = "Clear guest password";
+"early_record" = "Pre-recording";
+"delete_alarm_push_id" = "Unbinding";
+"confirm_unbind" = "Do not receive messages from this device after unbinding!";
+"ap_mode_introduce01" = "1. Enter Wi-Fi setting, connect to GW_IPC wifi";
+"ap_mode_introduce02" = "2. Default wifi password and its check method";
+"ap_mode_introduce03" = "3. After connecting to wifi, enter the software, and automatically switch to standalone mode";
+"ap_mode_introduce04" = " 4. Disconnect wifi, enter the software again, and automatically exit from AP mode";
+"ap_mode_guard" = "AP Mode Guide";
+"ap_mode_text" = "Standalone mode";
+"ap_mode_quit" = "Disconnect the current wifi, enter the program again, and automatically switch to online mode";
+"ap_mode_set_password" = "Set WIFI password";
+"ap_mode_btn_photoalbum" = "Album";
+"ap_mode_btn_defence" = "arm";
+"ap_mode_btn_playback" = "Playback";
+"ap_mode_btn_help" = "Help ";
+"ap_mode_btn_setting" = "Setting";
+"ap_device_id" = "Device ID";
+"ap_setwifiok_tip" = " wifi set successfully, ipc restarting; reconnect wifi and continue using this software.";
+"ap_password_length_tip" = "Please enter 8 ~16 character password";
+"ap_reconnect_wifi_tip" = "ipc will restart after successful setting of password. After restart of ipc, if iphone can't connect to wifi, please do as follows: \n1. Enter Wi-Fi setting \n2. Check the detailed information of wifi and neglect the network \n3. Turn off Wi-Fi and turn it on again \n4. Enter password to connect again after iphone has found the wifi";
+"rtsp_unsupport_intercom" = "The current device doesn't support talkback under rtsp connection!";
+"rtsp_failed_intercom" = "Open talk back failure!";
+"save_to_photo" = "Save the picture";
+"delete_photo" = "Delete photos";
+"recipient" = "Addressee:";
+"recipient_number" = "Support only 3, spaced with comma";
+"recipient_not_empty" = "Addressee can't be empty";
+"recipient_scope" = "There shall be no more than 3 addressees";
+"recipient_length_format" = "Addressee's mailbox shall contain 5 ~ 31 characters";
+"recipient_format" = "Addressee's mailbox format error";
+"sender" = "Addresser:";
+"input_sender" = "Please enter the addresser's mailbox";
+"sender_not_empty" = "The addresser can't be empty";
+"sender_scope" = "The number of addresser shall not be more than 1";
+"sender_length_format" = "Addresser's mailbox shall contain 5 ~ 31 characters";
+"sender_format" = "Addresser's mailbox format error";
+"smtp_address" = " SMTP address: ";
+"smtp_number" = "Support only 5, spaced with comma";
+"smtp_not_empty" = "SMTP address can't be empty";
+"smtp_scope" = "There shall be no more than 5 SMTP addresses";
+"smtp_format" = " SMTP address error";
+"port" = "Port:";
+"input_port" = "Please enter the port No.";
+"non_encrypted" = " 25 (non-encrypted)";
+"port_not_empty" = "Port No. can't be empty";
+"port_scope" = "Port No. between 0 ~ 65535";
+"port_format" = "Port format is digit";
+"encryption_mode" = "Encryption mode";
+"one_encryption" = "No";
+"manual_setting" = "Manual setting";
+"pwd_smtp_error" = " SMTP or password unmatched";
+"push_language" = "Device language";
+"language_switching" = "Language switching";
+"push_language_english" = "English";
+"push_language_simplified" = "Simplified Chinese";
+"push_language_japanese" = "Japanese";
+"push_language_portuguese" = "Portuguese";
+"push_language_spanish" = "Spanish";
+"push_language_traditional" = "Traditional Chinese";
+"push_language_french" = "French";
+"push_language_russian" = "Russian";
+"un_rem_pass" = "Forget the password";
+"rem_pass" = "Remember password";
+"device_password_too_simple" = "Too simple password. The new password must be 6~30 characters containing letters and digits.";
+"device_password_too_simple_nvr" = "Too simple device password. The new password must be 6~10 characters containing letters and digits.";
+"device_new_password_prompt" = "The new password must be 6 ~ 30 characters composed of letters and digits";
+"device_new_password_prompt_nvr" = "The new password must be 6 ~ 10 characters composed of letters and digits";
+"device_update_timeout" = "Connection timed out";
+"apsta_switch_ok" = "Successful operation; device restarting";
+"apsta_switch_to_ap" = "Switch to AP mode";
+"apsta_switch_to_sta" = "Switch to networking mode";
+"apsta_switch_sure" = "Switching confirmed";
+"ap_reconnect_tip" = "Please connect to your camera's wifi";
+"year" = "Year";
+"month" = "Month";
+"day" = "Day";
+"hour" = "Hour";
+"minute" = "Min";
+"system_maintenance" = "The system is being maintained. Please try later.";
+"online_shopping_mall" = "On-line mall";
+"boutique_recommend" = "Dynamic message";
+"device_mode_home" = "At home";
+"device_mode_outside" = "Going out";
+"device_mode_sleep" = "Sleep";
+"device_mode_home_title" = "Home mode";
+"device_mode_outside_title" = "Going out mode";
+"device_mode_sleep_title" = "Sleep mode";
+"device_mode_home_detail" = "The master is at home. No disturbance";
+"device_mode_outside_detail" = "The master goes out to work. Leave it to me.";
+"device_mode_sleep_detail" = "The master is resting at home, silence mode";
+"setting_scene_mode" = "Profiles";
+"setting_smart_device" = "Add sensors";
+"setting_scene_mode_repeat" = "Repeat";
+"setting_scene_mode_monday" = "Mon";
+"setting_scene_mode_tuesday" = "Tue";
+"setting_scene_mode_wednesday" = "Wed";
+"setting_scene_mode_thursday" = "Thu";
+"setting_scene_mode_friday" = "Fri";
+"setting_scene_mode_saturday" = "Sat";
+"setting_scene_mode_sunday" = "Sun";
+"repeate_not_set" = "(Not set)";
+"setting_scene_mode_tp_numbers" = "There shall be no more than six time blocks";
+"setting_scene_mode_time_point" = "Add time point";
+"time_group_exsite" = "The time already exists";
+"setting_scene_mode_tp_mode" = "Mode";
+"setting_idevice_learn_tip1" = "Adding timed out";
+"setting_idevice_learn_tip2" = "At most 8 remote controllers can be added";
+"setting_idevice_learn_tip3" = "At most 15 sensors can be added";
+"setting_idevice_learn_tip4" = "Added";
+"setting_idevice_sensor_name2" = "Anti-attack";
+"setting_idevice_sensor_delete" = "Delete";
+"setting_idevice_sensor_edit" = "Edit";
+"setting_idevice_sensor_edit_placeholder" = "Please enter the name";
+"setting_idevice_sensor_edit_name_exist" = "The name entered already exists";
+"setting_idevice_sensor_edit_name_too_long" = "Too long sensor name";
+"setting_idevice_qrcode" = "Scan";
+"setting_idevice_qrcode_tip" = "Put the 2D code in the box to scan automatically.";
+"setting_idevice_qrcode_error" = "Incorrect 2D code";
+"setting_idevice_sensor_sound_tip" = "Cue tone";
+"setting_idevice_sensor_push" = "Push";
+"setting_idevice_sensor_capture" = "Snapshot";
+"setting_idevice_sensor_record" = "Video recording";
+"no_sensor_prompt" = "Control sensor not yet added";
+"smoke_alarm" = "Smoke detector alarm";
+"gas_alarm" = "Air detector alarm";
+"door_magnet" = "Magentic contact ";
+"type_temperature" = "Temperature alarm";
+"type_humidity" = "Humidity alarm";
+"type_pir_alarm" = "Infrared alarm";
+"no_alarm_message_prompt" = "No alarm record";
+"no_screeshot_prompt" = "No image";
+"remote_push_message_error" = "Remotely sent message error!";
+"nvr_search_time" = "Device time";
+"nvr_search_channelno" = "Channel";
+"nvr_search_btn_text" = "Search file";
+"nvr_not_support" = "Not supported temporarily";
+"nvr_error_connect" = "Connection failed";
+"nvr_error_login" = "Log in failed";
+"nvr_error_timeout" = "Connection timed out";
+"nvr_qrcode_scan" = "Scan";
+"nvr_qrcode_tip" = "Put the 2D code in the box to scan automatically.";
+"alarm_sensor_name" = "Name";
+"presetpos_title" = "Memory point";
+"presetpos_getting" = "Obtaining memory point information";
+"presetpos_adding" = "Adding memory point";
+"presetpos_deleting" = "Deleting memory point";
+"presetpos_add_ok" = "Add memory point successfully";
+"presetpos_delete_ok" = "Memory point deleted successfully";
+"presetpos_edit" = "Edit";
+"presetpos_unsupport" = "Device doesn't support memory point function";
+"presetpos_input_name" = "Please enter new memory point name";
+"presetpos_delete" = "Delete";
+"areaname_input" = "Please enter the new sensor name";
+"sensor" = "Sensor";
+"remote_control" = "Remote control";
+"bind_preset" = "Bind presetting bit";
+"no_preset" = "No presetting bit";
+"you_sure_delete_these_presets" = "Confirm to delete these presetting bits";
+"cannot_view_preset_bit" = "Check not allowed";
+"cannot_add_preset_bit" = "Adding not available";
+"defence_name_not_empty" = "The name can't be empty";
+"defence_name_too_long" = "Length of name falls outside";
+"none_controler_to_learn" = "Remote controller learnt";
+"none_sensor_to_learn" = "Sensor learnt";
+"help_center" = "Help center";
+"end_time_must_later_to_start_time" = "The end time shall be later than the starting time";
+"defence_setting" = "Defence setting";
+"add_time_period" = "Add time slice";
+"setting_schedule_defence_top_numbers" = "There shall be no more than five time blocks";
+"modify_time" = "Modification time";
+"already_added" = "The time section is added";
+"find_Password" = "Find the password back";
+"phone_Number_Find" = "Find back the mobile phone number";
+"email_Find" = "Mailbox found back";
+"please_Enter_The_Phone_Number" = "Please enter the mobile phone number";
+"get_Verification_Code" = "Obtain verification code";
+"please_enter_verification_code" = "Please enter the verification code";
+"nextstep" = "Next step";
+"enter_new_password" = "Enter new password";
+"enter_new_password_again" = "Enter new password again";
+"confirm" = "Confirmed";
+"enter_email_address" = "Enter email address";
+"sending_verification_code" = "Send verification code";
+"verification_code_correct" = "Check  the verification code";
+"reset_password" = "Reset password";
+"two_input_password_different_please_enter_again" = "Different passwords. Please enter again.";
+"china" = "China";
+"choose_country" = "Choose country";
+"reset_password_success" = "Password reset successfully";
+"please_check_email" = "Please check your mailbox ";
+"all_playback_files" = "All videos";
+"presetName_most_input" = "At most 4 Chinese characters or 8 letters or digits allowed to be entered";
+"presetName_not_null_input" = "Name can't be empty";
+"in_the_video" = "Video recording...";
+
+
+//2016.7.21
+"indicator_light"="Indicator light";
+
+//2016.7.27
+"video_area_slidably"="Slidable in video area";
+
+//2016.8.5
+"guide_weakPwd"="Weak password";
+"guide_add_monitor"="Click here!";
+
+//2016-8-9
+"comfirm_mute_the_alarm"="Warning sound off this time?";
+"not_receive_alarm_information"="Do not receive alarm information within 10 Sec";
+
+"display"="Display";
+"hide"="Hide";
+
+//2016-8-10
+"cube_ptr_pull_down_to_refresh" = "Pulldown refresh";
+"cube_ptr_release_to_refresh" = "Release to refresh";
+
+"sensorname0" = "Remote controller";
+"sensorname1"="Door contact";
+"sensorname2"="Smoke sensor";
+"sensorname3"="Gas sensor";
+"sensorname4"="Electric light";
+"sensorname5"="Curtain";
+"sensorname6"="Socket";
+"sensorname7"="Infrared sensor of the human body";
+"sensorname8"="Water immersion";
+"sensorname9"="Emergency treatment";
+"sensorname10"="Warning signal";
+"sensorname11"="Air conditioning";
+
+//2016-8-10
+"add_nvr" = "Scan the QR Code to add NVR";
+
+//2016-11-7 登录注册找回密码
+"input_userName" = "Enter mobile No./email address";
+"other_login_mode" = "Other log-in mode";
+"wechat_login" = "Please await!";
+"network_suck" = "Network is useless";
+"phone_code_invalid" = "Account is invalid, please re-register it.";
+"username_error" = "Incorrect mobile No./email address";
+"fast_registration"="Rapid registration";
+"please_enter_random_code" = "Please enter random code";
+"random_code_error" = "Random verification code is incorrect";
+"input_new_password" = "Please enter new password";
+"again_input_password" = "Please re-enter password";
+"immediately_register" = "Immediately register";
+"is_give_up_register" = "Give up registration?";
+"yes" = "Yes";
+"no" = "No";
+"input_phone_error" = "Mobile number entered is incorrect";
+"verification_code_has_been_send" = "Verification code already sent";
+"no_get_verification_code" = "Verification code has not been obtained";
+"email_find_password" = "An email has been sent to your email address, password can be retrieved there.";
+"i_know" = "I got it.";
+"phone_find" = "Retrieve it through handset";
+"is_give_up_find" = "Give up retrieving password?";
+
+
+
+//2016-11-8
+"device_name" = "Device name";
+"get_name_for_the_device" = "Please name the device";
+"firmware_is_being_upgraded" = "Firmware upgrading, anout 1 minute needed, please do not power off";
+"descriptive_text" = "Illustrative words";
+"successful_guarding" = "Successful guarding";
+"successful_de-guarding" = "Successful de-guarding";
+"password_can_not_be_empt" = "Do not empty password";
+"congratulations_on_adding_completed" = "Congratulations on adding completed. Please set up WiFi in network setup.";
+"no_device_i_want_to_add" = "No devices I want to add";
+"device_is_not_listed" = "Device is not listed?";
+"abnormal_tf_card_format_immediately" = "Abnormal TF card requests formatting, format immediately?";
+"formatting" = "Formatting";
+"formatting_sd_card" = "Formatting SD card";
+"no_storage_card_inserted_into_your_camera" = "No storage card inserted into your camera";
+"storage_card_text" = "Please replug in the inserted storage card when it is not identified";
+"storage_card_text1" = "Please use storage card in FAT32 format";
+"perfecting_information" = "Perfecting information";
+"initial_device_password" = "Initial device password is often shown on the back/bottom label";
+"addition_succeeded" = "Addition succeeded";
+"device_not_saved_give_up_adding_camera" = "Device not saved, give up adding camera?";
+"abandon" = "Abandon";
+"connection_failed_please_reconnect" = "Connection failed, please reconnect";
+"access_way" = "Access way";
+"connect_via_wifi" = "Connect via WiFi";
+"use_wired_connection" = "Use wired connection";
+"make_camera_prepared" = "Make camera prepared";
+"switch_power_on" = "Switch power on";
+"ready_for_connecting_WiFi" = "Ready for connecting WiFi";
+"not_support_5G_network" = "Not support 5G network";
+"what_requirement_on_WiFi_does_camera_have" = "What requirement on WiFi does camera have?";
+"are_you_sure_there_is_no_WiFi_password" = "Are you sure there is no WiFi password?";
+"are_you_sure_to_exit_adding_camera" = "Are you sure to exit adding camera?";
+"continue_to_add" = "Continue to add";
+"no_connection_prompt_tone_is_heard" = "No connection prompt tone is heard?";
+"when_camera_is_ready" = "When camera is ready";
+"it_releases_prompt_tone_for_connection" = "it releases prompt tone for connection";
+"i_did_not_hear_connection_prompt_tone" = "No connection cue tone?";
+"i_heard_prompt_tone" = "Hear connection cue tone";
+"please_turn_louder_handset_volume" = "Please turn louder handset volume";
+"keep_30cm_distance_away_from_camera" = "Keep a 30cm distance away from camera";
+"you_may_attempt" = "You may attempt:";
+"reset_text" = "To slightly insert reset hole using thimble until reset prompt tone is heard, await about 30 sec. when connection prompt tone is given off";
+"please_ensure_the_device_online"="Please make sure the device is online";
+"wired_prepare_devices"="Prepare camera, switch on power, \n connect camera port to router LAN port using network cable";
+
+"text_key1" = "1. Please confirm that the device is open and power is on";
+"text_key2" = "2. Please confirm that the device is connected with network cable;";
+"text_key3" = "3. Please confirm that the device and the handset share the same router";
+"storage_card_text" = "Please replug in the inserted storage card when it is not identified\nPlease use storage card in FAT32 format";
+"camera_needs_to_connect_to_WIFI" = "Camera needs to connect to WIFI";
+"setupWiFi_text1" = "1. Device temporarily access to 4G WiFi, instead of 5G WiFi";
+"setupWiFi_text2" = "2. Device temporarily not support WPA/WPA2 enterprise-level WiFi";
+"setupWiFi_text3" = "3. Router WiFi SSID cannot be concealed";
+"setupWiFi_text4" = "4. Router cannot enable access restriction options like AP segregation, anti-rub network";
+
+"devicesready_text1" = "1. Please confirm that the device is not connected with network cable";
+"devicesready_text2" = "2. Please confirm that device power is being normally connected";
+
+"play_end" = "Broadcasting ends";
+
+//相册
+"view_picture" = "View pictures";
+"no_pictures" = "No pictures";
+"no_the_pictures" = "No pictures";
+"do_you_want_delete_this_pictures" = "Are you sure to delete these %ld pictures?";
+"did_select" = "Selected";
+"no_select_all" = "Deselect all";
+"select_all" = "Full select";
+"select" = "Select";
+"delete" = "Delete";
+
+
+"connecting_WiFi"="Connecting";
+"give_up_add_device"="Are you sure to give up adding camera?";
+"connection_failed"="Connection failed";
+"To use wired connection"="To use wired connection";
+"1. Please confirm that the entered WiFi password is correct"="1. Please confirm that the entered WiFi password is correct";
+"2. Camera doesn't support 5G network"="2. Camera doesn't support 5G network";
+"3. Current environment is more noisy and affecting sonic wave" ="3. Current environment is more noisy and affecting sonic wave";
+"4. The current network environment is poor."="4. The current network environment is poor.";
+
+//2016.11.9
+"special_sensor"="Special sensor";
+
+
+
+"2"      = "Account does not exist";
+"4"      = "Email address format not compliant with requirement";
+"8"      = "Password not compliant with requirement";
+"9"      = "Mobile No. format not compliant with requirement";
+"11"     = "Old password error";
+"12"     = "Old password format not compliant with requirement";
+"14"     = "Parameter error";
+"18"     = "Mobile verification code is incorrect";
+"20"     = "Please enter email address to assure your account of security";
+"21"     = "Mobile verification code timeout";
+"27"     = "Too frequently obtaining mobile verification codes";
+"28"     = "Upper limit reached for mobile verification codes";
+"32"     = "Unsuccessful sending verification email";
+"34"     = "Unsuccessful sending mobile verification code";
+"50"     = "Incorrect account or password";
+"404"    = "Inexistence of requested service";
+"999"    = "Unknown errors";
+"10000 " = "Maintenance in progress, please retry later";
+"100101" = "Unsuccessfully sending request";
+
+"new_password_text" = "The new password must be 6 ~ 10 characters composed of letters and digits";
+"no_more_record" = "No more record";

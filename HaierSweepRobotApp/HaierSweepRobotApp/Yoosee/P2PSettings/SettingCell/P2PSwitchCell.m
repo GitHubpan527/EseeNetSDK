@@ -35,7 +35,7 @@
     // Configure the view for the selected state
 }
 
-#define LEFT_LABEL_WIDTH 120
+#define LEFT_LABEL_WIDTH 150
 #define PROGRESS_WIDTH_HEIGHT 32
 
 #define SWITCH_WIDTH ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0 ? 72:49)

@@ -22,6 +22,9 @@
 
 #import "AddIDDeviceViewController.h"
 
+#import "NewAddDevicesViewController.h"
+
+
 #define RGBACOLOR(r,g,b,a) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:(a)]
 
 @interface AddFacilityViewController ()<UITableViewDelegate,UITableViewDataSource,RequestDataDelegate>
@@ -121,16 +124,12 @@
 //    vc.sortBy = model.sortBy;
 //    [self.navigationController pushViewController:vc animated:YES];
     
-    
-    
     DeviceTypeModel * deviceTypeModel = self.facilityTB.dataArray[indexPath.section];
     AddFacilityModel * model = deviceTypeModel.deviceModelList[indexPath.row];
     
     [[NSUserDefaults standardUserDefaults] setObject:model.id forKey:@"BindIdKey"];
     [[NSUserDefaults standardUserDefaults] setObject:model.deviceModelName forKey:@"BindNameKey"];
     [[NSUserDefaults standardUserDefaults] synchronize];
-    
-    
     
     if (self.isHomePage) {
 //        AddContactNextController *addContactNextController = [[AddContactNextController alloc] init];
@@ -161,8 +160,16 @@
                  ];
                 
             }else{//技威方案
-                QRCodeController *qrcodeController = [[QRCodeController alloc] init];
-                [self.navigationController pushViewController:qrcodeController animated:YES];
+                NewAddDevicesViewController *newadddDevicesVC = [[NewAddDevicesViewController alloc] init];
+//                QRCodeController *qrcodeController = [[QRCodeController alloc] init];
+                if (indexPath.row == 1) {
+                    //云台机
+                    newadddDevicesVC.type = 1;
+                }else if (indexPath.row == 2){
+                    //570-W
+                    newadddDevicesVC.type = 2;
+                }
+                [self.navigationController pushViewController:newadddDevicesVC animated:YES];
             }
         }
     }

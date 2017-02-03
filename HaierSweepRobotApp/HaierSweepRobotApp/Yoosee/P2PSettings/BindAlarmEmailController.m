@@ -831,8 +831,8 @@
     [self.defaultView addSubview:dropDownBtn];
     self.dropDownBtn = dropDownBtn;
     //下拉表格
-    TableViewWithBlock *tableView = [[TableViewWithBlock alloc] initWithFrame:CGRectMake(self.smtpTextField.frame.origin.x, self.smtpTextField.frame.origin.y+TEXT_FIELD_HEIGHT, self.smtpTextField.frame.size.width, 0) style:UITableViewStylePlain];
-    [self.defaultView addSubview:tableView];
+    TableViewWithBlock *tableView = [[TableViewWithBlock alloc] initWithFrame:CGRectMake(self.smtpTextField.frame.origin.x, 0, self.smtpTextField.frame.size.width, 0) style:UITableViewStylePlain];
+    [self.defaultView addSubview:tableView];//self.smtpTextField.frame.origin.y+TEXT_FIELD_HEIGHT
     self.tableView = tableView;
     [tableView release];
     [self.tableView initTableViewDataSourceAndDelegate:^(UITableView *tableView,NSInteger section){
@@ -982,7 +982,7 @@
 #pragma mark 可以手动配置的界面初始化
 -(void)initComponentManual:(CGFloat)width height:(CGFloat)height{
     //手动配置view
-    UIScrollView *manualView = [[UIScrollView alloc] initWithFrame:CGRectMake(0.0, NAVIGATION_BAR_HEIGHT, width, height-NAVIGATION_BAR_HEIGHT)];
+    UIScrollView *manualView = [[UIScrollView alloc] initWithFrame:CGRectMake(0.0, NAVIGATION_BAR_HEIGHT - 64, width, height-NAVIGATION_BAR_HEIGHT)];
     manualView.backgroundColor = [UIColor clearColor];
     manualView.showsVerticalScrollIndicator = NO;
     [manualView setContentSize:CGSizeMake(width, 568.0)];
@@ -1600,7 +1600,6 @@
         } completion:^(BOOL finished){
             isOpened=NO;
         }];
-        
     }
 }
 

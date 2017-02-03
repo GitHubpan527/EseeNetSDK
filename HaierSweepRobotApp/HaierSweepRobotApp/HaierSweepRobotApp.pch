@@ -63,7 +63,13 @@
 //#define OFFICALIP @"http://139.196.19.104:8080/robot-app/"//正式
 //#define OFFICALIP @"http://app.haierwireless.net:8080/robot-app/"//正式
 #define PicAllUrl(picUrl) [NSString stringWithFormat:@"%@%@",OFFICALIP,picUrl]
+//AlarmPush
+#define RET_SET_PUSH_SOUND 0x108  // 2016-7-15 推送控制声音
+#define ACK_RET_SET_PUSH_SOUND_DEFENCE 0x94  // 2016-7-15 推送控制声音 ack的set方法
+#define ACK_RET_GET_ALARM_PUSH_PIC  0x1001
 
+//导航栏颜色
+#define NavigationBarColor [UIColor lc_colorWithR:48 G:155 B:228 alpha:1.0]
 //屏幕宽度
 #define ScreenWidth [UIScreen mainScreen].bounds.size.width
 //屏幕高度
@@ -84,8 +90,15 @@
 
 //国际化
 #define AppLanguage @"appLanguage"
-#define CustomLocalizedString(key, comment) \
-[[NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"appLanguage"]] ofType:@"lproj"]] localizedStringForKey:(key) value:comment table:@"Language"]
+
+#define CustomLocalizedString(key, comment) NSLocalizedString(key, comment)
+
+//[[NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"appLanguage"]] ofType:@"lproj"]] localizedStringForKey:(key) value:comment table:@"Language"]
+
+#define WiredNetworkAddButtonTag 2016+10+14
+#define WifiAddButtonTag 2016+10+14+1
+#define WiredNetworkAddButtonNextTag 2016+10+14+2
+#define WifiAddButtonNextTag 2016+10+14+3
 
 /** 判断本地语言是否为英文 */
 #define UD [NSUserDefaults standardUserDefaults]
@@ -98,6 +111,54 @@
 UIAlertView *HomeAlert=[[UIAlertView alloc] initWithTitle:title message:msg delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil]; \
 [HomeAlert show]; \
 }
+
+//dwErrorCode
+enum
+{
+    GET_FILE_CMD_ERR_NONE,
+    GET_FILE_CMD_ERR_PW_INCRRECT,
+    GET_FILE_CMD_ERR_IP_FREEZE,     //密码被冻结
+    GET_FILE_CMD_ERR_NO_SUCH_FILE,  //没有这个文件
+    GET_FILE_CMD_ERR_NOT_ALLOWED,   //权限
+    GET_FILE_CMD_ERR_READ_FILE_FAIL,
+    GET_FILE_CMD_ERR_BUZY,
+    GET_FILE_CMD_ERR_MEMORY_LIMITED,
+    GET_FILE_CMD_ERR_TIMEOUT,
+};
+
+typedef enum{
+    P2PCALL_TYPE_MONITOR,
+    P2PCALL_TYPE_VIDEO,
+    P2PCALL_TYPE_PLAYBACK
+} P2PCallType;
+
+typedef enum{
+    P2PCALL_STATUS_NONE,
+    P2PCALL_STATUS_CALLING,
+    P2PCALL_STATUS_READY_P2P,
+} P2PCallState;
+
+typedef enum{
+    PLAYBACK_STATE_STOP,
+    PLAYBACK_STATE_PAUSE,
+    PLAYBACK_STATE_PLAYING
+} GWPlaybackState;
+
+
+typedef struct DeviceDate{
+    int year;
+    int month;
+    int day;
+    int hour;
+    int minute;
+}DeviceDate;
+
+
+typedef enum{
+    NO_CONNECTED_WIFI,
+    NO_WIFI_PASSWORD
+    
+}TipsType; //16.10.18
 
 //MARK: ------//HL ------ /** 打印 */ ------*/
 #ifdef DEBUG

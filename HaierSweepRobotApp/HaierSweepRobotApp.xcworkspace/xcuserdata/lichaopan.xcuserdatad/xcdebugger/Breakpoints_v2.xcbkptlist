@@ -4,60 +4,18 @@
    version = "2.0">
    <Breakpoints>
       <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            scope = "0"
-            stopOnStyle = "0">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HaierSweepRobotApp/Yoosee/Controllers/AddContactNextController.m"
-            timestampString = "500810620.352279"
+            timestampString = "505895756.263639"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "364"
-            endingLineNumber = "364"
+            startingLineNumber = "365"
+            endingLineNumber = "365"
             landmarkName = "-initComponent"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "HaierSweepRobotApp/Yoosee/Controllers/LC_AddContactNextViewController.m"
-            timestampString = "500870689.038004"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "328"
-            endingLineNumber = "328"
-            landmarkName = "-bind:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "HaierSweepRobotApp/Yoosee/Controllers/LC_AddContactNextViewController.m"
-            timestampString = "500870689.038004"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "255"
-            endingLineNumber = "255"
-            landmarkName = "-onSavePress"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -116,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HaierSweepRobotApp/Yoosee/Controllers/AddContactNextController.m"
-            timestampString = "500819780.512123"
+            timestampString = "505895756.263639"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "452"
-            endingLineNumber = "452"
+            startingLineNumber = "486"
+            endingLineNumber = "486"
             landmarkName = "-onSavePress"
             landmarkType = "7">
          </BreakpointContent>
@@ -132,43 +90,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HaierSweepRobotApp/Yoosee/Controllers/AddContactNextController.m"
-            timestampString = "500819782.079082"
+            timestampString = "505895756.263639"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "454"
-            endingLineNumber = "454"
-            landmarkName = "-onSavePress"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "HaierSweepRobotApp/Yoosee/Controllers/AddContactNextController.m"
-            timestampString = "500819786.147268"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "485"
-            endingLineNumber = "485"
-            landmarkName = "-onSavePress"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "HaierSweepRobotApp/Yoosee/Controllers/AddContactNextController.m"
-            timestampString = "500819793.743261"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "526"
-            endingLineNumber = "526"
+            startingLineNumber = "527"
+            endingLineNumber = "527"
             landmarkName = "-onSavePress"
             landmarkType = "7">
          </BreakpointContent>
@@ -180,11 +106,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HaierSweepRobotApp/Yoosee/Controllers/CreateInitPasswordController.m"
-            timestampString = "500819922.594296"
+            timestampString = "505896354.573063"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "566"
-            endingLineNumber = "566"
+            startingLineNumber = "565"
+            endingLineNumber = "565"
             landmarkName = "-initComponent"
             landmarkType = "7">
             <Locations>
@@ -195,13 +121,13 @@
                   symbolName = "-[CreateInitPasswordController initComponent]"
                   moduleName = "HaierSweepRobotApp"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/lichaopan/Desktop/EseeNetSDK/HaierSweepRobotApp/HaierSweepRobotApp/Yoosee/Controllers/CreateInitPasswordController.m"
-                  timestampString = "502875180.950359"
+                  urlString = "file:///Users/lichaopan/Desktop/HaierSweepRobotApp/HaierSweepRobotApp/Yoosee/Controllers/CreateInitPasswordController.m"
+                  timestampString = "507785432.258625"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "566"
-                  endingLineNumber = "566"
-                  offsetFromSymbolStart = "4556">
+                  startingLineNumber = "565"
+                  endingLineNumber = "565"
+                  offsetFromSymbolStart = "4396">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -210,12 +136,12 @@
                   symbolName = "__45-[CreateInitPasswordController initComponent]_block_invoke"
                   moduleName = "HaierSweepRobotApp"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/lichaopan/Desktop/EseeNetSDK/HaierSweepRobotApp/HaierSweepRobotApp/Yoosee/Controllers/CreateInitPasswordController.m"
-                  timestampString = "502875180.95194"
+                  urlString = "file:///Users/lichaopan/Desktop/HaierSweepRobotApp/HaierSweepRobotApp/Yoosee/Controllers/CreateInitPasswordController.m"
+                  timestampString = "507785432.261673"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "566"
-                  endingLineNumber = "566"
+                  startingLineNumber = "565"
+                  endingLineNumber = "565"
                   offsetFromSymbolStart = "24">
                </Location>
             </Locations>
@@ -227,77 +153,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "HaierSweepRobotApp/Yoosee/Controllers/CreateInitPasswordController.m"
-            timestampString = "500819929.614634"
+            filePath = "HaierSweepRobotApp/EseeSDK/SDKDemo/ENLiveViewController.m"
+            timestampString = "506577734.131462"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "630"
-            endingLineNumber = "630"
-            landmarkName = "-onSavePress"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "HaierSweepRobotApp/Yoosee/Controllers/CreateInitPasswordController.m"
-            timestampString = "500819934.328149"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "638"
-            endingLineNumber = "638"
-            landmarkName = "-onSavePress"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "HaierSweepRobotApp/Yoosee/Controllers/LC_AddContactNextViewController.m"
-            timestampString = "500870689.038004"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "276"
-            endingLineNumber = "276"
-            landmarkName = "-onSavePress"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "HaierSweepRobotApp/Yoosee/Controllers/LC_AddContactNextViewController.m"
-            timestampString = "500870689.038004"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "291"
-            endingLineNumber = "291"
-            landmarkName = "-onSavePress"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "HaierSweepRobotApp/Yoosee/Controllers/LC_AddContactNextViewController.m"
-            timestampString = "500870689.038004"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "324"
-            endingLineNumber = "324"
-            landmarkName = "-bind:"
+            startingLineNumber = "1784"
+            endingLineNumber = "1784"
+            landmarkName = "-didReceiveMemoryWarning"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -317,300 +179,12 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "HaierSweepRobotApp/Yoosee/Controllers/MainController.m"
-            timestampString = "500972812.736462"
+            filePath = "HaierSweepRobotApp/Yoosee/QRCode/gwellAddControllers/LocalDeviceListController.m"
+            timestampString = "505970522.569127"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "222"
-            endingLineNumber = "222"
-            landmarkName = "-presentMonitorInterface"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "HaierSweepRobotApp/Yoosee/Controllers/P2PMonitorController.m"
-            timestampString = "500973033.824991"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "147"
-            endingLineNumber = "147"
-            landmarkName = "-viewWillDisappear:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "HaierSweepRobotApp/Yoosee/Controllers/P2PMonitorController.m"
-            timestampString = "500973039.016955"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "160"
-            endingLineNumber = "160"
-            landmarkName = "-viewWillDisappear:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "HaierSweepRobotApp/Yoosee/Controllers/P2PMonitorController.m"
-            timestampString = "500973039.828545"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "155"
-            endingLineNumber = "155"
-            landmarkName = "-viewWillDisappear:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "HaierSweepRobotApp/EseeSDK/SDKDemo/ENLiveViewController.m"
-            timestampString = "502278885.117439"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1104"
-            endingLineNumber = "1104"
-            landmarkName = "-ctrlBtnAction:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "HaierSweepRobotApp/EseeSDK/SDKDemo/ENLiveViewController.m"
-            timestampString = "502278885.117439"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1115"
-            endingLineNumber = "1115"
-            landmarkName = "-ctrlBtnAction:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "HaierSweepRobotApp/EseeSDK/SDKDemo/ENLiveViewController.m"
-            timestampString = "502278885.117439"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1146"
-            endingLineNumber = "1146"
-            landmarkName = "-ctrlBtnAction:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "HaierSweepRobotApp/EseeSDK/SDKDemo/ENLiveViewController.m"
-            timestampString = "502278885.117439"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1128"
-            endingLineNumber = "1128"
-            landmarkName = "-ctrlBtnAction:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "HaierSweepRobotApp/EseeSDK/SDKDemo/ENLiveViewController.m"
-            timestampString = "502278885.117439"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1658"
-            endingLineNumber = "1658"
-            landmarkName = "-getInterfaceBytes"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "HaierSweepRobotApp/ProjectClass/AddFacility/Controller/AddIDDeviceViewController.m"
-            timestampString = "502611294.592184"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "146"
-            endingLineNumber = "146"
-            landmarkName = "-saveBtn"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "HaierSweepRobotApp/ProjectClass/AddFacility/Controller/AddFacilityViewController.m"
-            timestampString = "502361304.507915"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "41"
-            endingLineNumber = "41"
-            landmarkName = "-requestDataWithRefresh:"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[AddFacilityViewController requestDataWithRefresh:]"
-                  moduleName = "HaierSweepRobotApp"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/lichaopan/Desktop/EseeNetSDK/HaierSweepRobotApp/HaierSweepRobotApp/ProjectClass/AddFacility/Controller/AddFacilityViewController.m"
-                  timestampString = "502875181.011644"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "41"
-                  endingLineNumber = "41"
-                  offsetFromSymbolStart = "500">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__52-[AddFacilityViewController requestDataWithRefresh:]_block_invoke"
-                  moduleName = "HaierSweepRobotApp"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/lichaopan/Desktop/EseeNetSDK/HaierSweepRobotApp/HaierSweepRobotApp/ProjectClass/AddFacility/Controller/AddFacilityViewController.m"
-                  timestampString = "502875181.013725"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "41"
-                  endingLineNumber = "41"
-                  offsetFromSymbolStart = "24">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "HaierSweepRobotApp/ProjectClass/AddFacility/Controller/AddIDDeviceViewController.m"
-            timestampString = "502361322.184087"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "71"
-            endingLineNumber = "71"
-            landmarkName = "-getID"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[AddIDDeviceViewController getID]"
-                  moduleName = "HaierSweepRobotApp"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/lichaopan/Desktop/EseeNetSDK/HaierSweepRobotApp/HaierSweepRobotApp/ProjectClass/AddFacility/Controller/AddIDDeviceViewController.m"
-                  timestampString = "502875181.017884"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "71"
-                  endingLineNumber = "71"
-                  offsetFromSymbolStart = "40">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__34-[AddIDDeviceViewController getID]_block_invoke"
-                  moduleName = "HaierSweepRobotApp"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/lichaopan/Desktop/EseeNetSDK/HaierSweepRobotApp/HaierSweepRobotApp/ProjectClass/AddFacility/Controller/AddIDDeviceViewController.m"
-                  timestampString = "502875181.019617"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "72"
-                  endingLineNumber = "72"
-                  offsetFromSymbolStart = "92">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "HaierSweepRobotApp/ProjectClass/AddFacility/Controller/AddFacilityViewController.m"
-            timestampString = "502361398.666567"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "43"
-            endingLineNumber = "43"
-            landmarkName = "-requestDataWithRefresh:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "HaierSweepRobotApp/ProjectClass/AddFacility/Controller/AddFacilityViewController.m"
-            timestampString = "502361408.385949"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "49"
-            endingLineNumber = "49"
-            landmarkName = "-requestDataWithRefresh:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "HaierSweepRobotApp/ProjectClass/HomePage/Controller/MyFacilityViewController.m"
-            timestampString = "502611294.592184"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1884"
-            endingLineNumber = "1884"
+            startingLineNumber = "319"
+            endingLineNumber = "319"
             landmarkName = "-tableView:didSelectRowAtIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
@@ -621,45 +195,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "HaierSweepRobotApp/ProjectClass/HomePage/Controller/MyFacilityViewController.m"
-            timestampString = "502611338.843149"
+            filePath = "HaierSweepRobotApp/Yoosee/Controllers/CreateInitPasswordController.m"
+            timestampString = "506592461.296873"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2139"
-            endingLineNumber = "2139"
-            landmarkName = "-refreshRobotList"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "HaierSweepRobotApp/ProjectClass/HomePage/Controller/MyFacilityViewController.m"
-            timestampString = "502611350.064134"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2129"
-            endingLineNumber = "2129"
-            landmarkName = "-refreshRobotList"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "HaierSweepRobotApp/ProjectClass/HomePage/Controller/MyFacilityViewController.m"
-            timestampString = "502611561.105123"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2149"
-            endingLineNumber = "2149"
-            landmarkName = "-refreshRobotList"
+            startingLineNumber = "62"
+            endingLineNumber = "62"
+            landmarkName = "-viewWillAppear:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

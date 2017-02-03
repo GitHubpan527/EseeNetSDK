@@ -12,6 +12,9 @@
 
 - (void)awakeFromNib {
     // Initialization code
+    
+//    self.iconLabel.frame = CGRectMake(15, 0, 120, 30);
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

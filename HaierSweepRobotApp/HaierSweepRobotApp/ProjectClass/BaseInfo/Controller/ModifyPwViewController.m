@@ -44,7 +44,13 @@
     
     self.navigationItem.title = CustomLocalizedString(@"modify_password", nil);
 #pragma mark - 确定
-    
+    //CustomLocalizedString(@"Two new password is inconsistent", nil);
+    sure = CustomLocalizedString(@"sure", nil);
+    enterPW = CustomLocalizedString(@"Please enter the 6 ~ 16 original password", nil);
+    enterNewPw = CustomLocalizedString(@"Please enter the 6 ~ 16 new password", nil);
+    enterAgainNewPW = CustomLocalizedString(@"Please enter a new password 6 to 16 again", nil);
+    unequalPW = CustomLocalizedString(@"Two new password is inconsistent", nil);
+    /*
     if (HLLanguageIsEN) {
         sure = @"sure";
         enterPW = @"Please enter the 6 ~ 16 original password";
@@ -58,6 +64,7 @@
         enterAgainNewPW = @"请再次输入6~16位新密码";
         unequalPW = @"两次新密码输入不一致";
     }
+     */
     self.navigationItem.rightBarButtonItem = [UIBarButtonItem lc_itemWithTitle:sure block:^{
         [self sureAction];
     }];
@@ -93,8 +100,8 @@
         [self mb_stop];
         if ([successObject[@"result"] boolValue]) {
             //提示
-            [self mb_show:@"修改成功"];
-            [self exit];
+            [self mb_show:CustomLocalizedString(@"Successful modification", nil)];//
+            [self exit];//;
         } else {
             [self mb_show:successObject[@"message"]];
         }
@@ -144,7 +151,7 @@
             default:
             {
                 //退出失败
-                [self mb_show:@"退出失败"];
+                [self mb_show:CustomLocalizedString(@"Failure of exit", nil)];//Failure of exit
             }
                 break;
         }

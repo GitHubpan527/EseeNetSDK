@@ -1234,10 +1234,10 @@
     NSArray* lanDevicesArray = [[UDPManager sharedDefault]getLanDevices];
     NSArray* newDevicesArray = [Utils getNewDevicesFromLan:lanDevicesArray];
     
-    LocalDeviceListController *localDeviceListController = [[LocalDeviceListController alloc] init];
-    localDeviceListController.newDevicesArray = newDevicesArray;
-    [self.navigationController pushViewController:localDeviceListController animated:YES];
-    [localDeviceListController release];
+//    LocalDeviceListController *localDeviceListController = [[LocalDeviceListController alloc] init];
+//    localDeviceListController.isNewDevicesArray = newDevicesArray;
+//    [self.navigationController pushViewController:localDeviceListController animated:YES];
+//    [localDeviceListController release];
 }
 
 -(void)stopAnimating{

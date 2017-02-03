@@ -16,6 +16,7 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *emailTB;
 @property (strong, nonatomic) IBOutlet UIView *footerView;
+@property (weak, nonatomic) IBOutlet UILabel *footerLabel;
 
 @end
 
@@ -32,13 +33,17 @@
     
     self.navigationItem.title = CustomLocalizedString(@"userEmail", nil);
     
+    //CustomLocalizedString(@"Please enter the email address", nil)
+    save = CustomLocalizedString(@"save", nil);
+    plemail = CustomLocalizedString(@"Please enter the email address", nil);
+    /*
     if (HLLanguageIsEN) {
         save = @"save";
         plemail = @"Please enter the email address";
     } else {
         save = @"保存";
         plemail = @"请输入邮箱";
-    }
+    }*/
 #pragma mark - 保存
     self.navigationItem.rightBarButtonItem = [UIBarButtonItem lc_itemWithTitle:save block:^{
         [self saveAction];
@@ -124,6 +129,8 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
+    self.footerLabel.text = @"We will send an email to you to change the email for verification";
+    
     return self.footerView;
 }
 

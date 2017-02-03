@@ -244,13 +244,9 @@
     [self.view setBackgroundColor:XBgColor];
     CGRect rect = [AppDelegate getScreenSize:YES isHorizontal:NO];
     CGFloat width = rect.size.width;
-    CGFloat height = rect.size.height;
+    CGFloat height = rect.size.height - 64;
     
     self.navigationItem.title = CustomLocalizedString(@"time_set",nil);
-    
-    
-    
-    
     
     UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, width, height) style:UITableViewStyleGrouped];
     [tableView setBackgroundColor:XBGAlpha];
@@ -262,7 +258,6 @@
     [self.view addSubview:tableView];
     self.tableView = tableView;
     [tableView release];
-    
     
 }
 
@@ -312,10 +307,6 @@
             [cell setBackgroundColor:XBGAlpha];
         }
     }
-    
-    
-    
-
     
     switch (section) {
         case 0:
@@ -420,8 +411,6 @@
     
     UIImageView *backImageView = [[UIImageView alloc] init];
     
-    
-    
     backImg = [backImg stretchableImageWithLeftCapWidth:backImg.size.width*0.5 topCapHeight:backImg.size.height*0.5];
     backImageView.image = backImg;
     [cell setBackgroundView:backImageView];
@@ -433,9 +422,6 @@
     backImageView_p.image = backImg_p;
     [cell setSelectedBackgroundView:backImageView_p];
     [backImageView_p release];
-    
-
-    
     
     return cell;
     

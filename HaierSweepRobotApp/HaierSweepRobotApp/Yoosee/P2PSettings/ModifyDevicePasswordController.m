@@ -135,11 +135,7 @@
                 
                 
             });
-            
-            
-            
-            
-            
+
             DLog(@"ACK_RET_SET_DEVICE_PASSWORD:%i",result);
         }
             break;
@@ -166,8 +162,14 @@
     CGRect rect = [AppDelegate getScreenSize:YES isHorizontal:NO];
     CGFloat width = rect.size.width;
     CGFloat height = rect.size.height;
+
+//    [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:10]}];//NSForegroundColorAttributeName:[UIColor redColor]
+    
+//    NSAttributedString *str = [[NSAttributedString alloc] initWithString:CustomLocalizedString(@"modify_manager_password", nil) attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15]}];
     
     self.navigationItem.title = CustomLocalizedString(@"modify_manager_password", nil);
+    
+    //CustomLocalizedString(@"modify_manager_password", nil);
     
     self.navigationItem.rightBarButtonItem = [UIBarButtonItem lc_itemWithTitle:CustomLocalizedString(@"save", nil) block:^{
         [self onSavePress];
@@ -217,7 +219,8 @@
     }
     field2.textAlignment = NSTextAlignmentLeft;
     //field2.placeholder = CustomLocalizedString(@"input_new_password", nil);
-    field2.placeholder = @"请输入至少6位的包含字母和数字的新密码";
+    field2.placeholder = @"At least 6 letters and Numbers of new password";
+//    field2.font = [UIFont systemFontOfSize:12];
     field2.borderStyle = UITextBorderStyleRoundedRect;
     field2.returnKeyType = UIReturnKeyDone;
     field2.secureTextEntry = YES;
@@ -239,7 +242,7 @@
     }
     field3.textAlignment = NSTextAlignmentLeft;
     //field3.placeholder = CustomLocalizedString(@"confirm_input", nil);
-    field3.placeholder = @"请确认输入";
+    field3.placeholder = @"Please make sure the input";
     field3.borderStyle = UITextBorderStyleRoundedRect;
     field3.returnKeyType = UIReturnKeyDone;
     field3.secureTextEntry = YES;
@@ -376,7 +379,7 @@
         return;
     }
     
-    if(!confirmPassword||!confirmPassword.length>0){
+    if(!confirmPassword||!confirmPassword.length > 0){
         [self.view makeToast:CustomLocalizedString(@"confirm_input", nil)];
         return;
     }

@@ -34,6 +34,13 @@
     LoginUserModel *userModel = [LoginUserDefaults getLoginUserModelForKey:[LoginUserDefaults getLoginUserModelKey]];
     self.mobileTF.text = userModel.telephone;
 #pragma mark - textView
+    self.feedBackTV.placeholder = CustomLocalizedString(@"Please enter your valuable opinions and Suggestions", nil);
+    [self.nextBtn setTitle:CustomLocalizedString(@"next", nil) forState:UIControlStateNormal];
+    str1 = CustomLocalizedString(@"Please enter the phone number", nil);
+    str2 = CustomLocalizedString(@"Phone number format is not correct", nil);
+    str3 = CustomLocalizedString(@"Please enter your valuable opinions and Suggestions", nil);
+    //CustomLocalizedString(@"next", nil)
+    /*
     if (HLLanguageIsEN) {
         self.feedBackTV.placeholder = @"Please enter your valuable opinions and Suggestions";
         [self.nextBtn setTitle:@"next" forState:UIControlStateNormal];
@@ -47,7 +54,7 @@
         str2 = @"手机号格式不正确";
         str3 = @"请输入您宝贵的意见和建议";
     }
-    
+    */
     // Do any additional setup after loading the view from its nib.
 }
 

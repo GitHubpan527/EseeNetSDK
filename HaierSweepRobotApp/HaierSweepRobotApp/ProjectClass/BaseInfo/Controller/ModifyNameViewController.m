@@ -29,9 +29,12 @@
     [super viewDidLoad];
     
     //self.navigationItem.title = CustomLocalizedString(@"userName", nil);
+    //CustomLocalizedString(@"modefyuser", nil)
+    self.navigationItem.title = CustomLocalizedString(@"modefyuser", nil);
     
-    self.navigationItem.title = @"修改昵称";
-    
+    saveStr = CustomLocalizedString(@"save", nil);
+    tipName = CustomLocalizedString(@"Please enter your nickname", nil);
+    /*
     if (HLLanguageIsEN) {
         saveStr = @"save";
         tipName = @"Please enter your nickname";
@@ -39,7 +42,7 @@
         saveStr = @"保存";
         tipName = @"请输入您的昵称";
     }
-    
+    */
 #pragma mark - 保存
     self.navigationItem.rightBarButtonItem = [UIBarButtonItem lc_itemWithTitle:saveStr block:^{
         [self saveAction];
@@ -90,7 +93,7 @@
     }
     
     cellTextField = (UITextField *)[cell viewWithTag:10];
-    cellTextField.placeholder = @"请输入您的昵称";
+    cellTextField.placeholder = CustomLocalizedString(@"please input your nickname", nil);
     cellTextField.text = self.realName;
     
     return cell;

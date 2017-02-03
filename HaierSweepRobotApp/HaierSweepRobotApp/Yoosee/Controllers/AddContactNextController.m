@@ -92,6 +92,7 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+    
 }
 
 -(void)initComponent{
@@ -450,7 +451,7 @@
 -(void)onSavePress{
     
     if (self.isInFromManuallAdd) {//手动添加，判断id的有效性
-        if(!self.contactIdField||!self.contactIdField.text.length>0){
+        if(!self.contactIdField||!(self.contactIdField.text.length>0)){
             [self.view makeToast:CustomLocalizedString(@"input_contact_id", nil)];
             return;
         }

@@ -157,7 +157,6 @@
             contact.contactType = CONTACT_TYPE_UNKNOWN;
             [[FListManager sharedFList] myinsert:contact];
             
-            
             [[P2PClient sharedClient] getContactsStates:[NSArray arrayWithObject:contact.contactId]];
             [[P2PClient sharedClient] getDefenceState:contact.contactId password:contact.contactPassword];
             [contact release];
@@ -463,7 +462,7 @@
     }
     field2.textAlignment = NSTextAlignmentLeft;
 //    field2.placeholder = CustomLocalizedString(@"input_contact_password", nil);
-    field2.placeholder = @"请设置一个至少6位的包含字母和数字的密码";
+    field2.placeholder = @"至少6位的字母和数字的密码";
     field2.borderStyle = UITextBorderStyleRoundedRect;
     field2.returnKeyType = UIReturnKeyDone;
     field2.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
@@ -488,9 +487,9 @@
     field3.placeholder = @"请确认输入";
     field3.borderStyle = UITextBorderStyleRoundedRect;
     field3.returnKeyType = UIReturnKeyDone;
-
+    
     field3.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
-
+    
     field3.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     field3.secureTextEntry = YES;
     field3.tag = 13;//password strength1

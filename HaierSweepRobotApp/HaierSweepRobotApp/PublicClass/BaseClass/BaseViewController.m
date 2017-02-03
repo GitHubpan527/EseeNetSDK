@@ -19,7 +19,10 @@
 
     //导航栏相关
     self.navigationController.navigationBar.translucent = NO;
-    self.navigationController.navigationBar.barTintColor = [UIColor lc_colorWithR:48 G:155 B:228 alpha:1.0];
+    self.navigationController.navigationBar.barTintColor = NavigationBarColor;
+
+//    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],UITextAttributeTextColor,[UIColor blackColor],UITextAttributeTextShadowColor,[UIFont boldSystemFontOfSize:20.0],UITextAttributeFont,CGSizeMake(0, -1.0),UITextAttributeTextShadowOffset, nil];
+    
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:20],NSForegroundColorAttributeName:[UIColor whiteColor]}];
     //返回按钮
     UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];

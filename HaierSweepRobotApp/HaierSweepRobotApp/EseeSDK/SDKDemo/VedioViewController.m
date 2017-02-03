@@ -51,7 +51,7 @@
     _dataSource = [[NSMutableArray alloc] initWithArray:[_fileManager contentsOfDirectoryAtPath:LibCachesNVRVideoPath error:nil]];
     [_tableView reloadData];
     if (_dataSource.count == 0) {
-        [self showAlertWithAlertString:@"暂无数据"];
+        [self showAlertWithAlertString:CustomLocalizedString(@"No Data", nil)];
     }
 }
 - (void)naV
@@ -63,7 +63,7 @@
     [backButton setImage:[UIImage imageNamed:@"返回按钮"] forState:UIControlStateNormal];
     [backButton addTarget:self action:@selector(backBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
-    self.navigationItem.title = @"录像";
+    self.navigationItem.title = CustomLocalizedString(@"video", nil);
 }
 - (void)backBtnAction:(UIButton *)sender
 {

@@ -26,5 +26,15 @@
                                  Port:(int)port
                                  Channel:(int)channel;
 
+/* 导航栏的名称 */
+@property (nonatomic,copy) NSString *navigatioName;
+
 
 @end
+
+
+
+
+
+
+

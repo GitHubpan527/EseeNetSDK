@@ -27,25 +27,26 @@
     
     // Do any additional setup after loading the view from its nib.
 }
+//CustomLocalizedString(@"The two passwords is different", nil)
 - (IBAction)sureAction:(id)sender {
     if (!self.firstTF.text.length) {
-        [self mb_show:@"请输入密码"];
+        [self mb_show:CustomLocalizedString(@"input_password", nil)];//input_password
         return;
     }
     if (self.firstTF.text.length<6 || self.firstTF.text.length>16) {
-        [self mb_show:@"请输入6~16位密码"];
+        [self mb_show:CustomLocalizedString(@"inputPw", nil)];
         return;
     }
     if (!self.secondTF.text.length) {
-        [self mb_show:@"请再次输入密码"];
+        [self mb_show:CustomLocalizedString(@"again_input_password", nil)];
         return;
     }
     if (self.secondTF.text.length<6 || self.secondTF.text.length>16) {
-        [self mb_show:@"请再次输入6~16位密码"];
+        [self mb_show:CustomLocalizedString(@"Please enter 6 ~ 16 password again", nil)];
         return;
     }
     if (![self.firstTF.text isEqualToString:self.secondTF.text]) {
-        [self mb_show:@"两次密码输入不一致"];
+        [self mb_show:CustomLocalizedString(@"The two passwords is different", nil)];
         return;
     }
     [self mb_normal];

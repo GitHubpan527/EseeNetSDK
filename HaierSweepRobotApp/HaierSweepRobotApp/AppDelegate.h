@@ -88,5 +88,10 @@
 //当iOS系统>=9.3时，在APP将要退回登录界面时，注册远程推送，获取新的token
 //原因是，iOS系统>=9.3时，注销远程推送再注册远程推送时，token变了;
 -(void)reRegisterForRemoteNotifications;
+
+@property (nonatomic) BOOL isWiredConnectOrNot;//是否有线添加
+@property (strong, nonatomic) NSString *appWifiName;//配网时用到
+@property (strong, nonatomic) NSString *appWiFiPassword;//配网时用到
+
 @end
 

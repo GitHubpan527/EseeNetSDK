@@ -28,8 +28,12 @@
 #import "FListManager.h"
 #import "ContactController_ap.h"
 #import "Utils.h"
+//#import "AlarmPushViewController.h"
+
 
 @interface MainController ()
+
+//@property (nonatomic,strong) AlarmPushViewController *alarmPushController;
 
 @end
 
@@ -318,6 +322,23 @@
     self.isShowP2PView = NO;
 }
 
+#pragma mark - 弹出全屏的报警推送界面
+/*
+-(void)popAlarmPushControllerWithDic:(NSDictionary *)dic{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (!self.isShowingAlarmPushController) {
+            AlarmPushViewController *alarmPushViewController = [[AlarmPushViewController alloc] init];
+            alarmPushViewController.dic = dic;
+            [self presentViewController:alarmPushViewController animated:NO completion:nil];
+            self.alarmPushController = alarmPushViewController;
+            
+        }else{
+            [self.alarmPushController refreshViewsWithDic:dic];
+        }
+        
+    });
+}
+*/
 #pragma mark - 挂断监控设备回调
 -(void)P2PClientReject:(NSDictionary*)info{
     DLog("P2PClientReject");
@@ -332,7 +353,6 @@
             usleep(500000);
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                
                 
                 int errorFlag = [[info objectForKey:@"errorFlag"] intValue];
                 if ([AppDelegate sharedDefault].isMonitoring) {

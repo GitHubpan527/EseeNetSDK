@@ -96,15 +96,15 @@
 #pragma mark - 登录事件
 - (IBAction)loginAction:(id)sender {
     if (!self.mobileTF.text.length) {
-        [self mb_show:@"请输入手机号"];
+        [self mb_show:CustomLocalizedString(@"inputMobile", nil)];
         return;
     }
     if (![NSString lc_isValidateMobile:self.mobileTF.text]) {
-        [self mb_show:@"手机号格式不正确"];
+        [self mb_show:CustomLocalizedString(@"Phone number format is not", nil)];
         return;
     }
     if (self.passwordTF.text.length<6 || self.passwordTF.text.length>16) {
-        [self mb_show:@"请输入6~16位密码"];
+        [self mb_show:CustomLocalizedString(@"inputPw", nil)];
         return;
     }
     

@@ -320,7 +320,7 @@
     CGFloat height = rect.size.height;
     
     
-    self.navigationItem.title = CustomLocalizedString(@"device_control",nil);
+    self.navigationItem.title = CustomLocalizedString(@"deviceSet",nil);
     
     UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, height)];
     
@@ -360,7 +360,7 @@
         viewDeviceInfoButton.layer.cornerRadius = 1.0;
         //viewDeviceInfoButton.backgroundColor = UIColorFromRGB(0xcccccc);
         [viewDeviceInfoButton addTarget:self action:@selector(onViewDeviceInfoButtonPress:) forControlEvents:UIControlEventTouchUpInside];
-        [viewDeviceInfoButton setTitle:@"设备信息" forState:UIControlStateNormal];
+        [viewDeviceInfoButton setTitle:CustomLocalizedString(@"device_info", nil) forState:UIControlStateNormal];
         [viewDeviceInfoButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         viewDeviceInfoButton.titleLabel.font = [UIFont systemFontOfSize:15];
         [topInfoBarView addSubview:viewDeviceInfoButton];
@@ -745,7 +745,6 @@
                 if(row==0){
                     iconImageV.image = LCImage(@"时间-");
                     titleLabel.text = CustomLocalizedString(@"time_set", nil);
-                    
                 }else if(row==1){
                     iconImageV.image = LCImage(@"媒体-");
                     titleLabel.text = CustomLocalizedString(@"media_set", nil);
@@ -983,7 +982,7 @@
     for(int i=0;i<8;i++){
         int x = i%2;
         int y = i/2;
-        CGFloat itemWidth = INFO_VIEW_WIDTH/2-20.0;//device info
+        CGFloat itemWidth = INFO_VIEW_WIDTH/2;//-20.0;//device info
         CGFloat itemHeight = (INFO_VIEW_HEIGHT-TITLE_LABEL_HEIGHT)/4;
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake((INFO_VIEW_WIDTH-itemWidth*2)/2+itemWidth*x, titleLabel.frame.origin.y+titleLabel.frame.size.height+y*itemHeight, itemWidth, itemHeight)];//device info
         label.backgroundColor = [UIColor clearColor];

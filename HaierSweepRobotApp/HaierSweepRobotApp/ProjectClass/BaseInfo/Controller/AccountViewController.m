@@ -30,11 +30,15 @@
     [super viewDidLoad];
     
     self.navigationItem.title = CustomLocalizedString(@"accountSafe", nil);
+    
+    ary = @[CustomLocalizedString(@"ChangeThePassword", nil),CustomLocalizedString(@"Email", nil)];
+    /*
     if (HLLanguageIsEN) {
         ary = @[@"ChangeThePassword",@"Email"];
     } else {
         ary = @[@"修改密码",@"邮箱"];
     }
+     */
     // Do any additional setup after loading the view from its nib.
 }
 

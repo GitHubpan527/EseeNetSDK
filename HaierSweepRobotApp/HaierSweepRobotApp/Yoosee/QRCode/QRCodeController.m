@@ -31,7 +31,7 @@
     int _tipIndex;
     
     QRCodeGuardFirst* _guardView00;
-    QRCodeGuardSecond* _guardView01;
+    QRCodeGuardSecond* _guardView01;//第一个，连接好电源
     UIView* _guardView02;
     
     UILabel* _textLable;
@@ -335,6 +335,12 @@
     field2.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     [field2 addTarget:self action:@selector(onKeyBoardDown:) forControlEvents:UIControlEventEditingDidEndOnExit];
     [_guardView02 addSubview:field2];
+    
+    NSString *str = [[NSUserDefaults standardUserDefaults] objectForKey:@"WiFiPassword"];
+    if (str.length != 0) {
+        field2.text = str;
+    }
+    
     self.pwdField = field2;
     [field2 release];
     
@@ -358,7 +364,7 @@
     if (_bShowTip) {
         [_guardView02 setHidden:YES];
     }
-
+    
     UIButton *saveButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [saveButton setFrame:CGRectMake((self.view.frame.size.width-300)/2, self.view.frame.size.height-120, 300, heightNextBtn)];
     UIImage *bottomButton1Image = [UIImage imageNamed:@"bg_blue_button"];
@@ -405,6 +411,29 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (void)showAlertWithAlertString:(NSString *)alertString
+{
+    //提示框
+    UIAlertController * alertCtr = [UIAlertController alertControllerWithTitle:nil message:alertString preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction * action1 = [UIAlertAction actionWithTitle:@"否" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        
+    }];
+    
+    UIAlertAction * action2 = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        [[NSUserDefaults standardUserDefaults] setObject:self.pwdField.text forKey:@"WiFiPassword"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        [self btnClick];
+    }];
+    [alertCtr addAction:action1];
+    [alertCtr addAction:action2];
+    [self presentViewController:alertCtr animated:YES completion:nil];
+}
+/*
+ NSString *str = [[NSUserDefaults standardUserDefaults] objectForKey:@"WiFiPassword"];
+ if (str.length != 0) {
+ self.pwdField.text = str;
+ }
+ */
 -(void)onMakePress{
     if (_tipIndex == QRGuard_index01)
     {
@@ -414,33 +443,41 @@
     }
     else
     {
-        NSString *ssidString = self.ssidField.text;
-        NSString *pwdString = self.pwdField.text;
-        if (!pwdString) {//ios<7.0
-            pwdString = @"";
-        }
-        if(ssidString.length<=0){
-            [self.view makeToast:CustomLocalizedString(@"link_wifi", nil)];
-            return;
-        }
-        [self onKeyBoardDown:nil];
-        
-        QRCodeNextController *qrcodeNextController = [[QRCodeNextController alloc] init];
-        qrcodeNextController.uuidString = ssidString;
-        qrcodeNextController.wifiPwd = pwdString;
-        if (self.isSetWifiToAddDeviceByQR) {//set wifi to add device by qr
-            self.isSetWifiToAddDeviceByQR = NO;
-            qrcodeNextController.conectType = 1;
-            qrcodeNextController.qrCodeController = self;
+        if (self.pwdField.text.length == 0) {
+            [self showAlertWithAlertString:@"确定此WiFi没有设置密码？"];
         }else{
-            qrcodeNextController.conectType = 0;
+            [[NSUserDefaults standardUserDefaults] setObject:self.pwdField.text forKey:@"WiFiPassword"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            [self btnClick];
         }
-        [self.navigationController pushViewController:qrcodeNextController animated:YES];
-        [qrcodeNextController release];
-        
     }
 }
-
+- (void)btnClick
+{
+    NSString *ssidString = self.ssidField.text;
+    NSString *pwdString = self.pwdField.text;
+    if (!pwdString) {//ios<7.0
+        pwdString = @"";
+    }
+    if(ssidString.length<=0){
+        [self.view makeToast:CustomLocalizedString(@"link_wifi", nil)];
+        return;
+    }
+    [self onKeyBoardDown:nil];
+    
+    QRCodeNextController *qrcodeNextController = [[QRCodeNextController alloc] init];
+    qrcodeNextController.uuidString = ssidString;
+    qrcodeNextController.wifiPwd = pwdString;
+    if (self.isSetWifiToAddDeviceByQR) {//set wifi to add device by qr
+        self.isSetWifiToAddDeviceByQR = NO;
+        qrcodeNextController.conectType = 1;
+        qrcodeNextController.qrCodeController = self;
+    }else{
+        qrcodeNextController.conectType = 0;
+    }
+    [self.navigationController pushViewController:qrcodeNextController animated:YES];
+    [qrcodeNextController release];
+}
 -(void)setQRGuard:(BOOL)bEnable
 {
     _bShowTip = bEnable;

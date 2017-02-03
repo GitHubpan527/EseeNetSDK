@@ -42,7 +42,7 @@
 #pragma mark - 获取验证码
 - (IBAction)getCodeAction:(id)sender {
     if (!self.mobileTF.text.length) {
-        [self mb_show:@"请输入手机号"];
+        [self mb_show:CustomLocalizedString(@"inputMobile", nil)];//inputMobile
         return;
     }
     [self  getcaptcha];
@@ -89,15 +89,15 @@
 - (IBAction)nextHandleAction:(id)sender {
     
     if (!self.mobileTF.text.length) {
-        [self mb_show:@"请输入手机号"];
+        [self mb_show:CustomLocalizedString(@"inputMobile", nil)];
         return;
     }
     if (![NSString lc_isValidateMobile:self.mobileTF.text]) {
-        [self mb_show:@"手机号格式不正确"];
+        [self mb_show:CustomLocalizedString(@"Phone number format is not", nil)];// correct
         return;
     }
     if (!self.codeTF.text.length) {
-        [self mb_show:@"请输入验证码"];
+        [self mb_show:CustomLocalizedString(@"inputCode", nil)];//
         return;
     }
     

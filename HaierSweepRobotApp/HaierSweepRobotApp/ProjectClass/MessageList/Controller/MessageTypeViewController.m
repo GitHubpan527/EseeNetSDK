@@ -108,8 +108,8 @@
      */
     
     //NSArray *titleArray = @[@"系统消息",@"摄像头",@"扫地机"];
-    NSArray *titleArray = @[@"系统消息",@"摄像头"];
-
+    NSArray *titleArray = @[CustomLocalizedString(@"system_message", nil),CustomLocalizedString(@"camera", nil)];
+    
     UILabel *typeLabel = (UILabel *)[cell viewWithTag:20];
     typeLabel.text = titleArray[indexPath.section];
 

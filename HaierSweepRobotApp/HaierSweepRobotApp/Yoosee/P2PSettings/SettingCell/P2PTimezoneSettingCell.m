@@ -38,7 +38,7 @@
     // Configure the view for the selected state
 }
 
-#define LEFT_LABEL_WIDTH 100
+#define LEFT_LABEL_WIDTH 150
 #define PROGRESS_WIDTH_HEIGHT 32
 -(void)layoutSubviews{
     [super layoutSubviews];

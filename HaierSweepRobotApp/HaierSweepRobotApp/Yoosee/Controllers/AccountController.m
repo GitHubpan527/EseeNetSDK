@@ -113,10 +113,7 @@
     UIImage *backImg = nil;
     UIImage *backImg_p = nil;
     
-    
-    
-    
-    
+
     [cell setRightIcon:@"ic_arrow.png"];
     
     LoginResult *loginResult = [UDManager getLoginInfo];

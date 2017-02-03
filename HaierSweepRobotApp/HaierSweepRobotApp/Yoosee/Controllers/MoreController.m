@@ -43,7 +43,7 @@
     return self;
 }
 
--(void)viewDidAppear:(BOOL)animated{
+- (void)viewDidAppear:(BOOL)animated{
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onNetWorkChange:) name:NET_WORK_CHANGE object:nil];
     if([[AppDelegate sharedDefault] networkStatus]==ReachableViaWiFi){
         self.ic_net_type_view.image = [UIImage imageNamed:@"ic_net_type_wifi.png"];

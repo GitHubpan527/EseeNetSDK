@@ -7,6 +7,10 @@
 //
 
 #import "OnePhotoViewController.h"
+// 在需要进行获取用户信息的UIViewController中加入如下代码
+#import <UMSocialCore/UMSocialCore.h>
+#import "UMSocialUIManager.h"
+
 #define WIDTH              self.view.bounds.size.width
 #define HEIGHT             self.view.bounds.size.height
 
@@ -99,7 +103,7 @@
 //提示框封装
 - (void)showAlertWithAlertString:(NSString *)alertString
 {
-    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:alertString delegate:nil cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:CustomLocalizedString(@"prompt", nil) message:alertString delegate:nil cancelButtonTitle:nil otherButtonTitles:CustomLocalizedString(@"ok", nil), nil];
 
     
     [alert show];
@@ -134,6 +138,21 @@
         }
     }
 }
+/*
+- (void)getUserInfoForPlatform:(UMSocialPlatformType)platformType
+{
+    [[UMSocialManager defaultManager] getUserInfoWithPlatform:platformType currentViewController:self completion:^(id result, NSError *error) {
+        UMSocialUserInfoResponse *userinfo =result;
+        NSString *message = [NSString stringWithFormat:@"name: %@\n icon: %@\n gender: %@\n",userinfo.name,userinfo.iconurl,userinfo.gender];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"UserInfo"
+                                                        message:message
+                                                       delegate:nil
+                                              cancelButtonTitle:CustomLocalizedString(@"确定", nil)
+                                              otherButtonTitles:nil];
+        [alert show];
+    }];
+}
+ */
 #pragma mark - 长按手势
 - (void)longPressed:(UILongPressGestureRecognizer *)lgr
 {
@@ -141,20 +160,40 @@
     //    [imageV removeFromSuperview];
     if (lgr.state == UIGestureRecognizerStateBegan) {
 //        [self AlertCTwo:@"分享" and:@"保存到相册" and:@"删除图片"];
-        [self AlertCTwo:@"保存到相册" and:@"删除图片"];
+        [self AlertCTwo:CustomLocalizedString(@"Save the photo album", nil) and:CustomLocalizedString(@"Delete the picture", nil)];
     }
 }
+- (void)shareTextToPlatformType:(UMSocialPlatformType)platformType
+{
+    //创建分享消息对象
+    UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
+    //设置文本
+    messageObject.text = @"社会化组件UShare将各大社交平台接入您的应用，快速武装App。";
+    
+    //调用分享接口
+    [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:self completion:^(id data, NSError *error) {
+        if (error) {
+            NSLog(@"************Share fail with error %@*********",error);
+        }else{
+            NSLog(@"response data is %@",data);
+        }
+    }];
+}
+
 - (void)AlertCTwo:(NSString *)message2 and:(NSString *)message3
 {
-    
     //提示框
     UIAlertController * alertCtr = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     /*
-    UIAlertAction * action1 = [UIAlertAction actionWithTitle:message1 style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+    UIAlertAction * action1 = [UIAlertAction actionWithTitle:message2 style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         //分享
         NSLog(@"分享");
+        [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMShareMenuSelectionView *shareSelectionView, UMSocialPlatformType platformType) {
+            // 根据platformType调用相关平台进行分享
+            
+        }];
     }];
-     */
+    */
     UIAlertAction * action2 = [UIAlertAction actionWithTitle:message2 style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         
         //保存到相册
@@ -172,10 +211,10 @@
         NSFileManager *fileManager = [NSFileManager defaultManager];
         [fileManager removeItemAtPath:_photoPath error:nil];
         if (![fileManager fileExistsAtPath:_photoPath]) {
-            [self showAlertWithAlertString:@"删除成功"];
+            [self showAlertWithAlertString:CustomLocalizedString(@"Successful delete", nil)];
         }
     }];
-    UIAlertAction * action4 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+    UIAlertAction * action4 = [UIAlertAction actionWithTitle:CustomLocalizedString(@"cancel", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
         NSLog(@"取消");
     }];
     
@@ -191,12 +230,12 @@
 - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo{
     
     if (error != nil) {
-        UIAlertView *fail = [[UIAlertView alloc]initWithTitle:nil message:@"保存失败" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        UIAlertView *fail = [[UIAlertView alloc]initWithTitle:nil message:CustomLocalizedString(@"Save failed", nil) delegate:self cancelButtonTitle:CustomLocalizedString(@"ok", nil) otherButtonTitles:nil, nil];
         [fail show];
         NSLog(@"%@",error);
     }
     else{
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"保存成功" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:CustomLocalizedString(@"Save success", nil) delegate:self cancelButtonTitle:CustomLocalizedString(@"ok", nil) otherButtonTitles:nil, nil];
         
         [alert show];
         [self.view addSubview:alert];

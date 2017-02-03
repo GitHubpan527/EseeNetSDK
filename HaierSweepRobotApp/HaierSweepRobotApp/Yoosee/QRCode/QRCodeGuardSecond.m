@@ -37,7 +37,7 @@
     CGFloat topInterval = 20;
     UILabel* lableTitle = [[UILabel alloc]initWithFrame:CGRectMake(0, topInterval, width, 30)];
     lableTitle.font = XFontBold_18;
-    [lableTitle setText:CustomLocalizedString(@"add_guard_text06", nil)];  //walanguage
+    [lableTitle setText:CustomLocalizedString(@"add_guard_text06", nil)];  //walanguage 连接好电源
     lableTitle.backgroundColor = [UIColor clearColor];
     lableTitle.textAlignment = NSTextAlignmentCenter;
     [self addSubview:lableTitle];

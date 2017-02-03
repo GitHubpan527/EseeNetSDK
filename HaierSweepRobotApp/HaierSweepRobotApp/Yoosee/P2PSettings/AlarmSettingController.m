@@ -707,8 +707,6 @@
     CGFloat height = rect.size.height;
     
     self.navigationItem.title = CustomLocalizedString(@"alarm_set",nil);
-
-    
     
     
     UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, height)];

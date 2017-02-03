@@ -90,7 +90,7 @@ alpha:((float)(rgbValue & 0xFF))/255.0]
  *2. 1英寸 = 72 pt;
  */
 #define FondSizeWithPxValue(PxValue) ((PxValue/96.0)*72.0)
-
+/*
 typedef enum{
     P2PCALL_TYPE_MONITOR,
     P2PCALL_TYPE_VIDEO,
@@ -117,7 +117,7 @@ typedef struct DeviceDate{
     int hour;
     int minute;
 }DeviceDate;
-
+*/
 
 
 

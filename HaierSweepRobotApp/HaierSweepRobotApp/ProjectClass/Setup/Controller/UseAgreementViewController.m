@@ -32,7 +32,7 @@
     
     self.automaticallyAdjustsScrollViewInsets = NO;
     
-    self.navigationItem.title = @"使用协议";
+    self.navigationItem.title = CustomLocalizedString(@"useAgreement", nil);
     
     //加载本地文件
     NSString *path = [[NSBundle mainBundle] pathForResource:@"APP使用协议" ofType:@"docx"];

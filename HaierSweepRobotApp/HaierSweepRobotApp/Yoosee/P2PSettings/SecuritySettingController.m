@@ -295,9 +295,6 @@
         }
     }
     
-    
-   
-    
     UIImage *backImg = nil;
     UIImage *backImg_p = nil;
     

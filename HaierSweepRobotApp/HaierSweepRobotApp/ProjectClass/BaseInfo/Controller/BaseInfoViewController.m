@@ -63,14 +63,24 @@
     self.navigationItem.title = CustomLocalizedString(@"basicInformation", nil);
 
 #pragma mark  - 性别
+    
+    iconLabel = CustomLocalizedString(@"Icon", nil);
+    baseArray = @[CustomLocalizedString(@"Name", nil),CustomLocalizedString(@"Sex", nil),CustomLocalizedString(@"Cellphone", nil),CustomLocalizedString(@"AccountSecurity", nil)];
+    sexArray = @[CustomLocalizedString(@"man", nil),CustomLocalizedString(@"woman", nil)];
+    cancel = CustomLocalizedString(@"cancel", nil);
+    sure = CustomLocalizedString(@"sure", nil);
+    woman = CustomLocalizedString(@"woman", nil);
+    man = CustomLocalizedString(@"man", nil);
+    
+    /*
     if (HLLanguageIsEN) {
-        iconLabel = @"Icon";
-        baseArray = @[@"Name",@"Sex",@"Cellphone",@"AccountSecurity"];
-        sexArray = @[@"man",@"woman"];
-        cancel = @"cancel";
-        sure = @"sure";
-        woman = @"woman";
-        man = @"man";
+        iconLabel = CustomLocalizedString(@"Icon", nil);
+        baseArray = @[CustomLocalizedString(@"Name", nil),CustomLocalizedString(@"Sex", nil),CustomLocalizedString(@"Cellphone", nil),CustomLocalizedString(@"AccountSecurity", nil)];
+        sexArray = @[CustomLocalizedString(@"man", nil),CustomLocalizedString(@"woman", nil)];
+        cancel = CustomLocalizedString(@"cancel", nil);
+        sure = CustomLocalizedString(@"sure", nil);
+        woman = CustomLocalizedString(@"woman", nil);
+        man = CustomLocalizedString(@"man", nil);
         
     } else {
         iconLabel = @"头像";
@@ -81,6 +91,7 @@
         woman = @"女";
         man = @"男";
     }
+    */
     
     sexStr = sexArray[0];
     sexIndex = 1;
@@ -158,11 +169,17 @@
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         cell.iconLabel.text = iconLabel;
-
+        
         iconBtn = (UIButton *)[cell viewWithTag:10];
         [iconBtn sd_setBackgroundImageWithURL:[NSURL URLWithString:iconStr] forState:UIControlStateNormal placeholderImage:LCImage(@"默认头像")];
         [iconBtn lc_block:^(id sender) {
             
+            //CustomLocalizedString(@"FromTheSelectionOfPhotoAlbum", nil)
+            
+            UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:nil delegate:self cancelButtonTitle:CustomLocalizedString(@"cancel", nil) destructiveButtonTitle:nil otherButtonTitles:CustomLocalizedString(@"camera", nil), CustomLocalizedString(@"FromTheSelectionOfPhotoAlbum", nil),nil];
+            actionSheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
+            [actionSheet showInView:self.view];
+            /*
             if (HLLanguageIsEN) {
                 UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:nil delegate:self cancelButtonTitle:@"cancel" destructiveButtonTitle:nil otherButtonTitles:@"camera", @"FromTheSelectionOfPhotoAlbum",nil];
                 actionSheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
@@ -172,6 +189,7 @@
                 actionSheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
                 [actionSheet showInView:self.view];
             }
+             */
         }];
         
         return cell;
@@ -186,7 +204,7 @@
         
         UILabel *leftL = (UILabel *)[cell viewWithTag:10];
         leftL.text = baseArray[indexPath.row-1];
-
+        
         UILabel *centerL = (UILabel *)[cell viewWithTag:20];
         if (indexPath.row >0 && indexPath.row < 4 && infoArray.count != 0) {
             centerL.text = infoArray[indexPath.row-1];
@@ -216,6 +234,10 @@
     switch (indexPath.row) {
         case 0:
         {
+            UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:nil delegate:self cancelButtonTitle:CustomLocalizedString(@"cancel", nil) destructiveButtonTitle:nil otherButtonTitles:CustomLocalizedString(@"camera", nil), CustomLocalizedString(@"FromTheSelectionOfPhotoAlbum", nil),nil];
+            actionSheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
+            [actionSheet showInView:self.view];
+            /*
             if (HLLanguageIsEN) {
                 UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:nil delegate:self cancelButtonTitle:@"cancel" destructiveButtonTitle:nil otherButtonTitles:@"camera", @"FromTheSelectionOfPhotoAlbum",nil];
                 actionSheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
@@ -225,6 +247,7 @@
                 actionSheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
                 [actionSheet showInView:self.view];
             }
+             */
         }
             break;
         case 1:
@@ -241,7 +264,7 @@
         }
             break;
             
-//        case 4:
+//        case 4:AccountSec
 //        {
 //            EmailViewController *vc = [[EmailViewController alloc] init];
 //            [self.navigationController pushViewController:vc animated:YES];

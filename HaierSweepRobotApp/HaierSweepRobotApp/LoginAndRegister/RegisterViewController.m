@@ -82,7 +82,7 @@
 #pragma mark - 获取验证码
 - (IBAction)getCodeAction:(id)sender {
     if (!self.mobileTF.text.length) {
-        [self mb_show:@"请输入手机号"];
+        [self mb_show:CustomLocalizedString(@"inputMobile", nil)];
         return;
     }
     [self getcaptcha];
@@ -144,23 +144,23 @@
 #pragma mark - 注册应用
 - (IBAction)registerAction:(id)sender {
     if (!self.mobileTF.text.length) {
-        [self mb_show:@"请输入手机号"];
+        [self mb_show:CustomLocalizedString(@"inputMobile", nil)];//
         return;
     }
     if (![NSString lc_isValidateMobile:self.mobileTF.text]) {
-        [self mb_show:@"手机号格式不正确"];
+        [self mb_show:CustomLocalizedString(@"Phone number format is not", nil)];
         return;
     }
     if (!self.codeTF.text.length) {
-        [self mb_show:@"请输入验证码"];
+        [self mb_show:CustomLocalizedString(@"inputCode", nil)];
         return;
     }
     if (self.passTF.text.length<6 || self.passTF.text.length>16) {
-        [self mb_show:@"请输入6~16位密码"];
+        [self mb_show:CustomLocalizedString(@"inputPw", nil)];//
         return;
     }
     if (!self.selectButton.selected) {
-        [self mb_show:@"必须同意用户注册协议才能注册"];
+        [self mb_show:CustomLocalizedString(@"Must agree to the user registration agreement to register", nil)];
         return;
     }
     

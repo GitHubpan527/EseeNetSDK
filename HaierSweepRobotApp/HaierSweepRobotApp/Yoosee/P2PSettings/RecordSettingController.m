@@ -578,7 +578,7 @@
     sdCardPrompt.backgroundColor = XBGAlpha;
     sdCardPrompt.text = CustomLocalizedString(@"no_storage",nil);
     [sdCardPrompt setFont:XFontBold_16];
-    sdCardPrompt.textColor = [UIColor redColor];
+    sdCardPrompt.textColor = [UIColor blackColor];
     sdCardPrompt.numberOfLines = 0;
     [self.view addSubview:sdCardPrompt];
     [sdCardPrompt setHidden:YES];

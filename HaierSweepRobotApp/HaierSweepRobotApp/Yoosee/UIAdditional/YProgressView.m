@@ -30,13 +30,13 @@
 }
 
 /*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
+ // Only override drawRect: if you perform custom drawing.
+ // An empty implementation adversely affects performance during animation.
+ - (void)drawRect:(CGRect)rect
+ {
+ // Drawing code
+ }
+ */
 
 -(void)start{
     if(self.isStartAnim){
@@ -60,11 +60,35 @@
         }
         self.isStartAnim = NO;
     });
+    
+}
 
+-(void)startAnimation{
+    if(self.isStartAnim){
+        return;
+    }
+    self.angle = 0.0;
+    self.isStartAnim = YES;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        while(self.isStartAnim){
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.backgroundView.transform = CGAffineTransformMakeRotation(self.angle);
+            });
+            self.angle += 0.01;
+            if(self.angle>3.14*3){
+                self.angle = 0.0;
+                [self stop];
+            }else{
+                usleep(1000);
+            }
+            
+        }
+        self.isStartAnim = NO;
+    });
+    
 }
 
 -(void)stop{
     self.isStartAnim = NO;
 }
-
 @end

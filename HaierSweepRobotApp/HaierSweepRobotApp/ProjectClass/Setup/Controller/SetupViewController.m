@@ -53,8 +53,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.navigationItem.title = CustomLocalizedString(@"setup", nil);
+    //CustomLocalizedString(@"mall", nil);
+    self.navigationItem.title = CustomLocalizedString(@"setup0", nil);
 }
 #pragma mark - 返回事件
 - (void)backClick
@@ -95,6 +95,9 @@
         
         if (indexPath.section == 0) {
             
+            NSArray *arr = @[CustomLocalizedString(@"feedback", nil),CustomLocalizedString(@"aboutUs", nil),CustomLocalizedString(@"useHelp", nil)];
+            titleLabel.text = arr[indexPath.row];
+            /*
             if (HLLanguageIsEN) {
                 NSArray *arr = @[@"feedback",@"aboutUs",@"useHelp"];
                 titleLabel.text = arr[indexPath.row];
@@ -102,7 +105,7 @@
                 NSArray *arr = @[@"意见反馈",@"关于我们",@"使用帮助"];
                 titleLabel.text = arr[indexPath.row];
             }
-
+            */
         } else {
             
 //            if (HLLanguageIsEN) {
@@ -112,7 +115,9 @@
 //                NSArray *arr = @[@"清除缓存",@"切换语言",@"使用协议"];
 //                titleLabel.text = arr[indexPath.row];
 //            }
-            
+            NSArray *arr = @[CustomLocalizedString(@"cleanCache", nil),CustomLocalizedString(@"useAgreement", nil)];
+            titleLabel.text = arr[indexPath.row];
+            /*
             if (HLLanguageIsEN) {
                 NSArray *arr = @[@"cleanCache",@"useAgreement"];
                 titleLabel.text = arr[indexPath.row];
@@ -120,7 +125,7 @@
                 NSArray *arr = @[@"清除缓存",@"使用协议"];
                 titleLabel.text = arr[indexPath.row];
             }
-          
+             */
             if (indexPath.row == 0) {
                 centerLabel.hidden = NO;
                 NSString *cachPath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory,NSUserDomainMask, YES) objectAtIndex:0];
@@ -138,12 +143,14 @@
         }
         
         UILabel *quitLabel = (UILabel *)[cell viewWithTag:69];
+        quitLabel.text = CustomLocalizedString(@"Logout", nil);
+        /*
         if (HLLanguageIsEN) {
             quitLabel.text = @"Logout";
         } else {
             quitLabel.text = @"退出登录";
         }
-        
+        */
         return cell;
     }
 }
@@ -277,7 +284,7 @@
             default:
             {
                 //退出失败
-                [self mb_show:@"退出失败"];
+                [self mb_show:CustomLocalizedString(@"退出失败", nil)];
             }
                 break;
         }
@@ -297,6 +304,15 @@
             NSString *cachPath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory,NSUserDomainMask, YES) objectAtIndex:0];
             float fl = [self folderSizeAtPath:cachPath];
             
+            if (fl < 0.5) {
+                UIAlertView * alert = [[UIAlertView alloc]initWithTitle:CustomLocalizedString(@"No cache can be cleaned", nil) message:nil delegate:self cancelButtonTitle:CustomLocalizedString(@"cancel", nil) otherButtonTitles:nil, nil];
+                [alert show];
+            } else {
+                UIAlertView * alert = [[UIAlertView alloc]initWithTitle:CustomLocalizedString(@"Whether to clear the cache", nil) message:nil delegate:self cancelButtonTitle:CustomLocalizedString(@"cancel", nil) otherButtonTitles:CustomLocalizedString(@"sure", nil), nil];
+                [alert show];
+            }
+            
+            /*
             if (HLLanguageIsEN) {
                 if (fl < 0.5) {
                     UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"No cache can be cleaned" message:nil delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
@@ -314,7 +330,7 @@
                     [alert show];
                 }
             }
-            
+            */
         }
 //        else if (indexPath.row == 1) {
 //            [self switchLanguage];
@@ -327,7 +343,9 @@
     }
     if (indexPath.section == 2) {
         
-        UIAlertView *logoutAlert = [[UIAlertView alloc] initWithTitle:CustomLocalizedString(@"退出", nil) message:@"是否确认退出当前账户?" delegate:self cancelButtonTitle:CustomLocalizedString(@"cancel", nil) otherButtonTitles:CustomLocalizedString(@"ok", nil),nil];
+        //CustomLocalizedString(@"是否确认退出当前账户?", nil);
+        
+        UIAlertView *logoutAlert = [[UIAlertView alloc] initWithTitle:CustomLocalizedString(@"exit", nil) message:CustomLocalizedString(@"If confirm the exit from the current account?", nil) delegate:self cancelButtonTitle:CustomLocalizedString(@"cancel", nil) otherButtonTitles:CustomLocalizedString(@"ok", nil),nil];
         logoutAlert.tag = 1001;
         
         [logoutAlert show];

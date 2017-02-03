@@ -149,9 +149,7 @@
     NSString *messageCount;
     
     NSString *NVRID;//NVR的ID
-    
-    
-    
+    NSArray *array;//首页的cell
 }
 
 - (NSMutableArray *)scrollArray
@@ -198,9 +196,9 @@
     self.nameLabel.text = realName;
     
     if (HLLanguageIsEN) {
-        leftPlArray = @[CustomLocalizedString(@"mall", nil),CustomLocalizedString(@"setup", nil)];
+        leftPlArray = @[CustomLocalizedString(@"mall", nil),CustomLocalizedString(@"setup0", nil)];
     } else {
-        leftPlArray = @[@"商城",@"设置"];
+        leftPlArray = @[CustomLocalizedString(@"mall", nil),CustomLocalizedString(@"setup0", nil)];
     }
     
     [self requestScrollData];
@@ -242,17 +240,26 @@
 #pragma mark - 初始化灵云语音
     [LingYunManager shareManager];
 #pragma mark - 导航
+//    self.navigationItem.title = NSLocalizedString(@"myDevice", nil);
     self.navigationItem.title = CustomLocalizedString(@"myDevice", nil);
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem lc_itemWithIcon:@"菜单" block:^{
         self.toumingImageView.hidden = NO;
         [UIView animateWithDuration:0.3 animations:^{
+            
             self.backImageView.frame = CGRectMake(0, 0, ScreenWidth-100, ScreenHeight);
+            [self.navigationController.view insertSubview:self.toumingImageView atIndex:998];
+            [self.navigationController.view insertSubview:self.backImageView atIndex:999];
+//            [self.view insertSubview:self.backImageView atIndex:999];
+//            [self.view bringSubviewToFront:self.backImageView];
+//            self.backImageView = (UIImageView *)[[UIApplication sharedApplication].windows lastObject];
+            
         }];
     }];
     self.navigationItem.rightBarButtonItem = [UIBarButtonItem lc_itemWithIcon:@"添加-(1)" block:^{
         
         AddFacilityViewController *vc = [[AddFacilityViewController alloc] init];
         vc.isHomePage = NO;
+        
         [self.navigationController pushViewController:vc animated:YES];
         
         //DeviceTypeViewController *vc = [[DeviceTypeViewController alloc] init];
@@ -266,6 +273,7 @@
     
     
     self.backImageView.frame = CGRectMake(-(ScreenWidth-100), 0, ScreenWidth-100, ScreenHeight);
+    
     [self.navigationController.view addSubview:self.backImageView];
     
     self.sideBarView.frame = CGRectMake(0, 0, self.backImageView.frame.size.width, self.backImageView.frame.size.height);
@@ -1234,7 +1242,7 @@
     NSArray* newDevicesArray = [Utils getNewDevicesFromLan:lanDevicesArray];
     
     LocalDeviceListController *localDeviceListController = [[LocalDeviceListController alloc] init];
-    localDeviceListController.newDevicesArray = newDevicesArray;
+    localDeviceListController.isNewDevicesArray = newDevicesArray;
     [self.navigationController pushViewController:localDeviceListController animated:YES];
 }
 
@@ -1624,6 +1632,7 @@
     self.toumingImageView.hidden = YES;
     [UIView animateWithDuration:0.3 animations:^{
         self.backImageView.frame = CGRectMake(-(ScreenWidth-100), 0, ScreenWidth-100, ScreenHeight);
+//        self.backImageView = (UIImageView *)[[UIApplication sharedApplication].windows firstObject];
     }];
 }
 
@@ -1751,14 +1760,16 @@
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 cell.delegate = self;
                 
-                UILabel *addLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 70)];
-                addLabel.backgroundColor = [UIColor lc_colorWithR:239 G:239 B:244 alpha:1.0];
-                addLabel.text = @"点击右上角添加设备";
-                addLabel.textAlignment = NSTextAlignmentCenter;
-                addLabel.textColor = [UIColor grayColor];
-                addLabel.tag = 1000;
-                [cell addSubview:addLabel];
-                [cell bringSubviewToFront:addLabel];
+                if (array.count == 0) {
+                    UILabel *addLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 70)];
+                    addLabel.backgroundColor = [UIColor lc_colorWithR:239 G:239 B:244 alpha:1.0];
+                    addLabel.text = @"点击右上角添加设备";
+                    addLabel.textAlignment = NSTextAlignmentCenter;
+                    addLabel.textColor = [UIColor grayColor];
+                    addLabel.tag = 1000;
+                    [cell addSubview:addLabel];
+                    [cell bringSubviewToFront:addLabel];
+                }
             }
             
             if (self.bindArray.count || self.yooSeeArray.count) {
@@ -1813,7 +1824,7 @@
         
         NSArray *imageArr = @[@"商城",@"设置"];
         iconImageV.image = LCImage(imageArr[indexPath.row]);
-    
+        
         titleLabel.text = leftPlArray[indexPath.row];
         
         return cell;
@@ -1854,7 +1865,7 @@
     [[RequestManager shareRequestManager] requestDataType:RequestTypePOST urlStr:DeviceTypeFrontFindAll parameters:nil successBlock:^(id successObject) {
         if ([successObject[@"result"] boolValue]) {
             
-            NSArray *array = [DeviceTypeModel mj_objectArrayWithKeyValuesArray:successObject[@"object"]];
+            array = [DeviceTypeModel mj_objectArrayWithKeyValuesArray:successObject[@"object"]];
             DeviceTypeModel *modelID = array[0];
             NSArray *arr = modelID.deviceModelList;
             for (AddFacilityModel *facilityID in arr) {
@@ -1892,14 +1903,13 @@
                     model.res1 = @"";
                 }
                 
-                NSString *userName = @"admin";//admin后台没有这个字段，也就是用户名称
                 int port = 0;//也没有这个端口
                 NSString *channel = [[NSUserDefaults standardUserDefaults] objectForKey:@"NVRAllChannel"];
                 if (channel == nil) {
                     channel = @"4";
                 }
-                [ENLive setDeviceInfoWithDeviceIDOrIP:model.res2 UserName:userName Passwords:model.res1 Port:port Channel:[channel intValue]];
-                
+                [ENLive setDeviceInfoWithDeviceIDOrIP:model.res2 UserName:model.res4 Passwords:model.res1 Port:port Channel:[model.res3 intValue]];
+                ENLive.navigatioName = model.name;
 //                [self presentViewController:ENLive animated:YES completion:nil];
                 
                 [self.navigationController pushViewController:ENLive animated:YES];
@@ -1909,7 +1919,7 @@
         }
     }
     else {
-        //隐藏
+        //隐藏 
         [self exitSide];
         //跳转
         NSArray *classArray = @[@"ShopMallViewController",@"SetupViewController"];

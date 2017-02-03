@@ -29,4 +29,14 @@
 -(void)setUpCallWithId:(NSString*)contactId password:(NSString*)password callType:(P2PCallType)type;
 -(void)dismissP2PView;
 -(void)dismissP2PView:(void (^)())callBack;
+
+@property (nonatomic) BOOL isShowingAlarmPushController;
+-(void)popAlarmPushControllerWithDic:(NSDictionary *)dic;
+
 @end
+
+
+
+
+
+

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>SchemeUserState</key>
+	<dict>
+		<key>HaierSweepRobotApp.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>0</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>166386AE1D2B808C002FAE3F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>166386C71D2B808C002FAE3F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>166386D21D2B808C002FAE3F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+	</dict>
+</dict>
+</plist>

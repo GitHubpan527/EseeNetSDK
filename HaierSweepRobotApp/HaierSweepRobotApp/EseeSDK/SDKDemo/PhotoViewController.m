@@ -63,7 +63,7 @@
     if ([arrOne[0] isEqualToString:arrLast[0]] && [arrOne[1] isEqualToString:arrLast[1]] && [arrOne[2] isEqualToString:arrLast[2]]) {
         str = [NSString stringWithFormat:@"%@%@%@%@%@",arrOne[0],@".",arrOne[1],@".",arrOne[2]];
     }
-    self.navigationItem.title = [NSString stringWithFormat:@"%@%@%@",@"截图",@":",str];
+    self.navigationItem.title = [NSString stringWithFormat:@"%@%@%@",CustomLocalizedString(@"screenshots", nil),@":",str];
 }
 - (void)backBtnAction:(UIButton *)sender
 {
@@ -75,7 +75,7 @@
     _dataSource = [[NSMutableArray alloc] initWithArray:[_fileManager contentsOfDirectoryAtPath:LibCachesNVRPhotoPath error:nil]];
     [self.collectionView reloadData];
     if (_dataSource.count == 0) {
-        [self showAlertWithAlertString:@"暂无数据"];
+        [self showAlertWithAlertString:CustomLocalizedString(@"No Data", nil)];
     }else
     {
         [self prefersStatusBarHidden];
@@ -143,7 +143,7 @@
 //提示框封装
 - (void)showAlertWithAlertString:(NSString *)alertString
 {
-    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:alertString delegate:nil cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:CustomLocalizedString(@"prompt", nil) message:alertString delegate:nil cancelButtonTitle:nil otherButtonTitles:CustomLocalizedString(@"ok", nil), nil];
     [alert show];
 }
 

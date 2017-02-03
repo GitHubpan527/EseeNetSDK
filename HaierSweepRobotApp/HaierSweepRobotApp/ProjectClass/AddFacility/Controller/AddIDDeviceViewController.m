@@ -123,21 +123,22 @@
             //HL_ALERT(@"提示", @"相关操作");
             NSDictionary *requestDic = [NSDictionary dictionary];
             
-            NSDictionary *dict = @{@"NVRAllChannel":_AllChannelString,
-                                  @"NVRUserName":_userNameTextField.text};
-            NSError *error;
-            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dict
-                                                               options:NSJSONWritingPrettyPrinted
-                                                                 error:&error];
-            NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+//            NSDictionary *dict = @{@"NVRAllChannel":_AllChannelString,
+//                                  @"NVRUserName":_userNameTextField.text};
+//            NSError *error;
+//            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dict
+//                                                               options:NSJSONWritingPrettyPrinted
+//                                                                 error:&error];
+//            NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
             
             requestDic = @{@"userId":userModel.id,//_userNameTextField.text
                            @"modelId":NVRID,//NVR:358113623439362//云台:349655620622338
                            @"deviceId":_yunIDTextField.text,
                            @"name":_deviceNameTextField.text,
                            @"devicepw":_passwordTextField.text,
-                           @"res3":_AllChannelString
-                           };
+                           @"res3":_AllChannelString,
+                           @"res4":_userNameTextField.text
+                           };//res3：通道数，res4：_userNameTextField.text
             
             [[NSUserDefaults standardUserDefaults] setObject:_yunIDTextField.text forKey:@"NVRDeviceID"];
             [[NSUserDefaults standardUserDefaults] setObject:_deviceNameTextField.text forKey:@"NVRDeviceName"];

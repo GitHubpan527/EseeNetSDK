@@ -50,6 +50,10 @@
 #import "PAIOUnit.h"//rtsp监控界面弹出修改
 #import "MD5Manager.h"
 
+//UMSocial
+#import <UMSocialCore/UMSocialCore.h>
+
+
 @interface AppDelegate ()
 {
     UIAlertView *_alarmAlertView;
@@ -73,12 +77,12 @@
 */
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-
+    
 #pragma mark - 设置背景颜色
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
-
+    
 #pragma mark - 键盘设置
     [self setupIQKeyBoaredManager];
     
@@ -140,7 +144,6 @@
 //        self.window.rootViewController = self.mainController_ap;
 //        [self.window makeKeyAndVisible];
         
-        
         MyFacilityViewController *vc = [[MyFacilityViewController alloc] init];
         BaseNaviViewController *navi = [[BaseNaviViewController alloc] initWithRootViewController:vc];
         self.window.rootViewController = navi;
@@ -156,13 +159,13 @@
     }
     
 #pragma mark - 是否首次启动
-    if (![[NSUserDefaults standardUserDefaults] objectForKey:@"FirstLaunch"]) {
-        //引导页
-        GuidePageViewController *vc = [[GuidePageViewController alloc] init];
-        [self.window setRootViewController:vc];
-        [[NSUserDefaults standardUserDefaults] setObject:@"1" forKey:@"FirstLaunch"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-    } else {
+//    if (![[NSUserDefaults standardUserDefaults] objectForKey:@"FirstLaunch"]) {
+//        //引导页
+//        GuidePageViewController *vc = [[GuidePageViewController alloc] init];
+//        [self.window setRootViewController:vc];
+//        [[NSUserDefaults standardUserDefaults] setObject:@"1" forKey:@"FirstLaunch"];
+//        [[NSUserDefaults standardUserDefaults] synchronize];
+//    } else {
         if([UDManager isLogin]){
             
             MyFacilityViewController *vc = [[MyFacilityViewController alloc] init];
@@ -186,13 +189,39 @@
             BaseNaviViewController *loginNavi = [loginSB instantiateViewControllerWithIdentifier:@"LoginViewController"];
             [self.window setRootViewController:loginNavi];
         }
-    }
-    
-    
+//    }
     
     [[UDPManager sharedDefault] ScanLanDevice];
+    
+    //打开调试日志
+    [[UMSocialManager defaultManager] openLog:YES];
+    
+    //设置友盟appkey
+    [[UMSocialManager defaultManager] setUmSocialAppkey:@"57f89289e0f55a8dca00184a"];
+    
+    // 获取友盟social版本号
+    //NSLog(@"UMeng social version: %@", [UMSocialGlobal umSocialSDKVersion]);
+    
+    //设置微信的appKey和appSecret
+    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:@"wxf493082560dc8323" appSecret:@"5d2ef054407ac3a881c3dcc136cbb456" redirectURL:@"http://mobile.umeng.com/social"];
+    
+    //设置分享到QQ互联的appKey和appSecret
+    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_QQ appKey:@"1105846096"  appSecret:nil redirectURL:@"http://mobile.umeng.com/social"];
+    
+    //设置新浪的appKey和appSecret
+    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Sina appKey:@"1716662439"  appSecret:@"f224b37ef5d714821a3b83d80d912850" redirectURL:@"http://sns.whalecloud.com/sina2/callback"];
 
     return YES;
+}
+
+// 支持所有iOS系统
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url];
+    if (!result) {
+        // 其他如支付等SDK的回调
+    }
+    return result;
 }
 
 - (void)againLogin
@@ -231,6 +260,11 @@
     
     DLog(@"applicationDidEnterBackground");
     
+//    UIDeviceOrientation orientation = [UIDevice currentDevice].orientation;
+//    [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%ld",(long)orientation] forKey:@"orientationorientation"];
+//    [[NSUserDefaults standardUserDefaults] synchronize];
+//    
+    
     UIApplication *app = [UIApplication sharedApplication];
     UIBackgroundTaskIdentifier taskID;
     taskID = [app beginBackgroundTaskWithExpirationHandler:^{
@@ -256,6 +290,13 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    
+    //[[NSNotificationCenter defaultCenter] postNotificationName:@"aaaaa" object:nil];
+    
+//    NSString *string = [[NSUserDefaults standardUserDefaults] objectForKey:@"orientationorientation"];
+//    
+//    [[UIDevice currentDevice] setValue: [NSNumber numberWithInteger: [string integerValue]] forKey:@"orientation"];
+//    
     [application setApplicationIconBadgeNumber:0];
     [application cancelAllLocalNotifications];
     
@@ -344,6 +385,7 @@
     if([UDManager isLogin]){
         application.applicationIconBadgeNumber = 0;
     }
+    
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
@@ -367,15 +409,16 @@
 
 + (AppDelegate*)sharedDefault
 {
-    
     return [UIApplication sharedApplication].delegate;
 }
 
-+(NSString*)getAppVersion{
++ (NSString*)getAppVersion{
+    
     return [NSString stringWithFormat:APP_VERSION];
+    
 }
 
-- (void) reachabilityChanged:(NSNotification *)note
+- (void)reachabilityChanged:(NSNotification *)note
 {
     Reachability* curReach = [note object];
     NSParameterAssert([curReach isKindOfClass:[Reachability class]]);
@@ -388,7 +431,7 @@
                                                       userInfo:parameter];
 }
 
--(NSUInteger)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window{
+- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window{
     return UIInterfaceOrientationMaskAll;
 }
 
@@ -1346,7 +1389,6 @@
     //获取当前APP的版本号
     NSDictionary *infoDict = [[NSBundle mainBundle] infoDictionary];
     NSString *nowVersion = [infoDict objectForKey:@"CFBundleVersion"];
-    
     
     //已经上架的APP的版本号
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://itunes.apple.com/lookup?id=%@",appleID]];
